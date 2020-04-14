@@ -1,0 +1,33 @@
+{
+    "menu": {
+        "options": [
+            {
+                "name": "SpagBowl",
+                "items": [
+                    "apples",
+                    "pies"
+                ]
+            },
+            {
+                "name": "OtherMenuItem",
+                "items": [
+                    "apples2",
+                    "pies2"
+                ]
+            },
+            {
+                "name": "Test Addition",
+                "items": [
+                    "Will it work?",
+                    "Who knowssss?"
+                ]
+            },
+            {
+                "name": "Let's Try this agian!",
+                "items": [
+                    "Item 1"
+                ]
+            }
+        ]
+    }
+}

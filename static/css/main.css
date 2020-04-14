@@ -1,0 +1,38 @@
+html,
+body {
+	height: 100%;
+	background-color: #2c666e;
+	color: white;
+	font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	}
+
+section {
+    height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	}
+
+section div.next img, section div.actions img{
+	width: 50px;
+	height: 50px;
+}
+		
+section div h1{
+	font-size: 50px;
+}
+		
+		
+ul {
+    list-style: none;
+	font-size: 35px;
+}
+
+ul li:before {
+	content: '✓ ';
+}
+
+div img{
+	cursor: pointer;
+}

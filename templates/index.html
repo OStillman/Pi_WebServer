@@ -1,0 +1,37 @@
+<html>
+<head>
+    <title> Owleigh Meal Planner </title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+    <link href="static/css/main.css" rel="stylesheet">
+    <link rel="icon" href="static/img/dish.png">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="static/pwa.manifest">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="static/js/main.js"></script>
+    <script>
+        begin.init();
+        let data_in = {{ data |tojson }};
+        //console.log(data_in);
+    </script>
+</head>
+<body>
+<a href="./add">
+    <img height="20" width="20" src="static/img/plus.png">
+</a>
+<section>
+    <div class="item">
+        <h1> The Menu Item </h1>
+        <ul>
+            <li>Item 1</li>
+            <li> Item 2</li>
+        </ul>
+    </div>
+    <div class="next">
+        <img src="static/img/random.png">
+    </div>
+</section>
+</body>
+</html>
