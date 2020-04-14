@@ -20,8 +20,11 @@ def add():
     else:
         data = request.get_json(force=True)
         #data = request.data
-        getJSON.add_to_file(data)
-        return "Worked?"
+        is_there = getJSON.add_to_file(data)
+        if is_there:
+            return json.dumps({'success':False}), 400, {'ContentType':'application/json'} 
+        else:
+            return json.dumps({'success':True}), 201, {'ContentType':'application/json'} 
 
 
 
