@@ -35,6 +35,7 @@ let bindings = {
 
 let submit = {
     init: function () {
+        $("section.item_add").hide();
         let title = (this.getTitle());
         let items = (this.getListItems());
         let data = this.sortJSON(title, items);
@@ -60,6 +61,10 @@ let submit = {
             .then(function(result){
                 console.info("Success");
                 console.log(result);
+                $("section#success").show();
+            }, function(){
+                console.info("Failed")
+                $("section#error").show();
             })
     }
 };
