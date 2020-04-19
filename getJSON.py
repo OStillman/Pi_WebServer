@@ -3,7 +3,7 @@ import sys
 
 def get_file():
     result = None
-    with open('static/json/options.json') as f:
+    with open('static/meal_planner/json/options.json') as f:
         result = json.loads(f.read())
     # print(result.days.day[0].alarm_time)
     return result
@@ -13,7 +13,7 @@ def add_to_file(appendMe):
     is_there = check_addition(appendMe, file_contents)
     if not is_there:
         file_contents['menu']['options'].append(appendMe)
-        with open("static/json/options.json", "w") as file:
+        with open("static/meal_planner/json/options.json", "w") as file:
             file.write(json.dumps(file_contents, indent=4))
     return is_there
 

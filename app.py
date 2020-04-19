@@ -6,14 +6,14 @@ import json
 app = Flask(__name__)
 
 
-@app.route('/')
+@app.route('/meals')
 def index():
     # data = {"apples": 7, "cheese": 1};
     data = getJSON.get_file()
     return render_template('meal_planner/index.html', data=data)
 
 
-@app.route('/add', methods=['GET', 'POST'])
+@app.route('/meals/add', methods=['GET', 'POST'])
 def add():
     if request.method == 'GET':
         return render_template('meal_planner/add.html')
