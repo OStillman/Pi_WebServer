@@ -1,19 +1,27 @@
 import json
 import sys
 
-def get_file():
+def get_file(application):
+    if application == "meals":
+        file = 'static/meal_planner/json/options.json'
+    else:
+        file = 'static/shows/json/planner.json'
     result = None
-    with open('static/meal_planner/json/options.json') as f:
+    with open(file) as f:
         result = json.loads(f.read())
     # print(result.days.day[0].alarm_time)
     return result
 
-def add_to_file(appendMe):
-    file_contents = get_file()
+def add_to_file(appendMe, application):
+    if application == "meals":
+        file = 'static/meal_planner/json/options.json'
+    else:
+        file = 'static/shows/json/planner.json'
+    file_contents = get_file(application)
     is_there = check_addition(appendMe, file_contents)
     if not is_there:
         file_contents['menu']['options'].append(appendMe)
-        with open("static/meal_planner/json/options.json", "w") as file:
+        with open(file, "w") as file:
             file.write(json.dumps(file_contents, indent=4))
     return is_there
 

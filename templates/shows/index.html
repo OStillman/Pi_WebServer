@@ -7,9 +7,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
     <link href="/static/shows/css/main.css" rel="stylesheet">
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="/static/shows/js/main.js"></script>
+    <script>
+        begin.init();
+        let data_in = {{ data |tojson }};
+        //console.log(data_in);
+    </script>
+
     <title>Owleigh Shows</title>
 </head>
 <body>
+<a href="/meals/add">
+    <img height="20" width="20" src="/static/meal_planner/img/plus.png">
+</a>
 <section class="shows">
     <h1>Your Shows</h1>
     <table>
@@ -20,18 +31,7 @@
         <td>Tags</td>
         </thead>
         <tbody>
-        <tr>
-            <td>Race Across the world</td>
-            <td>1:00</td>
-            <td><img src="/static/shows/img/disney.png" class="long"></td>
-            <td>Adventure, Easy</td>
-        </tr>
-        <tr>
-            <td>Zoey</td>
-            <td>1:00</td>
-            <td>E4</td>
-            <td>Easy, Comedy</td>
-        </tr>
+
         </tbody>
     </table>
 </section>

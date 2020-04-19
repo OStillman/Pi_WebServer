@@ -9,7 +9,7 @@ app = Flask(__name__)
 @app.route('/meals')
 def meals():
     # data = {"apples": 7, "cheese": 1};
-    data = getJSON.get_file()
+    data = getJSON.get_file("meals")
     return render_template('meal_planner/index.html', data=data)
 
 
@@ -29,7 +29,8 @@ def add():
 
 @app.route('/shows')
 def shows():
-    return render_template('shows/index.html')
+    data = getJSON.get_file("shows")
+    return render_template('shows/index.html', data=data)
 
 
 
