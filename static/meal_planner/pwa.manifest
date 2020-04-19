@@ -1,0 +1,17 @@
+{
+  "background_color": "#2c666e",
+  "theme_color": "#2c666e",
+  "description": "Meal planner for Owleigh to use weekly",
+  "display": "fullscreen",
+  "icons": [
+    {
+      "src": "img/dish.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "name": "Owleigh Meal Planner",
+  "short_name": "OMP",
+  "start_url": "/meals"
+
+}
