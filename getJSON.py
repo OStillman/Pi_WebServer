@@ -1,5 +1,6 @@
 import json
 import sys
+import random
 
 def get_file(application):
     if application == "meals":
@@ -10,6 +11,8 @@ def get_file(application):
     with open(file) as f:
         result = json.loads(f.read())
     # print(result.days.day[0].alarm_time)
+    if application == "meals":
+        random.shuffle(result['menu']['options'])
     return result
 
 def add_to_file(appendMe, application):
