@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 
 @app.route('/meals')
-def index():
+def meals():
     # data = {"apples": 7, "cheese": 1};
     data = getJSON.get_file()
     return render_template('meal_planner/index.html', data=data)
@@ -24,7 +24,12 @@ def add():
         if is_there:
             return json.dumps({'success':False}), 400, {'ContentType':'application/json'} 
         else:
-            return json.dumps({'success':True}), 201, {'ContentType':'application/json'} 
+            return json.dumps({'success':True}), 201, {'ContentType':'application/json'}
+
+
+@app.route('/shows')
+def shows():
+    return render_template('shows/index.html')
 
 
 
