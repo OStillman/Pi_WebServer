@@ -12,4 +12,39 @@ section {
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
+    width: 100%;
 	}
+
+
+section h1{
+    font-size: 50px;
+}
+
+section table{
+    text-align: center;
+    border-collapse: collapse;
+    table-layout: auto;
+}
+
+section table thead tr td{
+    font-weight: bold;
+    font-size: 25px;
+    border-bottom: white solid;
+    padding-right: 5px;
+}
+
+
+section table tbody tr td{
+    padding: 5px;
+    border-bottom: #f9f9fa solid 1px;
+}
+
+section table tbody tr td img.long{
+    height: 15px;
+    width: 30px;
+}
+
+section table tbody tr td img.c4{
+    height: 20px;
+    width: 15px;
+}
