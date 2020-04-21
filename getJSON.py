@@ -3,17 +3,26 @@ import sys
 import random
 
 def get_file(application):
-    if application == "meals":
-        file = 'static/meal_planner/json/options.json'
-    else:
-        file = 'static/shows/json/planner.json'
+    file = getFileLocation(application)
     result = None
     with open(file) as f:
         result = json.loads(f.read())
     # print(result.days.day[0].alarm_time)
+    return fileContents(result, application)
+
+
+def getFileLocation(application):
     if application == "meals":
-        random.shuffle(result['menu']['options'])
-    return result
+        file = 'static/meal_planner/json/options.json'
+    else:
+        file = 'static/shows/json/planner.json'
+    return file
+
+def fileContents(file, application):
+    if application == "meals":
+        random.shuffle(file['menu']['options'])
+    return file
+
 
 def add_to_file(appendMe, application):
     if application == "meals":
