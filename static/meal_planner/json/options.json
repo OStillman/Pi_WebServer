@@ -2,54 +2,386 @@
     "menu": {
         "options": [
             {
-                "name": "SpagBowl",
+                "name": "Run Down",
                 "items": [
-                    "apples",
-                    "pies"
+                    "Chicken",
+                    "Spinach",
+                    "Coconut Milk",
+                    "Sweet Potato",
+                    "Veg (e.g. Carrot)"
                 ]
             },
             {
-                "name": "OtherMenuItem",
+                "name": "Fish, Wedges and Salad",
                 "items": [
-                    "apples2",
-                    "pies2"
+                    "Fish (Battered is best)",
+                    "Wedges/Frozen Chips/New Pots",
+                    "Salad/Cauli Cheese"
                 ]
             },
             {
-                "name": "Test Addition",
+                "name": "Hot Dogs",
                 "items": [
-                    "Will it work?",
-                    "Who knowssss?"
+                    "Sausages",
+                    "Bread Rolls",
+                    "Sides e.g. Chips, Rice, Salad etc."
                 ]
             },
             {
-                "name": "Let's Try this agian!",
+                "name": "Fish Pie",
                 "items": [
-                    "Item 1"
+                    "Fish Pie Mix (or Fish fillets)",
+                    "Mash/Potatoes/Chips",
+                    "Fish Pie Veg (Peas, Carrot etc.)",
+                    "(Lasagna) White Sauce",
+                    "Side Veg e.g. Brocolli"
                 ]
             },
             {
-                "name": " The Menu Item ",
+                "name": "Gammon",
                 "items": [
-                    "Item 1"
+                    "Gammon Steaks",
+                    "Chips/Wedges",
+                    "Salad/Rice/Veg"
                 ]
             },
             {
-                "name": "Testing 1,2",
+                "name": "Tacos",
                 "items": [
-                    "Item 1"
+                    "Taco Kit",
+                    "Meat (e.g. Chicken or Mince)",
+                    "Salad items",
+                    "Veg (Frozen/Carrots etc.)",
+                    "Dips?"
                 ]
             },
             {
-                "name": "Test Item",
+                "name": "Sausage, Egg and Chips",
                 "items": [
-                    "Item 1"
+                    "Sausages",
+                    "Egg",
+                    "Chips/Wedges",
+                    "Beans!"
                 ]
             },
             {
-                "name": "Test Today",
+                "name": "Steak and Ale Pie",
                 "items": [
-                    "This was just added"
+                    "Pastry (Shortcrust or Filo)",
+                    "Stewing Steak",
+                    "Ale",
+                    "Pie Veg"
+                ]
+            },
+            {
+                "name": "Fish cake and Pasta",
+                "items": [
+                    "Fish Cake",
+                    "Pasta",
+                    "Sauce (Pesto, Tomato Sauce)"
+                ]
+            },
+            {
+                "name": "Risotto",
+                "items": [
+                    "Risotto Rice",
+                    "Risotto Veg",
+                    "Dry White Wine",
+                    "Chicken"
+                ]
+            },
+            {
+                "name": "Tray Bake",
+                "items": [
+                    "Hard Veg",
+                    "Chicken/Fish/Pork etc.",
+                    "Topping - Herbs, Packet etc."
+                ]
+            },
+            {
+                "name": "Wrap Basket",
+                "items": [
+                    "Wrap Each",
+                    "Chicken",
+                    "Fajita Packet",
+                    "Veg"
+                ]
+            },
+            {
+                "name": "Curry",
+                "items": [
+                    "Curry Veg",
+                    "Chicken/Pork/Beef",
+                    "Coconut milk?",
+                    "Curry Powder?"
+                ]
+            },
+            {
+                "name": "Lasagna",
+                "items": [
+                    "Lasagna Sheets",
+                    "White Sauce",
+                    "Veg",
+                    "Mince",
+                    "Salad/Side Veg",
+                    "Cheese"
+                ]
+            },
+            {
+                "name": "Fajita",
+                "items": [
+                    "Fajita Packet",
+                    "Chicken (Or Mince)",
+                    "Veg",
+                    "Salad items",
+                    "Dips?",
+                    "Chips?"
+                ]
+            },
+            {
+                "name": "Salmon en Croute",
+                "items": [
+                    "Salmon/Fish Fillet",
+                    "Shortcrust Pastry",
+                    "Side Veg (e.g. Griddled Veg)"
+                ]
+            },
+            {
+                "name": "Chicken Salad",
+                "items": [
+                    "Chicken",
+                    "Salad",
+                    "Chicken Seasoning",
+                    "Exciting items (e.g. Olives)"
+                ]
+            },
+            {
+                "name": "Kebabs",
+                "items": [
+                    "Kebab Meat (e.g. Chicken)",
+                    "Kebab Veg (e.g. Toms, Mush)",
+                    "Pittas?",
+                    "Side (Veg, Chips, Rice, Salad etc.)"
+                ]
+            },
+            {
+                "name": "Chilli Con Carne",
+                "items": [
+                    "Meat?",
+                    "Tin Beans",
+                    "Tin Toms",
+                    "Veg",
+                    "Rice",
+                    "Chorizo?"
+                ]
+            },
+            {
+                "name": "Burger",
+                "items": [
+                    "Patty/Mince",
+                    "Buns",
+                    "Chips",
+                    "Salad/Veg",
+                    "Big Toms?"
+                ]
+            },
+            {
+                "name": "Bolognaise",
+                "items": [
+                    "Mince/Meatballs",
+                    "Veg",
+                    "Pasta/Spaghetti",
+                    "Tin Toms",
+                    "Cheese?"
+                ]
+            },
+            {
+                "name": "Stew",
+                "items": [
+                    "Beef/Sausage",
+                    "Lentils?",
+                    "Hard Veg (e.g. Swede, Potatoes etc.)"
+                ]
+            },
+            {
+                "name": "Takeaway",
+                "items": [
+                    "Chinese?",
+                    "Curry?"
+                ]
+            },
+            {
+                "name": "Sweet and Sour",
+                "items": [
+                    "Sweet and Sour Sauce",
+                    "Chicken",
+                    "Noodles",
+                    "Veg"
+                ]
+            },
+            {
+                "name": "Stir Fry",
+                "items": [
+                    "Stir Fry Veg",
+                    "Noodles",
+                    "Sauce Packet",
+                    "Meat/Fish/Fishcake"
+                ]
+            },
+            {
+                "name": "Fish & Bean Stew",
+                "items": [
+                    "Fish Fillet/Battered/Cake",
+                    "Tin Beans",
+                    "Tin Toms",
+                    "Veg"
+                ]
+            },
+            {
+                "name": "Get a Recipe",
+                "items": [
+                    "Curry?",
+                    "Chinese?",
+                    "Indian?",
+                    "Thai?",
+                    "Posh Nosh?"
+                ]
+            },
+            {
+                "name": "Chicken, Bacon and Cheese Sauce Pie",
+                "items": [
+                    "Chicken",
+                    "Bacon",
+                    "Veg",
+                    "Cheese Sauce",
+                    "Pastry",
+                    "Side (e.g. Veg, Chips)"
+                ]
+            },
+            {
+                "name": "Pork Chop",
+                "items": [
+                    "Pork Chop",
+                    "Sides (e.g. Rice, Salad, Griddled Veg etc.)"
+                ]
+            },
+            {
+                "name": "Homemade Pizza",
+                "items": [
+                    "Pizza Base/Mix",
+                    "Toppings (e.g. Meatballs, cured meat etc.)",
+                    "Veg (e.g. Mush, Sweetcorn etc.)",
+                    "Pure"
+                ]
+            },
+            {
+                "name": "Creamy Mushroom Pasta",
+                "items": [
+                    "Posh Mushrooms (2 Packs)",
+                    "Creme Fraiche",
+                    "Spaghetti",
+                    "Cheese"
+                ]
+            },
+            {
+                "name": "Toad in the Whole",
+                "items": [
+                    "Sausages",
+                    "Flour",
+                    "Milk",
+                    "Side (e.g. Chips, Broc)",
+                    "Gravy"
+                ]
+            },
+            {
+                "name": "Paella",
+                "items": [
+                    "Fish Pie Mix/Fish",
+                    "Chorizo",
+                    "????"
+                ]
+            },
+            {
+                "name": "Veg and Goats Cheese Tart",
+                "items": [
+                    "Goats Cheese",
+                    "Puff Pastry",
+                    "Sweet Potato",
+                    "Red Onion",
+                    "Sides (e.g. Veg, Salad, Chips)"
+                ]
+            },
+            {
+                "name": "Dan Dan Noodles",
+                "items": [
+                    "Noodles",
+                    "Soy Sauce",
+                    "Mince",
+                    "Veg (Stir Fry-able)"
+                ]
+            },
+            {
+                "name": "Bangers and Mash",
+                "items": [
+                    "Sausages",
+                    "Potato",
+                    "Gravy",
+                    "Side Veg (e.g. Broc)"
+                ]
+            },
+            {
+                "name": "Lamb Shank",
+                "items": [
+                    "Lamb Shank",
+                    "Red Wine",
+                    "Veg",
+                    "Potato for Mash",
+                    "Gravy",
+                    "Side Veg"
+                ]
+            },
+            {
+                "name": "Bacon-Wrapped Chicken",
+                "items": [
+                    "Bacon",
+                    "Chicken Breast",
+                    "Sides (e.g. Veg, Chips, Wedges, Rice etc.)"
+                ]
+            },
+            {
+                "name": "Slow Cookes Pork and Apple",
+                "items": [
+                    "Pork Shoulder",
+                    "Cooking Apple",
+                    "Suet - Dumplins",
+                    "Cider",
+                    "Veg"
+                ]
+            },
+            {
+                "name": "Enchiladas",
+                "items": [
+                    "Enchilada Mix",
+                    "Veg",
+                    "Side e.g. Veg",
+                    "Chicken"
+                ]
+            },
+            {
+                "name": "Chicken Kiev",
+                "items": [
+                    "Chicken Breast",
+                    "Filling e.g. Cheese",
+                    "Sides (Chips, Veg, Salad, Rice etc.)"
+                ]
+            },
+            {
+                "name": "Pulled Pork",
+                "items": [
+                    "Pork Joint",
+                    "Tacos?\u00a0",
+                    "Buns?",
+                    "Burgers?"
                 ]
             }
         ]
