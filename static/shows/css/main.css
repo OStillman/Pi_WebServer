@@ -53,3 +53,13 @@ section table tbody tr td img.nowtv{
     height: 30px;
     width: 25px;
 }
+
+section.add img{
+    height: 40px;
+    width: 40px;
+}
+
+section.add .elements{
+    width: 90%;
+    font-size: 25px;
+}
