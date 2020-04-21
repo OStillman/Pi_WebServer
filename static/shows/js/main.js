@@ -67,7 +67,7 @@ let display = {
                 "<td>" + this_show.name + "</td>" +
                 "<td>" + this_show.duration + "</td>" +
                 "<td> <img src='" + this_show.service + "' class='" + this_show.class + "'></td>" +
-                "<td>" + this_show.tags + "</td>" +
+                "<td>" + this_show.time + "</td>" +
                 "</tr>");
         }
     }
