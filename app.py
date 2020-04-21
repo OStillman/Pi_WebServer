@@ -32,6 +32,10 @@ def shows():
     data = getJSON.get_file("shows")
     return render_template('shows/index.html', data=data)
 
+@app.route('/shows/add')
+def add_shows():
+    return render_template('shows/add.html')
+
 
 
 
