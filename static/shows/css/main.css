@@ -39,19 +39,14 @@ section table tbody tr td{
     border-bottom: #f9f9fa solid 1px;
 }
 
-section table tbody tr td img.long{
-    height: 15px;
+img.long{
+    height: 15px; 
     width: 30px;
 }
 
-section table tbody tr td img.c4{
+img.c4{
     height: 20px;
     width: 15px;
-}
-
-section table tbody tr td img.nowtv{
-    height: 30px;
-    width: 25px;
 }
 
 section.add img{
@@ -62,4 +57,15 @@ section.add img{
 section.add .elements{
     width: 90%;
     font-size: 25px;
+}
+
+section.add .elements div#service_grid{
+    display: grid;
+    grid-row-gap: 20px;
+}
+
+section.add .elements div#service_grid img{
+    margin: auto;
+    height: 30px !important; 
+    width: 50px !important;
 }
