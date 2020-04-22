@@ -69,3 +69,8 @@ section.add .elements div#service_grid img{
     height: 30px !important; 
     width: 50px !important;
 }
+
+section.add .elements div#service_grid img.c4{
+    height: 50px !important; 
+    width: 50px !important;
+}
