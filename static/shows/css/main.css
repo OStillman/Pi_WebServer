@@ -82,10 +82,11 @@ section.add .elements .tags{
 }
 
 section.add .elements .tags span{
-    margin: 0px 5px;
+    margin: 10px 5px;
     background-color: #49a1ad;
     border-radius: 5px;
     padding: 5px 5px 5px 5px;
+    display: inline-block;
 }
 
 section.add .elements .tags span.selected::after{
