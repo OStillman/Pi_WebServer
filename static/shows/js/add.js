@@ -11,6 +11,7 @@ let bindings = {
     init: function() {
         this.serviceSelection();
         this.showTitleBeginEntry();
+        this.tagSelection();
     },
     serviceSelection: function(){
         $("section.add .elements div#service_grid img").click(function(){
@@ -22,6 +23,16 @@ let bindings = {
         $("section.add .elements h2#title").click(function(){
             if ($(this).hasClass("unedited")){
                 $(this).text("").removeClass("unedited");
+            }
+        });
+    },
+    tagSelection: function(){
+        $("section.add .elements .tags span").click(function(){
+            if ($(this).hasClass("selected")){
+                $(this).removeClass("selected");
+            }
+            else{
+                $(this).addClass("selected");
             }
         });
     }

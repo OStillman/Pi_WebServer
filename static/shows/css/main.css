@@ -74,3 +74,20 @@ section.add .elements div#service_grid img.c4{
     height: 50px !important; 
     width: 50px !important;
 }
+
+section.add .elements .tags{
+    font-size: 15px;
+    margin-bottom: 25px;
+    margin-top: 25px;
+}
+
+section.add .elements .tags span{
+    margin: 0px 5px;
+    background-color: #49a1ad;
+    border-radius: 5px;
+    padding: 5px 5px 5px 5px;
+}
+
+section.add .elements .tags span.selected::after{
+    content: ' ✓';
+}
