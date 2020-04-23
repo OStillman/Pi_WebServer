@@ -23,36 +23,37 @@ let display = {
         return our_data;
     },
     decideImg: function(this_show){
-        if (this_show.service == "BBC"){
+        this_show.service = this_show.service.toLowerCase();
+        if (this_show.service == "bbc"){
             this_show.service = '/static/shows/img/bbc.png';
             this_show.class="long";
             return this_show
         }
-        else if (this_show.service == "ITV"){
+        else if (this_show.service == "itv"){
             this_show.service = '/static/shows/img/itv.png';
             this_show.class="long";
             return this_show
         }
-        else if (this_show.service == "C4"){
+        else if (this_show.service == "c4"){
             this_show.service = '/static/shows/img/c4.png';
             this_show.class="c4";
             return this_show
         }
-        else if (this_show.service == "E4"){
+        else if (this_show.service == "e4"){
             this_show.service = '/static/shows/img/e4.png';
             this_show.class="c4";
             return this_show
         }
-        else if (this_show.service == "Netflix"){
+        else if (this_show.service == "netflix"){
             this_show.service = '/static/shows/img/netflix.png';
             return this_show
         }
-        else if (this_show.service == "Disney"){
+        else if (this_show.service == "disney"){
             this_show.service = '/static/shows/img/disney.png';
             this_show.class="long";
             return this_show
         }
-        else if (this_show.service == "Sky"){
+        else if (this_show.service == "sky"){
             this_show.service = '/static/shows/img/sky.png';
             this_show.class="long";
             return this_show
