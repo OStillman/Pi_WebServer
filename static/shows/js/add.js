@@ -12,6 +12,7 @@ let bindings = {
         this.serviceSelection();
         this.showTitleBeginEntry();
         this.tagSelection();
+        this.daySelection();
     },
     serviceSelection: function(){
         $("section.add .elements div#service_grid img").click(function(){
@@ -39,6 +40,19 @@ let bindings = {
             }
             else{
                 $(this).addClass("selected");
+            }
+        });
+    },
+    daySelection: function(){
+        $("section.add .elements .airtime#day select").change(function(){
+            let thisday = $(this).children("option:selected").val();
+            //console.log(thisday);
+            if (thisday == "N/A"){
+                console.log("Yup it's N/A");
+                $("section.add .elements .airtime#time").hide().children("span").text("00:00");
+            }
+            else{
+                $("section.add .elements .airtime#time").show();
             }
         });
     }

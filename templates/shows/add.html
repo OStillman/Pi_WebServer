@@ -37,8 +37,7 @@
             <img alt="netflix" src="/static/shows/img/netflix.png" class="c4" style="filter: opacity(20%); grid-row: 5;">
             <img alt="amazon" src="/static/shows/img/amazon.png" class="c4" style="filter: opacity(20%); grid-row: 5;">
         </div>
-        <p class="airtime" style="display: none;">Time: <span contenteditable="true">00:00</span></p>
-        <p style="display: none;" class="airtime">Day: 
+        <p id="day" style="display: none;" class="airtime">Day: 
             <select>
                 <option>Monday</option>
                 <option>Tuesday</option>
@@ -50,6 +49,7 @@
                 <option>N/A</option>
             </select>
         </p>
+        <p class="airtime" id="time" style="display: none;">Time: <input type="time"></p>
         <div class="tags">
             <span class="selected">Comedy</span>
             <span>Easy Watching</span>
