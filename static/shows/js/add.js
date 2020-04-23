@@ -33,7 +33,13 @@ let submitTasks = {
     complexServiceCheck: function(title, length, service, tags){
         let day = $("section.add .elements .airtime#day select option:selected").val();
         let time = $("section.add .elements .airtime#time input").val();
-        console.info(time);
+        //console.info(time);
+        if (day != "N/A"){
+            console.info("they've specified a day");
+        }
+        else{
+            console.info("Day is N/A");
+        }
         
     },
     checkHasChanged: function (element) {
@@ -127,7 +133,7 @@ let bindings = {
             let thisday = $(this).children("option:selected").val();
             //console.log(thisday);
             if (thisday == "N/A"){
-                console.log("Yup it's N/A");
+                //console.log("Yup it's N/A");
                 $("section.add .elements .airtime#time").hide().children("input").val("00:00");
             }
             else{
