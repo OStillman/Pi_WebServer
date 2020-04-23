@@ -26,13 +26,30 @@
         <h2 class="unedited" contenteditable="true" id="title">Show Title</h2>
         <p>Length: <span class="unedited" contenteditable="true">00:00</span></p>
         <div id="service_grid">
-            <img src="/static/shows/img/bbc.png" style="filter: opacity(20%); grid-row: 1;">
-            <img src="/static/shows/img/itv.png" style="filter: opacity(20%); grid-row: 1;">
-            <img src="/static/shows/img/c4.png" class="c4" style="filter: opacity(20%); grid-row: 2;">
-            <img src="/static/shows/img/e4.png" class="c4" style="filter: opacity(20%); grid-row: 2;">
-            <img src="/static/shows/img/sky.png" style="filter: opacity(20%); grid-row: 3;">
-            <img src="/static/shows/img/disney.png" style="filter: opacity(20%); grid-row: 3;">
+            <img alt="bbc" src="/static/shows/img/bbc.png" class="tv" style="filter: opacity(20%); grid-row: 1;">
+            <img alt="itv" src="/static/shows/img/itv.png" class="tv" style="filter: opacity(20%); grid-row: 1;">
+            <img alt="c4" src="/static/shows/img/c4.png" class="c4 tv" style="filter: opacity(20%); grid-row: 2;">
+            <img alt="e4" src="/static/shows/img/e4.png" class="c4 tv" style="filter: opacity(20%); grid-row: 2;">
+            <img alt="5" src="/static/shows/img/5.png" class="c4 tv" style="filter: opacity(20%); grid-row: 3;">
+            <img alt="dave" src="/static/shows/img/dave.png" class="tv" style="filter: opacity(20%); grid-row: 3;">
+            <img alt="sky" src="/static/shows/img/sky.png" class="tv" style="filter: opacity(20%); grid-row: 4;">
+            <img alt="disney" src="/static/shows/img/disney.png" style="filter: opacity(20%); grid-row: 4;">
+            <img alt="netflix" src="/static/shows/img/netflix.png" class="c4" style="filter: opacity(20%); grid-row: 5;">
+            <img alt="amazon" src="/static/shows/img/amazon.png" class="c4" style="filter: opacity(20%); grid-row: 5;">
         </div>
+        <p class="airtime" style="display: none;">Time: <span contenteditable="true">00:00</span></p>
+        <p style="display: none;" class="airtime">Day: 
+            <select>
+                <option>Monday</option>
+                <option>Tuesday</option>
+                <option>Wednesday</option>
+                <option>Thursday</option>
+                <option>Friday</option>
+                <option>Saturday</option>
+                <option>Sunday</option>
+                <option>N/A</option>
+            </select>
+        </p>
         <div class="tags">
             <span class="selected">Comedy</span>
             <span>Easy Watching</span>

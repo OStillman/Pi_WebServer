@@ -17,6 +17,12 @@ let bindings = {
         $("section.add .elements div#service_grid img").click(function(){
             $("section.add .elements div#service_grid img").removeClass("chosen").css("filter", "opacity(20%)");
             $(this).css("filter", "opacity(100%)").addClass("chosen")
+            if ($(this).hasClass("tv")){
+                $(".airtime").show();
+            }
+            else{
+                $(".airtime").hide();
+            }
         });
     },
     showTitleBeginEntry: function(){

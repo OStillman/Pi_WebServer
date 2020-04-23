@@ -92,3 +92,12 @@ section.add .elements .tags span{
 section.add .elements .tags span.selected::after{
     content: ' ✓';
 }
+
+section.add .elements select{
+    background-color: #2c666e;
+    color: white;
+    width: 150px;
+    border: none;
+    margin-right: 10px;
+    font-size: 20px;
+}
