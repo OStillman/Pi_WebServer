@@ -7,12 +7,84 @@ let begin = {
     }
 };
 
+let submitTasks = {
+    init: function(){
+        //TODO: Conditional Choices? Collect
+        let title = this.checkHasChanged("h2");
+        let length = this.checkHasChanged("p#length span");
+        let service = this.checkServiceSelection();
+        let tags = this.checkTagSelection();
+        if (service == "netlix" || service == "disney" || service == "amazon"){
+            this.ODServiceCheck(title, length, service, tags);
+        }
+        else{
+            this.complexServiceCheck(title, length, service, tags);
+        }
+        
+    },
+    ODServiceCheck: function(title, length, service, tags){
+        if (tags && service && length && title){
+            console.info("READY");
+        }
+        else{
+            console.info("NOT READY");
+        }
+    },
+    complexServiceCheck: function(title, length, service, tags){
+        let day = $("section.add .elements .airtime#day select option:selected").val();
+        let time = $("section.add .elements .airtime#time input").val();
+        console.info(time);
+        
+    },
+    checkHasChanged: function (element) {
+        if ($("section.add .elements " + element).hasClass("unedited")) {
+            return null;
+        }
+        else {
+            return $("section.add .elements " + element).text();
+        }
+    },
+    checkServiceSelection: function(){
+        if ($("section.add .elements div#service_grid img.chosen").length > 0){
+            console.info("We have one");
+            return $("section.add .elements div#service_grid img.chosen").attr("alt");
+        }
+        else{
+            console.info("No Service");
+            return null;
+        }
+    },
+    checkTagSelection: function(){
+        if ($("section.add .elements div.tags .selected").length > 0){
+            console.info("We have tags");
+            let tags = []
+            $( "section.add .elements div.tags .selected" ).each(function( index ) {
+                tags.push($( this ).text());
+              });
+            //console.log(tags);
+            return tags;
+        }
+        else{
+            console.info("No Tags");
+            return null;
+        }
+    }
+};
+
 let bindings = {
     init: function() {
+        this.submitClick();
         this.serviceSelection();
         this.showTitleBeginEntry();
+        this.showLengthBeginEntry();
         this.tagSelection();
         this.daySelection();
+    },
+    submitClick: function(){
+        $("section.add #submit").click(function(){
+            console.info("Submit chosen");
+            submitTasks.init();
+        });
     },
     serviceSelection: function(){
         $("section.add .elements div#service_grid img").click(function(){
@@ -28,6 +100,13 @@ let bindings = {
     },
     showTitleBeginEntry: function(){
         $("section.add .elements h2#title").click(function(){
+            if ($(this).hasClass("unedited")){
+                $(this).text("").removeClass("unedited");
+            }
+        });
+    },
+    showLengthBeginEntry: function(){
+        $("section.add .elements p#length span").click(function(){
             if ($(this).hasClass("unedited")){
                 $(this).text("").removeClass("unedited");
             }
@@ -49,7 +128,7 @@ let bindings = {
             //console.log(thisday);
             if (thisday == "N/A"){
                 console.log("Yup it's N/A");
-                $("section.add .elements .airtime#time").hide().children("span").text("00:00");
+                $("section.add .elements .airtime#time").hide().children("input").val("00:00");
             }
             else{
                 $("section.add .elements .airtime#time").show();
