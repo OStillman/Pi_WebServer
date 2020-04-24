@@ -14,33 +14,50 @@ let submitTasks = {
         let length = this.checkHasChanged("p#length span");
         let service = this.checkServiceSelection();
         let tags = this.checkTagSelection();
-        if (service == "netlix" || service == "disney" || service == "amazon"){
-            this.ODServiceCheck(title, length, service, tags);
-        }
-        else{
-            this.complexServiceCheck(title, length, service, tags);
-        }
-        
-    },
-    ODServiceCheck: function(title, length, service, tags){
-        if (tags && service && length && title){
-            console.info("READY");
-        }
-        else{
-            console.info("NOT READY");
-        }
-    },
-    complexServiceCheck: function(title, length, service, tags){
         let day = $("section.add .elements .airtime#day select option:selected").val();
         let time = $("section.add .elements .airtime#time input").val();
-        //console.info(time);
-        if (day != "N/A"){
-            console.info("they've specified a day");
-        }
-        else{
-            console.info("Day is N/A");
+        if(this.submitCheck(length)){
+            if (this.dayNeeded(day)){
+                if (this.timeNeeded(time)){
+                    console.info("Everything needed");
+                }
+                else{
+                    console.info("Only need day");
+                }
+            }
+            else{
+                console.info("Day/Time not needed");
+            }
         }
         
+    },
+    submitCheck: function(length){
+        if (length){
+            console.info("We are ready");
+            return true;
+        }
+        else{
+            console.info("Everything but length");
+            return false;
+        }
+    },
+    dayNeeded: function(day){
+        if (day == "N/A"){
+            console.info("Day is N/A");
+            return false
+        }
+        else{
+            return true;
+        }
+    },
+    timeNeeded: function(time){
+        if (time == "00:00"){
+            console.info("Time is 00:00");
+            return false;
+        }
+        else{
+            return true;
+        }
     },
     checkHasChanged: function (element) {
         if ($("section.add .elements " + element).hasClass("unedited")) {
@@ -77,31 +94,62 @@ let submitTasks = {
     }
 };
 
+let advanceStage = {
+    init: function(stage){
+        if (stage < 3){
+            console.log("We have another stage");
+            if (this.selectionChecker(stage)){
+                this.advance(stage);
+            }            
+        }
+        else{
+            submitTasks.init();
+        }
+    },
+    advance: function(stage){
+        let new_stage = stage + 1;
+        console.log(new_stage);
+        $(".elements." + stage).hide();
+        $(".elements." + new_stage).show();
+    },
+    selectionChecker: function(stage){
+        let check_outcome = false;
+        switch(stage){
+            case 1:
+                if (submitTasks.checkHasChanged("h2") && submitTasks.checkTagSelection()){
+                    check_outcome = true;
+                }
+                break;
+            case 2:
+                if (submitTasks.checkServiceSelection()){
+                    check_outcome = true;
+                }
+                break;
+        }
+        return check_outcome;
+    }
+}
+
 let bindings = {
     init: function() {
-        this.submitClick();
         this.serviceSelection();
         this.showTitleBeginEntry();
         this.showLengthBeginEntry();
         this.tagSelection();
         this.daySelection();
+        this.nextButton();
     },
-    submitClick: function(){
-        $("section.add #submit").click(function(){
-            console.info("Submit chosen");
-            submitTasks.init();
+    nextButton: function(){
+        $("section.add").on('click', '.elements .next-button', function(){
+            let this_stage = $(this).closest("div.elements").attr("class").split(" ")[1];
+            console.log(this_stage);
+            advanceStage.init(parseInt(this_stage));
         });
     },
     serviceSelection: function(){
         $("section.add .elements div#service_grid img").click(function(){
             $("section.add .elements div#service_grid img").removeClass("chosen").css("filter", "opacity(20%)");
             $(this).css("filter", "opacity(100%)").addClass("chosen")
-            if ($(this).hasClass("tv")){
-                $(".airtime").show();
-            }
-            else{
-                $(".airtime").hide();
-            }
         });
     },
     showTitleBeginEntry: function(){

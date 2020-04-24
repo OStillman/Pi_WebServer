@@ -25,6 +25,10 @@ section .elements h2{
     margin: 10 0px
 }
 
+section .elements .next-button{
+    text-align: center;
+}
+
 section table{
     text-align: center;
     border-collapse: collapse;
