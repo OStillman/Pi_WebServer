@@ -32,9 +32,12 @@ def shows():
     data = getJSON.get_file("shows")
     return render_template('shows/index.html', data=data)
 
-@app.route('/shows/add')
+@app.route('/shows/add', methods=['GET', 'POST'])
 def add_shows():
-    return render_template('shows/add.html')
+    if request.method == 'GET':
+        return render_template('shows/add.html')
+    else:
+        return "hi"
 
 
 
