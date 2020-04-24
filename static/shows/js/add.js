@@ -1,7 +1,10 @@
+let hash = 1;
+
 let begin = {
     init: function () {
         $(document).ready(function () {
             console.info("Ready");
+            window.location.hash = "#1";
             bindings.init();
         });
     }
@@ -111,6 +114,8 @@ let advanceStage = {
         console.log(new_stage);
         $(".elements." + stage).hide();
         $(".elements." + new_stage).show();
+        window.location.hash = "#" + new_stage;
+        hash = new_stage;
     },
     selectionChecker: function(stage){
         let check_outcome = false;
@@ -130,6 +135,14 @@ let advanceStage = {
     }
 }
 
+let backStage = {
+    init: function(hash_now){
+        let last_hash = hash_now + 1;
+        $(".elements." + last_hash).hide();
+        $(".elements." + hash_now).show();    
+    },
+}
+
 let bindings = {
     init: function() {
         this.serviceSelection();
@@ -138,6 +151,7 @@ let bindings = {
         this.tagSelection();
         this.daySelection();
         this.nextButton();
+        this.hashController();
     },
     nextButton: function(){
         $("section.add").on('click', '.elements .next-button', function(){
@@ -186,6 +200,17 @@ let bindings = {
             }
             else{
                 $("section.add .elements .airtime#time").show();
+            }
+        });
+    },
+    hashController: function(){
+        $(window).on('hashchange', function() {
+            console.info("# changed");
+            let window_hash = parseInt(window.location.hash.charAt(1));
+            if(window_hash < hash){
+                console.info("They've pressed back");
+                backStage.init(window_hash);
+                hash = window_hash;
             }
         });
     }
