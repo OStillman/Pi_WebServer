@@ -27,9 +27,11 @@ def fileContents(file, application):
 def add_to_file(appendMe, application):
     if application == "meals":
         file = 'static/meal_planner/json/options.json'
-        add_meals(appendMe, file, application)
+        return add_meals(appendMe, file, application)
     else:
         file = 'static/shows/json/planner.json'
+        return add_show(appendMe, file, application)
+
 
 def add_show(appendMe, file, application):
     file_contents = get_file(application)
