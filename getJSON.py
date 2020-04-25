@@ -27,8 +27,18 @@ def fileContents(file, application):
 def add_to_file(appendMe, application):
     if application == "meals":
         file = 'static/meal_planner/json/options.json'
+        add_meals(appendMe, file, application)
     else:
         file = 'static/shows/json/planner.json'
+
+def add_show(appendMe, file, application):
+    file_contents = get_file(application)
+    file_contents['planner']['shows'].append(appendMe)
+    with open(file, "w") as file:
+        file.write(json.dumps(file_contents, indent=4))
+    return True
+
+def add_meals(appendMe, file, application):
     file_contents = get_file(application)
     is_there = check_addition(appendMe, file_contents)
     if not is_there:

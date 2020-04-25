@@ -20,7 +20,7 @@ def add():
     else:
         data = request.get_json(force=True)
         #data = request.data
-        is_there = getJSON.add_to_file(data)
+        is_there = getJSON.add_to_file(data, "meals")
         if is_there:
             return json.dumps({'success':False}), 400, {'ContentType':'application/json'} 
         else:
@@ -37,7 +37,12 @@ def add_shows():
     if request.method == 'GET':
         return render_template('shows/add.html')
     else:
-        return "hi"
+        data = request.get_json(force=True)
+        print(data, file=sys.stderr)
+        if (getJSON.add_to_file(data, "shows")):
+            return json.dumps({'success': True}), 201, {'ContentType': 'application/json'}
+        else:
+            return json.dumps({'success': False}), 500, {'ContentType': 'application/json'}
 
 
 

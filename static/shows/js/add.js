@@ -23,16 +23,31 @@ let submitTasks = {
             if (this.dayNeeded(day)){
                 if (this.timeNeeded(time)){
                     console.info("Everything needed");
+                    submitTasks.submitShow(title, length, service, tags, day, time);
                 }
                 else{
                     console.info("Only need day");
+                    submitTasks.submitShow(title, length, service, tags, day);
                 }
             }
             else{
                 console.info("Day/Time not needed");
+                submitTasks.submitShow(title, length, service, tags);
             }
         }
         
+    },
+    submitShow: function(title, length, service, tags, day="N/A", time="N/A"){
+        let data = {"name": title, "duration": length, "service": service, "tags": tags, "day": day, "time": time};
+        $.when(ajaxCalls.ajaxCallData("POST", "/shows/add", data))
+            .then(function(result){
+                console.info("Success");
+                console.log(result);
+                //$("section#success").show();
+            }, function(){
+                console.info("Failed");
+                //$("section#error").show();
+            })
     },
     submitCheck: function(length){
         if (length){
@@ -212,6 +227,17 @@ let bindings = {
                 backStage.init(window_hash);
                 hash = window_hash;
             }
+        });
+    }
+};
+
+let ajaxCalls = {
+    ajaxCallData: function (method, url, data) {
+        return $.ajax({
+            method: method,
+            url: url,
+            data: JSON.stringify(data),
+            dataType: 'json',
         });
     }
 };

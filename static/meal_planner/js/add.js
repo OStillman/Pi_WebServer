@@ -57,7 +57,7 @@ let submit = {
     },
     submitData: function (data) {
         console.log(data);
-        $.when(ajaxCalls.ajaxCallData("POST", "./add", data))
+        $.when(ajaxCalls.ajaxCallData("POST", "/meals/add", data))
             .then(function(result){
                 console.info("Success");
                 console.log(result);
