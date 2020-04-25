@@ -71,7 +71,6 @@ let display = {
         }
     },
     output: function (our_data) {
-        console.info(our_data);
         let shows_length = our_data.planner.shows.length;
         for (let i = 0; i < shows_length; i++){
             let this_show = our_data.planner.shows[i];
@@ -92,6 +91,17 @@ let display = {
 
 let bindings = {
     init: function () {
-        //this.tableClick();
+        this.doubleClickTable();
     },
+    doubleClickTable: function(){
+        $("table tbody").on('dblclick', 'tr', function(){
+            console.log("Double clicked");
+            let this_name = $(this).closest('tr').children('td:first').text();
+            console.info(this_name);
+            if(window.confirm(`Delete ${this_name}?`)){
+                let this_number = $(this).attr("id").charAt(1);
+                console.info(this_number);
+            }
+        });
+    }
 };
