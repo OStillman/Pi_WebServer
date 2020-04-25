@@ -75,19 +75,23 @@ let display = {
         let shows_length = our_data.planner.shows.length;
         for (let i = 0; i < shows_length; i++){
             let this_show = our_data.planner.shows[i];
-            $("table tbody").append("" +
-                "<tr>" +
-                "<td>" + this_show.name + "</td>" +
-                "<td>" + this_show.duration + "</td>" +
-                "<td> <img src='" + this_show.service + "' class='" + this_show.class + "'></td>" +
-                "<td>" + this_show.time + "<br>" + this_show.day +"</td>" +
-                "</tr>");
+            let these_tags = "";
+            for (let j = 0; j < this_show.tags.length; j++){
+                these_tags += `${this_show.tags[j]} `;
+            }
+            $(`table tbody`).append(`` +
+                `<tr id='s${i}' class="${these_tags}">` +
+                `<td>${this_show.name}</td>` +
+                `<td>${this_show.duration}</td>` +
+                `<td> <img src='${this_show.service}' class='${this_show.class}'></td>` +
+                `<td>${this_show.time}<br>${this_show.day}</td>` +
+                `</tr>`);
         }
     }
 };
 
 let bindings = {
     init: function () {
-        //this.nextClick();
+        //this.tableClick();
     },
 };
