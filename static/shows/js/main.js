@@ -46,6 +46,7 @@ let display = {
         }
         else if (this_show.service == "netflix"){
             this_show.service = '/static/shows/img/netflix.png';
+            this_show.class="long";
             return this_show
         }
         else if (this_show.service == "disney"){
@@ -58,8 +59,19 @@ let display = {
             this_show.class="long";
             return this_show
         }
+        else if (this_show.service == "amazon"){
+            this_show.service = '/static/shows/img/amazon.png';
+            this_show.class="c4";
+            return this_show
+        }
+        else if (this_show.service == "5"){
+            this_show.service = '/static/shows/img/5.png';
+            this_show.class="c4";
+            return this_show
+        }
     },
     output: function (our_data) {
+        console.info(our_data);
         let shows_length = our_data.planner.shows.length;
         for (let i = 0; i < shows_length; i++){
             let this_show = our_data.planner.shows[i];
@@ -68,7 +80,7 @@ let display = {
                 "<td>" + this_show.name + "</td>" +
                 "<td>" + this_show.duration + "</td>" +
                 "<td> <img src='" + this_show.service + "' class='" + this_show.class + "'></td>" +
-                "<td>" + this_show.time + "</td>" +
+                "<td>" + this_show.time + "<br>" + this_show.day +"</td>" +
                 "</tr>");
         }
     }

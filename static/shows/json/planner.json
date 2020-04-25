@@ -5,7 +5,8 @@
                 "name": "Test show 1",
                 "duration": "1:00",
                 "service": "BBC",
-                "time": "Sat 19:30",
+                "day": "Saturday",
+                "time": "19:30",
                 "tags": [
                     "easy",
                     "drama"
@@ -15,11 +16,22 @@
                 "name": "Test show 2",
                 "duration": "0:45",
                 "service": "C4",
-                "time": "Mon 21:00",
+                "day": "Monday",
+                "time": "21:00",
                 "tags": [
                     "easy",
                     "drama"
                 ]
+            },
+            {
+                "name": "Apples",
+                "duration": "01:00",
+                "service": "amazon",
+                "tags": [
+                    "Comedy"
+                ],
+                "day": "Tuesday",
+                "time": "12:45"
             }
         ]
     }
