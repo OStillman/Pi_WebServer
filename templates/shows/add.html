@@ -13,7 +13,6 @@
     <script src="/static/shows/js/add.js"></script>
 
     <script>
-        let tags = {{ data |tojson }};
         begin.init();
     </script>
 
@@ -26,8 +25,11 @@
     <div class="elements 1">
         <h2 class="unedited" contenteditable="true" id="title">Show Title</h2>
         <div class="tags">
-            <span contenteditable="true" class="new unedited">New Tag</span>
+            {% for tag in data%}
+            <span>{{tag}}</span>
+            {%endfor%}
             <br>
+            <span contenteditable="true" class="new unedited">New Tag</span>
         </div>
         <div class="next-button">
             <img src="/static/shows/img/right-arrow.png">
