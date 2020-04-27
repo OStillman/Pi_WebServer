@@ -89,6 +89,27 @@ let display = {
     }
 };
 
+let removeShow = {
+    init: function(element_num){
+        $("section.shows").hide();
+        $("section.loading").show();
+        console.info(element_num);
+        data = {"element": element_num};
+        this.runDelete(data);
+    },
+    runDelete: function(data){
+        $.when(ajaxCalls.ajaxCallData("DELETE", "/shows", data))
+            .then(function(result){
+                console.info("Success");
+                window.location.reload();
+                //$("section#success").show();
+            }, function(){
+                console.info("Failed");
+                //$("section#error").show();
+            })
+    }
+};
+
 let bindings = {
     init: function () {
         this.doubleClickTable();
@@ -100,8 +121,19 @@ let bindings = {
             console.info(this_name);
             if(window.confirm(`Delete ${this_name}?`)){
                 let this_number = $(this).attr("id").charAt(1);
-                console.info(this_number);
+                removeShow.init(this_number);
             }
+        });
+    }
+};
+
+let ajaxCalls = {
+    ajaxCallData: function (method, url, data) {
+        return $.ajax({
+            method: method,
+            url: url,
+            data: JSON.stringify(data),
+            dataType: 'json',
         });
     }
 };

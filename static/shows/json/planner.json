@@ -2,40 +2,100 @@
     "planner": {
         "shows": [
             {
-                "name": "Test show 1",
-                "duration": "1:00",
-                "service": "BBC",
-                "day": "Saturday",
-                "time": "19:30",
+                "name": "Apples",
+                "duration": "01:00",
+                "service": "bbc",
                 "tags": [
-                    "easy",
-                    "drama"
-                ]
+                    "Drama"
+                ],
+                "day": "N/A",
+                "time": "N/A"
             },
             {
-                "name": "Test show 2",
-                "duration": "0:45",
-                "service": "C4",
-                "day": "Monday",
-                "time": "21:00",
+                "name": "Test 2",
+                "duration": "1:00",
+                "service": "bbc",
                 "tags": [
-                    "easy",
-                    "drama"
-                ]
+                    "Drama"
+                ],
+                "day": "N/A",
+                "time": "N/A"
             },
             {
                 "name": "Apples",
                 "duration": "01:00",
-                "service": "amazon",
+                "service": "bbc",
                 "tags": [
                     "Comedy"
                 ],
+                "day": "N/A",
+                "time": "N/A"
+            },
+            {
+                "name": "Apples",
+                "duration": "01:00",
+                "service": "bbc",
+                "tags": [
+                    "Comedy"
+                ],
+                "day": "N/A",
+                "time": "N/A"
+            },
+            {
+                "name": "test",
+                "duration": "10:00",
+                "service": "5",
+                "tags": [
+                    "Comedy"
+                ],
+                "day": "N/A",
+                "time": "N/A"
+            },
+            {
+                "name": "Test 4,000",
+                "duration": "00:45",
+                "service": "bbc",
+                "tags": [
+                    "Drama"
+                ],
+                "day": "Saturday",
+                "time": "18:30"
+            },
+            {
+                "name": "Testing",
+                "duration": "10:00",
+                "service": "c4",
+                "tags": [
+                    "Comedy"
+                ],
+                "day": "N/A",
+                "time": "N/A"
+            },
+            {
+                "name": "apples",
+                "duration": "10:00",
+                "service": "c4",
+                "tags": [
+                    "Drama"
+                ],
+                "day": "N/A",
+                "time": "N/A"
+            },
+            {
+                "name": "Apples",
+                "duration": "00:45",
+                "service": "c4",
+                "tags": [
+                    "Drama"
+                ],
                 "day": "Tuesday",
-                "time": "12:45"
+                "time": "19:30"
             }
         ],
         "tags": [
-            "Comedy", "Drama", "Easy"
+            "Comedy",
+            "Drama",
+            "Easy",
         ]
     }
 }

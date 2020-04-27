@@ -26,19 +26,30 @@ def fileContents(file, application):
     return file
 
 
-def add_to_file(appendMe, application):
+def add_to_file(appendMe, application, tags=False):
     if application == "meals":
         file = 'static/meal_planner/json/options.json'
         return add_meals(appendMe, file, application)
     else:
         file = 'static/shows/json/planner.json'
-        return add_show(appendMe, file, application)
+        return add_show(appendMe, file, application, tags)
 
 
-def add_show(appendMe, file, application):
+def add_show(appendMe, file, application, tags):
     file_contents = get_file(application)
+    new_tags = appendMe['new_tags']
+    del appendMe['new_tags']
     file_contents['planner']['shows'].append(appendMe)
+    file_contents['planner']['tags'].append(new_tags)
     with open(file, "w") as file:
+        file.write(json.dumps(file_contents, indent=4))
+    return True
+
+
+def remove_show(element_num, application):
+    file_contents = get_file(application)
+    del file_contents['planner']['shows'][element_num]
+    with open('static/shows/json/planner.json', "w") as file:
         file.write(json.dumps(file_contents, indent=4))
     return True
 

@@ -17,32 +17,36 @@ let submitTasks = {
         let length = this.checkHasChanged("p#length span");
         let service = this.checkServiceSelection();
         let tags = this.checkTagSelection();
+        //console.log(tags[1]);
+        tags = tags[0];
+        let new_tags = tags[1];
         let day = $("section.add .elements .airtime#day select option:selected").val();
         let time = $("section.add .elements .airtime#time input").val();
         if(this.submitCheck(length)){
             if (this.dayNeeded(day)){
                 if (this.timeNeeded(time)){
                     console.info("Everything needed");
-                    submitTasks.submitShow(title, length, service, tags, day, time);
+                    submitTasks.submitShow(title, length, service, tags, new_tags, day, time);
                 }
                 else{
                     console.info("Only need day");
-                    submitTasks.submitShow(title, length, service, tags, day);
+                    submitTasks.submitShow(title, length, service, tags, new_tags, day);
                 }
             }
             else{
                 console.info("Day/Time not needed");
-                submitTasks.submitShow(title, length, service, tags);
+                submitTasks.submitShow(title, length, service, tags, new_tags);
             }
         }
         
     },
-    submitShow: function(title, length, service, tags, day="N/A", time="N/A"){
-        let data = {"name": title, "duration": length, "service": service, "tags": tags, "day": day, "time": time};
+    submitShow: function(title, length, service, tags, new_tags="N/A", day="N/A", time="N/A"){
+        let data = {"name": title, "duration": length, "service": service, "tags": tags, "day": day, "time": time, "new_tags": new_tags};
         $.when(ajaxCalls.ajaxCallData("POST", "/shows/add", data))
             .then(function(result){
                 console.info("Success");
                 console.log(result);
+                window.location.replace("../shows")
                 //$("section#success").show();
             }, function(){
                 console.info("Failed");
@@ -98,12 +102,16 @@ let submitTasks = {
     checkTagSelection: function(){
         if ($("section.add .elements div.tags .selected").length > 0){
             console.info("We have tags");
-            let tags = []
+            let tags = [];
+            let new_tags = [];
             $( "section.add .elements div.tags .selected" ).each(function( index ) {
                 tags.push($( this ).text());
+                if ($(this).hasClass("new_submitted")){
+                    new_tags.push($( this ).text());
+                }
               });
             //console.log(tags);
-            return tags;
+            return [tags, new_tags];
         }
         else{
             console.info("No Tags");
@@ -158,6 +166,20 @@ let backStage = {
     },
 }
 
+let newTagDisplay = {
+    init: function(content){
+        console.info(content);
+        this.addNewTag(content);
+        this.resetEditedTag();
+    },
+    addNewTag: function(content){
+        $(".elements.1 .tags").append(`<span contenteditable="true" class="new_submitted">${content}</span>`);
+    },
+    resetEditedTag: function(){
+        $(".elements.1 .tags .new").text("New Tag").addClass("unedited");
+    }
+};
+
 let bindings = {
     init: function() {
         this.serviceSelection();
@@ -167,6 +189,7 @@ let bindings = {
         this.daySelection();
         this.nextButton();
         this.hashController();
+        this.newTagEntry();
     },
     nextButton: function(){
         $("section.add").on('click', '.elements .next-button', function(){
@@ -196,13 +219,15 @@ let bindings = {
         });
     },
     tagSelection: function(){
-        $("section.add .elements .tags span").click(function(){
-            if ($(this).hasClass("selected")){
-                $(this).removeClass("selected");
-            }
-            else{
-                $(this).addClass("selected");
-            }
+        $("section.add .elements .tags").on('click', 'span', function(){
+            if(!$(this).hasClass("new")){
+                if ($(this).hasClass("selected")){
+                    $(this).removeClass("selected");
+                }
+                else{
+                    $(this).addClass("selected");
+                }
+            }            
         });
     },
     daySelection: function(){
@@ -226,6 +251,24 @@ let bindings = {
                 console.info("They've pressed back");
                 backStage.init(window_hash);
                 hash = window_hash;
+            }
+        });
+    },
+    newTagEntry: function(){
+        $(".elements.1 .tags .new").keyup(function(e){
+            if (e.which === 13 && e.keyCode == 13){
+                if (!$(this).hasClass("unedited")){
+                    newTagDisplay.init($(this).text());
+                }                
+            }
+            else{
+                $(this).removeClass("unedited");
+            }
+        });
+
+        $(".elements.1 .tags .new").click(function(){
+            if ($(this).hasClass("unedited")){
+                $(this).text("");
             }
         });
     }

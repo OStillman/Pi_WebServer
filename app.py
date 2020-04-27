@@ -27,11 +27,6 @@ def add():
             return json.dumps({'success':True}), 201, {'ContentType':'application/json'}
 
 
-@app.route('/shows')
-def shows():
-    data = getJSON.get_file("shows")
-    return render_template('shows/index.html', data=data)
-
 @app.route('/shows/add', methods=['GET', 'POST'])
 def add_shows():
     if request.method == 'GET':
@@ -40,10 +35,23 @@ def add_shows():
     else:
         data = request.get_json(force=True)
         print(data, file=sys.stderr)
-        if getJSON.add_to_file(data, "shows"):
+        tags = False
+        if len(data['tags']) > 0 or data['tags'] is not 'N/A':
+            tags = True
+        if getJSON.add_to_file(data, "shows", tags):
             return json.dumps({'success': True}), 201, {'ContentType': 'application/json'}
         else:
             return json.dumps({'success': False}), 500, {'ContentType': 'application/json'}
+
+@app.route('/shows', methods=['GET', 'DELETE'])
+def shows():
+    if request.method == 'DELETE':
+        data = request.get_json(force=True)
+        getJSON.remove_show(int(data['element']), "shows")
+        return json.dumps({'success': True}), 204, {'ContentType': 'application/json'}
+    else:
+        data = getJSON.get_file("shows")
+        return render_template('shows/index.html', data=data)
 
 
 
