@@ -13,6 +13,7 @@
     <script src="/static/shows/js/add.js"></script>
 
     <script>
+        let tags = {{ data |tojson }};
         begin.init();
     </script>
 
@@ -25,8 +26,8 @@
     <div class="elements 1">
         <h2 class="unedited" contenteditable="true" id="title">Show Title</h2>
         <div class="tags">
-            <span class="selected">Comedy</span>
-            <span>Easy Watching</span>
+            <span contenteditable="true" class="new unedited">New Tag</span>
+            <br>
         </div>
         <div class="next-button">
             <img src="/static/shows/img/right-arrow.png">

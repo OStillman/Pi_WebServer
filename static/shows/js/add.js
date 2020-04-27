@@ -6,7 +6,20 @@ let begin = {
             console.info("Ready");
             window.location.hash = "#1";
             bindings.init();
+            displayTags.init();
         });
+    }
+};
+
+let displayTags = {
+    init: function(){
+        console.info(tags);
+        this.displayOnPage(tags);
+    },
+    displayOnPage: function(tags){
+        for (let i = 0; i < tags.length; i++){
+            $(".elements.1 .tags").append(`<span>${tags[i]}</span>`);
+        }
     }
 };
 

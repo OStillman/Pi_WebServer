@@ -21,6 +21,8 @@ def getFileLocation(application):
 def fileContents(file, application):
     if application == "meals":
         random.shuffle(file['menu']['options'])
+    elif application == "show_tags":
+        file = file['planner']['tags']
     return file
 
 

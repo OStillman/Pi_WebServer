@@ -33,6 +33,9 @@
                 "day": "Tuesday",
                 "time": "12:45"
             }
+        ],
+        "tags": [
+            "Comedy", "Drama", "Easy"
         ]
     }
 }

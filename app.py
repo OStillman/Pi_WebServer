@@ -35,7 +35,8 @@ def shows():
 @app.route('/shows/add', methods=['GET', 'POST'])
 def add_shows():
     if request.method == 'GET':
-        return render_template('shows/add.html')
+        data = getJSON.get_file("show_tags")
+        return render_template('shows/add.html', data=data)
     else:
         data = request.get_json(force=True)
         print(data, file=sys.stderr)
