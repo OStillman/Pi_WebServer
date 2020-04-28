@@ -17,9 +17,10 @@ let submitTasks = {
         let length = this.checkHasChanged("p#length span");
         let service = this.checkServiceSelection();
         let tags = this.checkTagSelection();
+        console.info("Tags");
         //console.log(tags[1]);
-        tags = tags[0];
-        let new_tags = tags[1];
+        tags = tags.selections;
+        let new_tags = tags.new;
         let day = $("section.add .elements .airtime#day select option:selected").val();
         let time = $("section.add .elements .airtime#time input").val();
         if(this.submitCheck(length)){
@@ -42,6 +43,7 @@ let submitTasks = {
     },
     submitShow: function(title, length, service, tags, new_tags="N/A", day="N/A", time="N/A"){
         let data = {"name": title, "duration": length, "service": service, "tags": tags, "day": day, "time": time, "new_tags": new_tags};
+        console.info(data);
         $.when(ajaxCalls.ajaxCallData("POST", "/shows/add", data))
             .then(function(result){
                 console.info("Success");
@@ -110,8 +112,7 @@ let submitTasks = {
                     new_tags.push($( this ).text());
                 }
               });
-            //console.log(tags);
-            return [tags, new_tags];
+            return {"selections": tags, "new": new_tags};
         }
         else{
             console.info("No Tags");

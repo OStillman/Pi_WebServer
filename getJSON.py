@@ -40,6 +40,7 @@ def add_show(appendMe, file, application, tags):
     new_tags = appendMe['new_tags']
     del appendMe['new_tags']
     file_contents['planner']['shows'].append(appendMe)
+    print(new_tags, file=sys.stderr)
     file_contents['planner']['tags'].append(new_tags)
     with open(file, "w") as file:
         file.write(json.dumps(file_contents, indent=4))

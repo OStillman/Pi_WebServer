@@ -22,80 +22,21 @@
                 "time": "N/A"
             },
             {
-                "name": "Apples",
+                "name": "Testing 1,2",
                 "duration": "01:00",
-                "service": "bbc",
+                "service": "e4",
                 "tags": [
-                    "Comedy"
+                    "Comedy",
+                    "Easy"
                 ],
                 "day": "N/A",
                 "time": "N/A"
-            },
-            {
-                "name": "Apples",
-                "duration": "01:00",
-                "service": "bbc",
-                "tags": [
-                    "Comedy"
-                ],
-                "day": "N/A",
-                "time": "N/A"
-            },
-            {
-                "name": "test",
-                "duration": "10:00",
-                "service": "5",
-                "tags": [
-                    "Comedy"
-                ],
-                "day": "N/A",
-                "time": "N/A"
-            },
-            {
-                "name": "Test 4,000",
-                "duration": "00:45",
-                "service": "bbc",
-                "tags": [
-                    "Drama"
-                ],
-                "day": "Saturday",
-                "time": "18:30"
-            },
-            {
-                "name": "Testing",
-                "duration": "10:00",
-                "service": "c4",
-                "tags": [
-                    "Comedy"
-                ],
-                "day": "N/A",
-                "time": "N/A"
-            },
-            {
-                "name": "apples",
-                "duration": "10:00",
-                "service": "c4",
-                "tags": [
-                    "Drama"
-                ],
-                "day": "N/A",
-                "time": "N/A"
-            },
-            {
-                "name": "Apples",
-                "duration": "00:45",
-                "service": "c4",
-                "tags": [
-                    "Drama"
-                ],
-                "day": "Tuesday",
-                "time": "19:30"
             }
         ],
         "tags": [
             "Comedy",
             "Drama",
-            "Easy",
+            "Easy"
         ]
     }
 }
