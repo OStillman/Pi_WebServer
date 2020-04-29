@@ -6,4 +6,13 @@ body {
 	background-color: #2c666e;
 	color: white;
 	font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
-	}
+    }
+    
+section #g1, #g2, #g3{
+    display: grid;
+    justify-content: stretch;
+}
+
+#g1 div, #g2 div, #g3 div{
+    grid-row: 1;
+}
