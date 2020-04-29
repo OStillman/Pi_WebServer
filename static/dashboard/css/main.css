@@ -7,10 +7,24 @@ body {
 	color: white;
 	font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
     }
-    
+ 
+section.grid{
+    width: 100vw;
+    min-height: 100vh;
+}
+
 section #g1, #g2, #g3{
     display: grid;
     justify-content: stretch;
+    min-height: calc(100vh /3);
+}
+
+section #g2 div{
+    min-width: calc(100vw /3);
+}
+
+section #g1 div, section #g3 div{
+    min-width: calc(100vw /2);
 }
 
 #g1 div, #g2 div, #g3 div{
