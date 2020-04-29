@@ -31,7 +31,7 @@ section #g1 div, section #g3 div{
     grid-row: 1;
 }
 
-section#g1 div#meal{
+section#g1 div#meal, section#g2 div#temp{
   display: flex;
 	align-items: center;
 	justify-content: center;
@@ -86,4 +86,14 @@ section#g2 div#calendar .weekdays {
     padding-bottom: 5px;
     border-bottom: solid oldlace;
     border-width: 1px;
+  }
+
+  section#g3 div#list h2{
+    text-align: center;
+  }
+  
+  section#g3 div#list ul{
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: space-evenly;
   }
