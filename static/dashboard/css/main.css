@@ -3,7 +3,7 @@ body {
 	height: 100%;
 	margin: 0;
 	padding: 0;
-	background-color: #2c666e;
+	background-color: #18393d;
 	color: white;
 	font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
     }
@@ -19,7 +19,7 @@ section #g1, #g2, #g3{
     min-height: calc(100vh /3);
 }
 
-section #g2 div{
+section #g2 div#calendar{
     min-width: calc(100vw /3);
 }
 
@@ -30,3 +30,54 @@ section #g1 div, section #g3 div{
 #g1 div, #g2 div, #g3 div{
     grid-row: 1;
 }
+
+section#g2 div#calendar{
+    text-align: center;
+}
+
+section#g2 div#calendar h2{
+    font-family: 'Quicksand', sans-serif;
+    text-decoration: underline;
+}
+
+section#g2 div#calendar ul{
+    list-style: none;
+}
+
+section#g2 div#calendar .weekdays {
+    margin: 0;
+    padding: 10px 0;
+  }
+  
+  section#g2 div#calendar .weekdays li {
+    display: inline-block;
+    width: calc(95% / 7);
+    text-align: center;
+  }
+  
+  /* Days (1-31) */
+  section#g2 div#calendar .days {
+    padding: 10px 0;
+    margin: 0;
+  }
+  
+  section#g2 div#calendar .days li {
+    list-style-type: none;
+    display: inline-block;
+    width: 13.6%;
+    text-align: center;
+    margin-bottom: 5px;
+    font-size:12px;
+  }
+  
+  /* Highlight the "current" day */
+  section#g2 div#calendar .days li .active {
+    padding: 5px;
+    background: #4eb4c2;
+  }
+
+  section#g2 div#calendar .days li .event {
+    padding-bottom: 5px;
+    border-bottom: solid oldlace;
+    border-width: 1px;
+  }
