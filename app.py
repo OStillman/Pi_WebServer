@@ -56,8 +56,7 @@ def shows():
 #Dashboard
 @app.route('/dash')
 def dash():
-    return "Hello world"
-
+    return render_template('dashboard/index.html')
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
