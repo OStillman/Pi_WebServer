@@ -31,6 +31,12 @@ section #g1 div, section #g3 div{
     grid-row: 1;
 }
 
+section#g1 div#meal{
+  display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
 section#g2 div#calendar{
     text-align: center;
 }
