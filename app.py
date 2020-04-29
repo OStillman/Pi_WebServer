@@ -5,7 +5,7 @@ import json
 
 app = Flask(__name__)
 
-
+# Meals
 @app.route('/meals')
 def meals():
     # data = {"apples": 7, "cheese": 1};
@@ -26,7 +26,7 @@ def add():
         else:
             return json.dumps({'success':True}), 201, {'ContentType':'application/json'}
 
-
+# Shows
 @app.route('/shows/add', methods=['GET', 'POST'])
 def add_shows():
     if request.method == 'GET':
@@ -53,7 +53,10 @@ def shows():
         data = getJSON.get_file("shows")
         return render_template('shows/index.html', data=data)
 
-
+#Dashboard
+@app.route('/dash')
+def dash():
+    return "Hello world"
 
 
 if __name__ == '__main__':
