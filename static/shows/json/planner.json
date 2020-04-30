@@ -2,35 +2,57 @@
     "planner": {
         "shows": [
             {
-                "name": "Apples",
-                "duration": "01:00",
-                "service": "bbc",
-                "tags": [
-                    "Drama"
-                ],
-                "day": "N/A",
-                "time": "N/A"
-            },
-            {
-                "name": "Test 2",
+                "name": "Paul Hollywood Eats Japan",
                 "duration": "1:00",
-                "service": "bbc",
+                "service": "c4",
                 "tags": [
-                    "Drama"
+                    "Easy",
+                    "Food"
                 ],
-                "day": "N/A",
-                "time": "N/A"
+                "day": "Tuesday",
+                "time": "21:00"
             },
             {
-                "name": "Testing 1,2",
+                "name": "Great British Sewing Bee",
                 "duration": "01:00",
-                "service": "e4",
+                "service": "bbc",
+                "tags": [
+                    "Easy"
+                ],
+                "day": "Wednesday",
+                "time": "21:00"
+            },
+            {
+                "name": "Joe Lycett's got your back",
+                "duration": "1:00",
+                "service": "c4",
+                "tags": [
+                    "Comedy"
+                ],
+                "day": "Friday",
+                "time": "20:00"
+            },
+            {
+                "name": "Gogglebox",
+                "duration": "1:00",
+                "service": "c4",
                 "tags": [
                     "Comedy",
                     "Easy"
                 ],
-                "day": "N/A",
-                "time": "N/A"
+                "day": "Friday",
+                "time": "21:00"
+            },
+            {
+                "name": "Friday Night Dinner",
+                "duration": "00:30",
+                "service": "c4",
+                "tags": [
+                    "Comedy",
+                    "Easy"
+                ],
+                "day": "Friday",
+                "time": "22:00"
             }
         ],
         "tags": [

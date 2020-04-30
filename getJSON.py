@@ -41,7 +41,9 @@ def add_show(appendMe, file, application, tags):
     del appendMe['new_tags']
     file_contents['planner']['shows'].append(appendMe)
     print(new_tags, file=sys.stderr)
-    file_contents['planner']['tags'].append(new_tags)
+    if tags:
+        for tag in new_tags:
+            file_contents['planner']['tags'].append(tag)
     with open(file, "w") as file:
         file.write(json.dumps(file_contents, indent=4))
     return True

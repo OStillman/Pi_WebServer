@@ -19,7 +19,7 @@ let submitTasks = {
         let tags = this.checkTagSelection();
         console.info("Tags");
         //console.log(tags[1]);
-        tags = tags.selections;
+        tags_selected = tags.selections;
         let new_tags = tags.new;
         let day = $("section.add .elements .airtime#day select option:selected").val();
         let time = $("section.add .elements .airtime#time input").val();
@@ -27,16 +27,16 @@ let submitTasks = {
             if (this.dayNeeded(day)){
                 if (this.timeNeeded(time)){
                     console.info("Everything needed");
-                    submitTasks.submitShow(title, length, service, tags, new_tags, day, time);
+                    submitTasks.submitShow(title, length, service, tags_selected, new_tags, day, time);
                 }
                 else{
                     console.info("Only need day");
-                    submitTasks.submitShow(title, length, service, tags, new_tags, day);
+                    submitTasks.submitShow(title, length, service, tags_selected, new_tags, day);
                 }
             }
             else{
                 console.info("Day/Time not needed");
-                submitTasks.submitShow(title, length, service, tags, new_tags);
+                submitTasks.submitShow(title, length, service, tags_selected, new_tags);
             }
         }
         
@@ -109,6 +109,7 @@ let submitTasks = {
             $( "section.add .elements div.tags .selected" ).each(function( index ) {
                 tags.push($( this ).text());
                 if ($(this).hasClass("new_submitted")){
+                    console.info("Tag has new submitted class");
                     new_tags.push($( this ).text());
                 }
               });
