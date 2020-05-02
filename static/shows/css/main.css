@@ -9,6 +9,12 @@ body {
     font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+.add_item{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
 .parent {
     overflow: scroll;
     height: 100vh;

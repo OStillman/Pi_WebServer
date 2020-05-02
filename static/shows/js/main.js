@@ -2,9 +2,17 @@ let begin = {
     init: function () {
         $(document).ready(function () {
             console.info("Ready");
+            setScroll.init();
             bindings.init();
             display.init();
         });
+    }
+};
+
+let setScroll = {
+    init: function(){
+        var elmnt = document.getElementById("start");
+        elmnt.scrollIntoView();
     }
 };
 
@@ -91,7 +99,7 @@ let display = {
 
 let removeShow = {
     init: function(element_num){
-        $("section.shows").hide();
+        $("section.shows table").hide();
         $("section.loading").show();
         console.info(element_num);
         data = {"element": element_num};
