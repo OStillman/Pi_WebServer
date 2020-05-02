@@ -5,6 +5,8 @@ let begin = {
             setScroll.init();
             bindings.init();
             display.init();
+            //Splitting out the files - Callers below
+            begin_tags.init();
         });
     }
 };

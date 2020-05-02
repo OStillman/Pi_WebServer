@@ -115,7 +115,8 @@ table tbody tr td.tags_row .tags {
 }
 
 section.add .elements .tags span,
-table tbody tr td.tags_row .tags {
+table tbody tr td.tags_row .tags,
+section.one div.tags span {
     margin: 10px 5px;
     background-color: #49a1ad;
     border-radius: 5px;
@@ -135,4 +136,8 @@ section.add .elements #time input {
     border: none;
     margin-right: 10px;
     font-size: 20px;
+}
+
+section.one div.tags span{
+    font-size: 25px;
 }
