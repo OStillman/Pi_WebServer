@@ -15,7 +15,7 @@
     <script src="/static/shows/js/main_tags.js"></script>
     <script>
         begin.init();
-        let data_in = {{data | tojson }};
+        //let data_in = ;
         //console.log(data_in);
     </script>
 
@@ -37,29 +37,39 @@
                     <tr class="time">
                         <td>19:00</td>
                     </tr>
-                    <tr class="7 content">
-                        <td></td>
-                        <td>Show Name (1hr)</td>
-                    </tr>
+                    {% for show in today_shows['planner']['19'] %}
+                        <tr class="7 content">
+                            <td></td>
+                            <td>{{show.name}} - {{show.duration}}</td>
+                        </tr>
+                    {% endfor %}
                     <tr class="time">
                         <td>20:00</td>
                     </tr>
-                    <tr class="8 content">
-                        <td></td>
-                        <td>Show Name - 1hr<br>Show Name - 30min</td>
-                    </tr>
+                    {% for show in today_shows['planner']['20'] %}
+                        <tr class="8 content">
+                            <td></td>
+                            <td>{{show.name}} - {{show.duration}}</td>
+                        </tr>
+                    {% endfor %}
                     <tr class="time">
                         <td>21:00</td>
                     </tr>
-                    <tr class="9 content">
-                        <td></td>
-                    </tr>
+                    {% for show in today_shows['planner']['21'] %}
+                        <tr class="9 content">
+                            <td></td>
+                            <td>{{show.name}} - {{show.duration}}</td>
+                        </tr>
+                    {% endfor %}
                     <tr class="time">
                         <td>22:00</td>
                     </tr>
-                    <tr class="10 content">
-                        <td></td>
-                    </tr>
+                    {% for show in today_shows['planner']['22'] %}
+                        <tr class="10 content">
+                            <td></td>
+                            <td>{{show.name}} - {{show.duration}}</td>
+                        </tr>
+                    {% endfor %}
                 </tbody>
             </table>
             <h1 class="loading" style="display: none;">Please Wait</h1>

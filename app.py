@@ -3,6 +3,8 @@ import getJSON
 import sys
 import json
 
+import show_fetch
+
 app = Flask(__name__)
 
 
@@ -51,7 +53,10 @@ def shows():
         return json.dumps({'success': True}), 204, {'ContentType': 'application/json'}
     else:
         data = getJSON.get_file("shows")
-        return render_template('shows/index.html', data=data)
+        shows_instance = show_fetch.DayFetch()
+        today_shows = shows_instance.shows
+        print(data, file=sys.stderr)
+        return render_template('shows/index.html', data=data, today_shows=today_shows)
 
 
 

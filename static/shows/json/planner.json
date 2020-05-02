@@ -55,6 +55,15 @@
                 "time": "22:00"
             }
         ],
+        "days": [
+            {"shows": [0, 1]},
+            {"shows": [2, 3]},
+            {"shows": [0, 1]},
+            {"shows": [2, 3]},
+            {"shows": [0, 1]},
+            {"shows": [2, 3]},
+            {"shows": [0, 1]}
+        ],
         "tags": [
             "Comedy",
             "Drama",
