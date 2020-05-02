@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,17 +14,49 @@
     <script src="/static/shows/js/main.js"></script>
     <script>
         begin.init();
-        let data_in = {{ data |tojson }};
+        let data_in = {
+            {
+                data | tojson
+            }
+        };
         //console.log(data_in);
     </script>
 
     <title>Owleigh Shows</title>
 </head>
+
 <body>
-<a href="/shows/add#1">
-    <img height="20" width="20" src="/static/meal_planner/img/plus.png">
-</a>
-<section class="shows">
+    <!--<a href="/shows/add#1">
+        <img height="20" width="20" src="/static/meal_planner/img/plus.png">
+    </a> -->
+
+
+    <div class="holster">
+        <div class="container y mandatory-scroll-snapping" dir="rtl">
+            <div>
+                <table>
+                    <thead>
+                        <tr>Test1</tr>
+                        <tr>Test2</tr>
+                    </thead>
+                </table>
+            </div>
+            <div id="2">
+                <table>
+                    <thead>
+                        <tr>Row21</tr>
+                        <tr>Row22</tr>
+                    </thead>
+                </table>
+            </div>
+            <div>3</div>
+          </div>
+      </div>
+
+
+
+
+    <!--<section class="shows">
     <h1>Your Shows</h1>
     <table>
         <thead>
@@ -36,9 +69,10 @@
 
         </tbody>
     </table>
-</section>
-<section class='loading' style="display: none">
-    <h1>Please Wait</h1>
-</section>
+</section> -->
+    <section class='loading' style="display: none">
+        <h1>Please Wait</h1>
+    </section>
 </body>
+
 </html>
