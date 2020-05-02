@@ -4,7 +4,7 @@ let begin = {
             console.info("Ready");
             setScroll.init();
             bindings.init();
-            display.init();
+            //display.init();
             //Splitting out the files - Callers below
             begin_tags.init();
         });

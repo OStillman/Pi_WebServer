@@ -36,7 +36,7 @@ section {
 
 
 section h1 {
-    font-size: 50px;
+    font-size: 35px;
     margin-bottom: 0;
 }
 
@@ -54,16 +54,12 @@ section table {
     table-layout: auto;
 }
 
-section table thead tr td {
-    font-weight: bold;
-    font-size: 25px;
-    border-bottom: white solid;
-    padding-right: 5px;
-}
-
 section table tbody tr td {
     padding: 5px;
-    border-bottom: #f9f9fa solid 1px;
+}
+
+section table tbody tr.time{
+    border-bottom: solid white;
 }
 
 img.long {
