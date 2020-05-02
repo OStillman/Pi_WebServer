@@ -7,6 +7,7 @@ let begin = {
             //display.init();
             //Splitting out the files - Callers below
             begin_tags.init();
+            today_begin.init();
         });
     }
 };

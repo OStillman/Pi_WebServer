@@ -36,6 +36,7 @@ class DayFetch():
             if "19" in show['time']:
                 sorted_data['planner']['19'].append(show)
             elif "20" in show['time']:
+                #sorted_data['planner']['20'] = self.checkOrder(sorted_data['planner']['20'], show)
                 sorted_data['planner']['20'].append(show)
             elif "21" in show['time']:
                 sorted_data['planner']['21'].append(show)
@@ -43,3 +44,5 @@ class DayFetch():
                 sorted_data['planner']['22'].append(show)
         # print(sorted_data, file=sys.stderr)
         return sorted_data
+
+

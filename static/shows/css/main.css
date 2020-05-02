@@ -52,6 +52,7 @@ section table {
     text-align: center;
     border-collapse: collapse;
     table-layout: auto;
+    margin: 0px 10px;
 }
 
 section table tbody tr td {
@@ -60,6 +61,12 @@ section table tbody tr td {
 
 section table tbody tr.time{
     border-bottom: solid white;
+    font-weight: bold;
+}
+
+section table tbody tr .output{
+    padding-bottom: 5px;
+    text-align: left; 
 }
 
 img.long {
