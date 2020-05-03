@@ -27,6 +27,7 @@ let GetShowsWithTag = {
         let odData = data_in.planner.OD;
         let these_shows = this.sortThroughData(odData, tag);
         this.tagAnimate();
+        this.displayShows(these_shows);
     },
     sortThroughData: function(data, tag){
         let these_shows = [];
@@ -49,14 +50,27 @@ let GetShowsWithTag = {
         }
         return false;
     },
+    displayShows: function(shows){
+        for (let i = 0; i < shows.length; i++){
+            let this_class = "tall";
+            if (shows[i].service == "bbc"){
+                this_class = "long"
+            }
+            $("section.one div.show_output table tbody").append(
+                `<tr><td>${shows[i].name}</td><td><img src='/static/shows/img/${shows[i].service}.png' class=${this_class}></tr>`);
+        }
+    },
     tagAnimate: function(tag){
         $.when($("section.one div.tags .hide").fadeOut()).done(function(){
-            $("section.one div.tags .selection").animate({width: "300px"}).css("text-align", "center").addClass("reset");
+            $.when($("section.one div.tags .selection").animate({width: "300px"}).css("text-align", "center").addClass("reset")).done(function(){
+                $("section.one div.show_output table tbody").fadeIn();
+            });
         });              
     },
     tagUnanimate: function(){
         $.when($(".section.one div.tags .reset").fadeOut()).done(function(){
-            $(".section.one div.tags").empty();
+            $("section.one div.tags").empty();
+            $("section.one div.show_output table tbody").empty().hide();
             display_tags.init();
         });
     }
@@ -69,7 +83,7 @@ let tag_bindings = {
     tagClick: function(){
         $("section.one div.tags").on("click", "span", function(){
             if ($(this).hasClass("reset")){
-                $(this).remove();
+                //$(this).remove();
                 GetShowsWithTag.tagUnanimate();
             }
             else{
