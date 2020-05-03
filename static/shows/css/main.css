@@ -144,3 +144,18 @@ section.add .elements #time input {
 section.one div.tags span{
     font-size: 25px;
 }
+
+section.one div.tags span.reset::after{
+    text-align: "right";
+    content: " X";
+}
+
+section.one .show_output table tbody img.tall{
+    width: 40px;
+    height: 40px;
+}
+
+section.one .show_output table tbody img.long{
+    width: 65px;
+    height: 35px;
+}

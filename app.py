@@ -52,10 +52,13 @@ def shows():
         getJSON.remove_show(int(data['element']), "shows")
         return json.dumps({'success': True}), 204, {'ContentType': 'application/json'}
     else:
+        # Get All data
         data = getJSON.get_file("shows")
+        # Get shows on Today
         shows_instance = show_fetch.DayFetch()
-        today_shows = shows_instance.shows
-        print(data, file=sys.stderr)
+        today_shows = shows_instance.shows  
+        # Output
+        #print(data, file=sys.stderr)
         return render_template('shows/index.html', data=data, today_shows=today_shows)
 
 
