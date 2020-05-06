@@ -14,6 +14,7 @@
     <script src="/static/shows/js/main.js"></script>
     <script src="/static/shows/js/main_today.js"></script>
     <script src="/static/shows/js/main_tags.js"></script>
+    <script src="/static/shows/js/main_all.js"></script>
     <script>
         begin.init();
         let today_data = {{ today_shows | tojson }};
@@ -82,6 +83,19 @@
             <a class="add_item" href="/shows/add#1">
                 <img height="20" width="20" src="/static/meal_planner/img/plus.png">
             </a>
+            <div class="all_shows">
+                <ul class="tv 0">
+                    <li><h1 class="show_name"> Show Name...</h1></li>
+                    <li class="service">Amazon</li>
+                    <li class="time">Sun 19:50</li>
+                    <li class="duration">1:00</li>
+                </ul>
+
+            </div>
+            <div class="bottom_nav">
+                <p class="left"><</p>
+                <p class="right">></p>
+            </div>
         </section>
 
     </div>

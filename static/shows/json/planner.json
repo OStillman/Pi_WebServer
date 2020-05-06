@@ -9,7 +9,9 @@
                     "Easy",
                     "Food"
                 ],
-                "days": [6],
+                "days": [
+                    6
+                ],
                 "time": "21:00"
             },
             {
@@ -20,7 +22,9 @@
                     "Easy",
                     "Food"
                 ],
-                "days": [6],
+                "days": [
+                    6
+                ],
                 "time": "20:00"
             },
             {
@@ -31,18 +35,38 @@
                     "Easy",
                     "Food"
                 ],
-                "days": [6],
+                "days": [
+                    6
+                ],
                 "time": "19:00"
             }
         ],
         "days": [
-            {"shows": [0]},
-            {"shows": [0]},
-            {"shows": [0]},
-            {"shows": [0]},
-            {"shows": [0]},
-            {"shows": []},
-            {"shows": [0, 1, 2]}
+            {
+                "shows": []
+            },
+            {
+                "shows": []
+            },
+            {
+                "shows": []
+            },
+            {
+                "shows": []
+            },
+            {
+                "shows": []
+            },
+            {
+                "shows": []
+            },
+            {
+                "shows": [
+                    0,
+                    1,
+                    2
+                ]
+            }
         ],
         "OD": [
             {
@@ -58,7 +82,7 @@
                 "name": "Test OD show 2",
                 "duration": "01:00",
                 "service": "amazon",
-                "tags":[
+                "tags": [
                     "Drama"
                 ]
             }

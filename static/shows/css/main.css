@@ -159,3 +159,18 @@ section.one .show_output table tbody img.long{
     width: 65px;
     height: 35px;
 }
+
+section.three div.all_shows ul{
+    list-style: none;
+    width: 90vw;
+}
+
+section.three div.bottom_nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90vw;
+    font-size: 80px;
+}
+
+

@@ -5,6 +5,7 @@ let begin = {
             setScroll.init();
             //Splitting out the files - Callers below
             begin_tags.init();
+            begin_all.init();
             today_begin.init();
         });
     }
