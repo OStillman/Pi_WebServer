@@ -57,12 +57,37 @@ def add_show(appendMe, file, application, tags):
     return True
 
 
-def remove_show(element_num, application):
+def remove_show(element_num, remove_type, application):
     file_contents = get_file(application)
-    del file_contents['planner']['shows'][element_num]
+    if (remove_type == "tv"):
+        # this_day = file_contents['planner']['shows'][element_num]['days'][0]
+        # file_contents['planner']['days'][this_day]['shows'].remove(element_num)
+        del file_contents['planner']['shows'][element_num]
+        file_contents = remove_number_bump(file_contents)
+    else:
+        del file_contents['planner']['OD'][element_num]
     with open('static/shows/json/planner.json', "w") as file:
         file.write(json.dumps(file_contents, indent=4))
     return True
+
+def remove_number_bump(file_contents):
+    # Remove all day shows
+    # Go through all shows, get their day and add
+    file_contents['planner']['days'][0]['shows'] = []
+    file_contents['planner']['days'][1]['shows'] = []
+    file_contents['planner']['days'][2]['shows'] = []
+    file_contents['planner']['days'][3]['shows'] = []
+    file_contents['planner']['days'][4]['shows'] = []
+    file_contents['planner']['days'][5]['shows'] = []
+    file_contents['planner']['days'][6]['shows'] = []
+    this_id = 0
+    for show in file_contents['planner']['shows']:
+        print(show, file=sys.stderr)
+        this_day = show['days'][0]
+        file_contents['planner']['days'][this_day]['shows'].append(this_id)
+        this_id = this_id + 1
+    return file_contents
+
 
 def add_meals(appendMe, file, application):
     file_contents = get_file(application)

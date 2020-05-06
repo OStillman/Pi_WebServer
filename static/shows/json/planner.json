@@ -2,19 +2,6 @@
     "planner": {
         "shows": [
             {
-                "name": "Test Show 1",
-                "duration": "01:00",
-                "service": "c4",
-                "tags": [
-                    "Easy",
-                    "Food"
-                ],
-                "days": [
-                    6
-                ],
-                "time": "21:00"
-            },
-            {
                 "name": "Test Show 2",
                 "duration": "01:00",
                 "service": "c4",
@@ -28,19 +15,6 @@
                 "time": "20:00"
             },
             {
-                "name": "Test Show 3",
-                "duration": "01:00",
-                "service": "c4",
-                "tags": [
-                    "Easy",
-                    "Food"
-                ],
-                "days": [
-                    6
-                ],
-                "time": "19:00"
-            },
-            {
                 "name": "Test normal show",
                 "duration": "00:45",
                 "service": "bbc",
@@ -48,7 +22,7 @@
                     "Easy",
                     "Food"
                 ],
-                "day": [
+                "days": [
                     1
                 ],
                 "time": "12:00"
@@ -61,24 +35,10 @@
                     "Drama",
                     "Easy"
                 ],
-                "day": [
+                "days": [
                     2
                 ],
                 "time": "20:30"
-            },
-            {
-                "name": "Test second attempt",
-                "duration": "01:45",
-                "service": "bbc",
-                "tags": [
-                    "Comedy",
-                    "Drama",
-                    "Easy"
-                ],
-                "day": [
-                    2
-                ],
-                "time": "22:00"
             }
         ],
         "days": [
@@ -86,12 +46,13 @@
                 "shows": []
             },
             {
-                "shows": []
+                "shows": [
+                    1
+                ]
             },
             {
                 "shows": [
-                    4,
-                    5
+                    2
                 ]
             },
             {
@@ -105,9 +66,7 @@
             },
             {
                 "shows": [
-                    0,
-                    1,
-                    2
+                    0
                 ]
             }
         ],

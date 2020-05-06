@@ -10,6 +10,7 @@ let all_bindings = {
     init: function(){
         this.left_arrow();
         this.right_arrow();
+        this.doubleClick();
     },
     left_arrow: function(){
         $("section.three div.bottom_nav .left").click(function(){
@@ -24,6 +25,13 @@ let all_bindings = {
             this_class[1]++;
             all_display.control(this_class);
         });
+    },
+    doubleClick: function(){
+        $("section.three").on('dblclick', function(){
+            let this_class = $(this).find("ul").attr("class").split(" ");
+            //console.log(this_class);
+            all_deleteActions.init(this_class);
+        })
     }
 };
 
@@ -89,4 +97,24 @@ let all_display = {
             return show_name.toUpperCase();
         }
     }
-}
+};
+
+let all_deleteActions = {
+    init: function(this_class){
+        if (confirm("Are you sure you want to delete this?")){
+            all_deleteActions.requestRemove(this_class);
+        }
+    },
+    requestRemove: function(this_class){
+        data = {"element": this_class[1], "type": this_class[0]}
+        $.when(ajaxCalls.ajaxCallData("DELETE", "/shows", data)).then(function(result){
+            console.info("Success");
+            console.log(result);
+            window.location.replace("../shows")
+            //$("section#success").show();
+        }, function(){
+            console.info("Failed");
+            //$("section#error").show();
+        })
+    }
+};

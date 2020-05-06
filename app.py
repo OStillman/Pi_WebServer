@@ -49,7 +49,7 @@ def add_shows():
 def shows():
     if request.method == 'DELETE':
         data = request.get_json(force=True)
-        getJSON.remove_show(int(data['element']), "shows")
+        getJSON.remove_show(int(data['element']), data['type'], "shows")
         return json.dumps({'success': True}), 204, {'ContentType': 'application/json'}
     else:
         # Get All data
