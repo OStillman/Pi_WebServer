@@ -82,8 +82,11 @@ let all_display = {
         else if (show_name == "e4"){
             return "E4"
         }
-        else{
+        else if (show_name == "amazon" || show_name == "sky"){
             return show_name.charAt(0).toUpperCase() + show_name.slice(1);
+        }
+        else{
+            return show_name.toUpperCase();
         }
     }
 }

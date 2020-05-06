@@ -42,6 +42,9 @@ let submitTasks = {
         
     },
     submitShow: function(title, length, service, tags, new_tags="N/A", day="N/A", time="N/A"){
+        if (day != "N/A"){
+            day = this.getDayValue(day);
+        }
         let data = {"name": title, "duration": length, "service": service, "tags": tags, "day": day, "time": time, "new_tags": new_tags};
         console.info(data);
         $.when(ajaxCalls.ajaxCallData("POST", "/shows/add", data))
@@ -54,6 +57,11 @@ let submitTasks = {
                 console.info("Failed");
                 //$("section#error").show();
             })
+    },
+    getDayValue: function(day_name){
+        console.info(day_name);
+        let days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+        return [days.indexOf(day_name)];
     },
     submitCheck: function(length){
         if (length){

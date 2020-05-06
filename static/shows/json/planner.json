@@ -39,6 +39,46 @@
                     6
                 ],
                 "time": "19:00"
+            },
+            {
+                "name": "Test normal show",
+                "duration": "00:45",
+                "service": "bbc",
+                "tags": [
+                    "Easy",
+                    "Food"
+                ],
+                "day": [
+                    1
+                ],
+                "time": "12:00"
+            },
+            {
+                "name": "Test Day Addition",
+                "duration": "01:00",
+                "service": "c4",
+                "tags": [
+                    "Drama",
+                    "Easy"
+                ],
+                "day": [
+                    2
+                ],
+                "time": "20:30"
+            },
+            {
+                "name": "Test second attempt",
+                "duration": "01:45",
+                "service": "bbc",
+                "tags": [
+                    "Comedy",
+                    "Drama",
+                    "Easy"
+                ],
+                "day": [
+                    2
+                ],
+                "time": "22:00"
             }
         ],
         "days": [
@@ -49,7 +89,10 @@
                 "shows": []
             },
             {
-                "shows": []
+                "shows": [
+                    4,
+                    5
+                ]
             },
             {
                 "shows": []
