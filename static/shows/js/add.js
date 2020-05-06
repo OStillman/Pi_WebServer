@@ -45,7 +45,7 @@ let submitTasks = {
         if (day != "N/A"){
             day = this.getDayValue(day);
         }
-        let data = {"name": title, "duration": length, "service": service, "tags": tags, "day": day, "time": time, "new_tags": new_tags};
+        let data = {"name": title, "duration": length, "service": service, "tags": tags, "days": day, "time": time, "new_tags": new_tags};
         console.info(data);
         $.when(ajaxCalls.ajaxCallData("POST", "/shows/add", data))
             .then(function(result){
