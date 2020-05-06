@@ -39,12 +39,12 @@ def add_show(appendMe, file, application, tags):
     file_contents = get_file(application)
     new_tags = appendMe['new_tags']
     del appendMe['new_tags']
-    if appendMe['day'] == "N/A":
-        del appendMe['day']
+    if appendMe['days'] == "N/A":
+        del appendMe['days']
         del appendMe['time']
         file_contents['planner']['OD'].append(appendMe)
     else:
-        this_day = appendMe['day'][0]
+        this_day = appendMe['days'][0]
         this_position = len(file_contents['planner']['shows'])
         file_contents['planner']['shows'].append(appendMe)
         file_contents['planner']['days'][this_day]['shows'].append(this_position)
