@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 import getJSON
 import sys
 import json
+import db
 
 import show_fetch
 
@@ -55,10 +56,18 @@ def shows():
         # Get All data
         data = getJSON.get_file("shows")
         # Get shows on Today
-        shows_instance = show_fetch.DayFetch()
-        today_shows = shows_instance.shows  
+        #shows_instance = show_fetch.DayFetch()
+        #today_shows = shows_instance.shows  
         # Output
         #print(data, file=sys.stderr)
+
+        #SQL Code
+        shows_instance = db.FetchToday()
+        today_shows = shows_instance.shows
+        print(today_shows, file=sys.stderr)
+
+
+
         return render_template('shows/index.html', data=data, today_shows=today_shows)
 
 
