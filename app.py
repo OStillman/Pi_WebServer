@@ -62,13 +62,21 @@ def shows():
         #print(data, file=sys.stderr)
 
         #SQL Code
+
+        # Today
         shows_instance = db.FetchToday()
         today_shows = shows_instance.shows
+
+        # All
+        FetchTVOD = db.FetchTVOD()
+        all_shows = FetchTVOD.shows
+
+        print(all_shows, file=sys.stderr)
         print(today_shows, file=sys.stderr)
 
 
 
-        return render_template('shows/index.html', data=data, today_shows=today_shows)
+        return render_template('shows/index.html', all_shows=all_shows, today_shows=today_shows)
 
 
 

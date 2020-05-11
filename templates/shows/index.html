@@ -18,7 +18,6 @@
     <script>
         begin.init();
         let today_data = {{ today_shows | tojson }};
-        let data_in = {{ data | tojson }}
     </script>
 
     <title>Owleigh Shows</title>
@@ -83,19 +82,34 @@
             <a class="add_item" href="/shows/add#1">
                 <img height="20" width="20" src="/static/meal_planner/img/plus.png">
             </a>
-            <div class="all_shows">
-                <ul class="tv 0">
-                    <li><h1 class="show_name"> Show Name...</h1></li>
-                    <li class="service">Amazon</li>
-                    <li class="time">Sun 19:50</li>
-                    <li class="duration">1:00</li>
-                </ul>
-
-            </div>
-            <div class="bottom_nav">
-                <p class="left"><</p>
-                <p class="right">></p>
-            </div>
+            <table>
+                <thead>
+                    <th>Show</th>
+                    <th>Service</th>
+                    <th>Time</th>
+                    <th>Day(s)</th>
+                    <th>Tags</th>
+                </thead>
+                <tbody>
+                    {% for show in all_shows.Planner.Shows %}
+                        <tr class={{show.id}}>
+                            <td>{{show.name}}</td>
+                            <td>{{show.channel}}</td>
+                            <td>{{show.duration}} <br> {{show.time}}</td>
+                            <td>
+                                {% for day in show.days %}
+                                {{day}} <br>
+                                {% endfor %}
+                            </td>
+                            <td>
+                                {% for tag in show.tags %}
+                                {{tag}} <br>
+                                {% endfor %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </section>
 
     </div>
