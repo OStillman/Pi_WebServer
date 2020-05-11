@@ -64,8 +64,8 @@ def shows():
         #SQL Code
 
         # Today
-        shows_instance = db.FetchToday()
-        today_shows = shows_instance.shows
+        FetchToday = db.FetchToday()
+        today_shows = FetchToday.shows
 
         # All
         FetchTVOD = db.FetchTVOD()
