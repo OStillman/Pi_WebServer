@@ -54,6 +54,7 @@ class FetchTVOD:
         self.db = sqlite3.connect('DB/webserver.db')
         self.ShowsQuery()
         self.AddRest()
+        self.db.close()
 
     @property
     def shows(self):
