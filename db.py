@@ -1,5 +1,6 @@
 import sqlite3
 import sys
+import datetime
 
 class FetchToday:
     def __init__(self, shows=None):
@@ -19,11 +20,15 @@ class FetchToday:
         self._shows = show
 
     def query(self):
+        today = self.getDay() + 1
+        print (today, file=sys.stderr)
         #TODO Add in today's date in select statement
-        self.cursor.execute(''' SELECT s.name, s.time, ch.name, s.duration
-        FROM Shows s, channels ch
-        JOIN Shows ON s.channel = ch.id
-        WHERE s.channel = 1; ''')
+        self.cursor.execute(''' SELECT Shows.name, Shows.duration, Shows.time, channels.name
+        FROM Shows
+        INNER JOIN ShowDays ON Shows.id = ShowDays.show_id
+        INNER JOIN days ON ShowDays.day_id = days.id
+        INNER JOIN channels ON Shows.channel = channels.id
+        WHERE days.id = ?; ''', (today,))
         self.shows = self.cursor.fetchall()
         #print(show1, file=sys.stderr)
 
@@ -31,28 +36,16 @@ class FetchToday:
         sorted_data = {"planner": {"19": [], "20": [], "21": [], "22": []}}
         for show in self.shows:
             print(show, file=sys.stderr)
-            this_data = {"name": show[0], "time": show[1], "channel": show[2], "duration": show[3]}
-            if "19" in show[1]:
+            this_data = {"name": show[0], "duration": show[1], "time": show[2], "channel": show[3]}
+            if "19" in show[2]:
                 sorted_data['planner']['19'].append(this_data)
-            elif "20" in show[1]:
+            elif "20" in show[2]:
                 sorted_data['planner']['20'].append(this_data)
-            elif "21" in show[1]:
+            elif "21" in show[2]:
                 sorted_data['planner']['21'].append(this_data)
-            elif "22" in show[1]:
+            elif "22" in show[2]:
                 sorted_data['planner']['22'].append(this_data)
         return sorted_data
 
-
-        '''for show in full_data['planner']['shows']:
-            if "19" in show['time']:
-                sorted_data['planner']['19'].append(show)
-            elif "20" in show['time']:
-                #sorted_data['planner']['20'] = self.checkOrder(sorted_data['planner']['20'], show)
-                sorted_data['planner']['20'].append(show)
-            elif "21" in show['time']:
-                sorted_data['planner']['21'].append(show)
-            elif "22" in show['time']:
-                sorted_data['planner']['22'].append(show)
-        # print(sorted_data, file=sys.stderr)
-        return sorted_data'''
-
+    def getDay(self):
+        return datetime.datetime.today().weekday()
