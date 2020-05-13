@@ -191,6 +191,21 @@ class FetchOD:
         #print(shows, file=sys.stderr)
         self._shows = shows
 
+class DeleteShows:
+    def __init__(self, id):
+        self.id = id
+        self.db = sqlite3.connect('DB/webserver.db')
+        self.cursor = self.db.cursor()
+        self.deleteShow()
+        self.db.commit()
+        self.db.close()
+
+    def deleteShow(self):
+        self.cursor.execute('''DELETE FROM Shows WHERE id = ?;''', (self.id,))
+        self.cursor.execute('''DELETE FROM ShowDays WHERE show_id = ?;''', (self.id,))
+        self.cursor.execute('''DELETE FROM ShowTags WHERE show_id = ?;''', (self.id,))
+        
+
 
 
 

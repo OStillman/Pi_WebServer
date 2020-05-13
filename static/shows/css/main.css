@@ -162,6 +162,7 @@ section.one .show_output table tbody img.long{
 
 section.three table{
     width: 95vw;
+    user-select: none;
 }
 
 section.three table th.active{

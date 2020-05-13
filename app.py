@@ -50,7 +50,9 @@ def add_shows():
 def shows():
     if request.method == 'DELETE':
         data = request.get_json(force=True)
-        getJSON.remove_show(int(data['element']), data['type'], "shows")
+        print(data, file=sys.stderr)
+        db.DeleteShows(int(data['element']))
+        #getJSON.remove_show(int(data['element']), data['type'], "shows")
         return json.dumps({'success': True}), 204, {'ContentType': 'application/json'}
     else:
         # Get All data
@@ -75,10 +77,6 @@ def shows():
         # Tags
         FetchTags = db.FetchTags()
         all_tags = FetchTags.tags
-
-        #OD
-        #FetchOD = db.FetchOD()
-        #od_shows = FetchOD.shows
 
         print(all_shows, file=sys.stderr)
         print(today_shows, file=sys.stderr)
