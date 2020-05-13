@@ -70,18 +70,24 @@ def shows():
         # All
         FetchTVOD = db.FetchTVOD()
         all_shows = FetchTVOD.shows
+        od_shows = FetchTVOD.od
 
         # Tags
         FetchTags = db.FetchTags()
         all_tags = FetchTags.tags
 
+        #OD
+        #FetchOD = db.FetchOD()
+        #od_shows = FetchOD.shows
+
         print(all_shows, file=sys.stderr)
         print(today_shows, file=sys.stderr)
         print(all_tags, file=sys.stderr)
+        print(od_shows, file=sys.stderr)
 
 
 
-        return render_template('shows/index.html', all_shows=all_shows, today_shows=today_shows, tags=all_tags)
+        return render_template('shows/index.html', all_shows=all_shows, today_shows=today_shows, tags=all_tags, od_shows=od_shows)
 
 
 

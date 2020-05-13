@@ -50,7 +50,7 @@ class FetchToday:
         return datetime.datetime.today().weekday()
 
 class FetchTVOD:
-    def __init__(self, shows=None):
+    def __init__(self, shows=None, od=None):
         self.db = sqlite3.connect('DB/webserver.db')
         self.ShowsQuery()
         self.AddRest()
@@ -63,6 +63,14 @@ class FetchTVOD:
     @shows.setter
     def shows(self, show):
         self._shows = show
+
+    @property
+    def od(self):
+        return self._od
+
+    @od.setter
+    def od(self, od):
+        self._od = od
 
     def ShowsQuery(self):
         #self.cursor.execute(''' ''')
@@ -84,6 +92,26 @@ class FetchTVOD:
             this_data = {"id": show[0], "name": show[1], "channel": show[4], "time": show[2], "duration": show[3], "days": this_show_days, "tags": this_show_tags}
             end_data["Planner"]["Shows"].append(this_data)
         self._shows = end_data
+        self.ODShows(end_data)
+
+    def ODShows(self, end_data):
+        od_data = {"Planner": {"Shows": []}}
+        for show in end_data['Planner']['Shows']:
+            show_channel = show['channel']
+            show_days = show["days"]
+            if "N/A" in show_days:
+                od_data['Planner']['Shows'].append(show)
+            elif "Sky" in show_channel:
+                od_data['Planner']['Shows'].append(show)
+            elif "Amazon" in show_channel:
+                od_data['Planner']['Shows'].append(show)
+            elif "Netflix" in show_channel:
+                od_data['Planner']['Shows'].append(show)
+            elif "Disney" in show_channel:
+                od_data['Planner']['Shows'].append(show)
+        self._od = od_data
+
+
 
     def GetTags(self, show_id):
         tag_cursor = self.db.cursor()
@@ -133,6 +161,35 @@ class FetchTags:
     @tags.setter
     def tags(self, tags):
         self._tags = tags
+
+class FetchOD:
+    def __init__(self, shows=None):
+        self.db = sqlite3.connect('DB/webserver.db')
+        self.cursor = self.db.cursor()
+        self.query()
+        self.db.close()
+
+    @property
+    def shows(self):
+        return self._shows
+
+    @shows.setter
+    def shows(self, shows):
+        self._shows = shows
+
+    def query(self):
+        self.cursor.execute('''SELECT Shows.name, Shows.duration, channels.name, days.name
+        FROM Shows
+        INNER JOIN ShowDays ON Shows.id = ShowDays.show_id
+        INNER JOIN days ON ShowDays.day_id = days.id
+        INNER JOIN channels ON Shows.channel = channels.id
+        WHERE channels.id IN (8,9,10,11) OR days.name = "N/A";''')
+        # end_data = {"Planner": {"Shows": []}}
+        shows = {"Planner": {"ODShows": []}}
+        for show in self.cursor.fetchall():
+            shows['Planner']['ODShows'].append({"name": show[0], "duration": show[1], "service": show[2], "day": show[3]})
+        #print(shows, file=sys.stderr)
+        self._shows = shows
 
 
 
