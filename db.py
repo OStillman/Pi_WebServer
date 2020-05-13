@@ -109,4 +109,31 @@ class FetchTVOD:
             days.append(day[0])
         return days
 
+class FetchTags:
+    def __init__(self, tags=None):
+        self.db = sqlite3.connect('DB/webserver.db')
+        self.cursor = self.db.cursor()
+        self.query()
+        self.db.close()
+        
+    def query(self):
+        self.cursor.execute(''' SELECT name
+        FROM tags;''')
+        tags = []
+        for tag in self.cursor.fetchall():
+            tags.append(tag[0])
+        self._tags = tags
+        # self._tags = self.cursor.fetchall()
+        #print(show1, file=sys.stderr)
+
+    @property
+    def tags(self):
+        return self._tags
+
+    @tags.setter
+    def tags(self, tags):
+        self._tags = tags
+
+
+
 

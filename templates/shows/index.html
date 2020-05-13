@@ -29,6 +29,9 @@
         <section class="one">
             <h1>Find Something...</h1>
             <div class="tags">
+                {% for tag in tags %}
+                    <span>{{tag}}</span>
+                {% endfor %}
             </div>
             <div class="show_output">
                 <table>

@@ -71,12 +71,17 @@ def shows():
         FetchTVOD = db.FetchTVOD()
         all_shows = FetchTVOD.shows
 
+        # Tags
+        FetchTags = db.FetchTags()
+        all_tags = FetchTags.tags
+
         print(all_shows, file=sys.stderr)
         print(today_shows, file=sys.stderr)
+        print(all_tags, file=sys.stderr)
 
 
 
-        return render_template('shows/index.html', all_shows=all_shows, today_shows=today_shows)
+        return render_template('shows/index.html', all_shows=all_shows, today_shows=today_shows, tags=all_tags)
 
 
 
