@@ -38,7 +38,6 @@ let GetShowsWithTag = {
             let this_class = "tall";
             if (shows[i].channel == "BBC1" || shows[i].channel == "BBC2"){
                 this_class = "long";
-                shows[i].channel = "bbc";
             }
             $("section.one div.show_output table tbody").append(
                 `<tr><td>${shows[i].name}</td><td><img src='/static/shows/img/${shows[i].channel.toLowerCase()}.png' class=${this_class}></tr>`);
