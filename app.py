@@ -1,4 +1,6 @@
 from flask import Flask, render_template, request
+import blinkt
+
 import getJSON
 import sys
 import json
@@ -8,6 +10,7 @@ import show_fetch
 
 app = Flask(__name__)
 
+__DevMode__ = True
 
 @app.route('/meals')
 def meals():
@@ -33,18 +36,22 @@ def add():
 @app.route('/shows/add', methods=['GET', 'POST'])
 def add_shows():
     if request.method == 'GET':
-        data = getJSON.get_file("show_tags")
-        return render_template('shows/add.html', data=data)
+        FetchTags = db.FetchTags()
+        all_tags = FetchTags.tags
+        
+        #data = getJSON.get_file("show_tags")
+        return render_template('shows/add.html', data=all_tags)
     else:
         data = request.get_json(force=True)
         print(data, file=sys.stderr)
         tags = False
         if len(data['tags']) > 0 or data['tags'] is not 'N/A':
             tags = True
-        if getJSON.add_to_file(data, "shows", tags):
+        
+        '''if getJSON.add_to_file(data, "shows", tags):
             return json.dumps({'success': True}), 201, {'ContentType': 'application/json'}
         else:
-            return json.dumps({'success': False}), 500, {'ContentType': 'application/json'}
+            return json.dumps({'success': False}), 500, {'ContentType': 'application/json'}'''
 
 @app.route('/shows', methods=['GET', 'DELETE'])
 def shows():
@@ -91,4 +98,8 @@ def shows():
 
 
 if __name__ == '__main__':
+    if __DevMode__:
+        blinkt.clear()
+        blinkt.set_pixel(0, 255, 0, 0)
+        blinkt.show()
     app.run(debug=True, host='0.0.0.0')
