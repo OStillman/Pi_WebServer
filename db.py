@@ -162,6 +162,34 @@ class FetchTags:
     def tags(self, tags):
         self._tags = tags
 
+class FetchChannels:
+    def __init__(self, channels=None):
+        self.db = sqlite3.connect('DB/webserver.db')
+        self.cursor = self.db.cursor()
+        self.query()
+        self.db.close()
+
+    def query(self):
+        self.cursor.execute(''' SELECT *
+        FROM channels;''')
+        channels = []
+        grid_row = 1
+        for channel in self.cursor.fetchall():
+            channels.append([channel[0], channel[1].lower(), grid_row])
+            if channel[0] % 2 == 0:
+                grid_row = grid_row + 1
+        self._channels = channels
+        # self._tags = self.cursor.fetchall()
+        #print(show1, file=sys.stderr)
+
+    @property
+    def channels(self):
+        return self._channels
+
+    @channels.setter
+    def channels(self, channels):
+        self._channels = channels
+
 class FetchOD:
     def __init__(self, shows=None):
         self.db = sqlite3.connect('DB/webserver.db')
@@ -204,6 +232,130 @@ class DeleteShows:
         self.cursor.execute('''DELETE FROM Shows WHERE id = ?;''', (self.id,))
         self.cursor.execute('''DELETE FROM ShowDays WHERE show_id = ?;''', (self.id,))
         self.cursor.execute('''DELETE FROM ShowTags WHERE show_id = ?;''', (self.id,))
+
+
+class AddShow:
+    def __init__(self, show_data, new_tags):
+        self.show_data = show_data
+        self.new_tags = new_tags
+        self.db = sqlite3.connect('DB/webserver.db')
+        self.cursor = self.db.cursor()
+
+        self.InsertShow()
+        self.show_id = self.cursor.lastrowid
+
+        self.insertDays()
+
+        self.insertTags()
+
+        self.db.commit()
+
+        '''
+        INSERT INTO Shows(
+            name,
+            channel,
+            time,
+            duration
+        )
+        values(
+            "Test Show OD 2 - BBC",
+            1,
+            "N/A",
+            "01:00"
+        );
+
+        ID = 5
+
+        INSERT INTO ShowDays(
+            show_id,
+            day_id
+        )
+        values(
+            5,
+            8
+        );
+
+        INSERT INTO ShowTags(
+            show_id,
+            tag_id
+        )
+        values(
+            5,
+            3
+        );
+        '''
+
+    def InsertShow(self):
+        self.cursor.execute('''
+            INSERT INTO Shows(
+            name,
+            channel,
+            time,
+            duration
+        )
+        values(
+            ?,
+            ?,
+            ?,
+            ?
+        );
+        ''', (self.show_data['name'], self.show_data['service'], self.show_data['time'], self.show_data['duration']))
+
+    def insertDays(self):
+        for day in self.show_data['days']:
+            #print(day, file=sys.stderr)
+            self.cursor.execute('''
+            INSERT INTO ShowDays(
+                show_id,
+                day_id
+            )
+            values(
+                ?,
+                ?
+            );
+            ''', (self.show_id, day))
+
+    def insertTags(self):
+        for tag in self.show_data['tags']:
+            tag_id = self.checkTagExists(tag)
+            self.cursor.execute('''
+            INSERT INTO ShowTags(
+                show_id,
+                tag_id
+            )
+            VALUES(
+                ?,
+                ?
+            )
+            ''', (self.show_id, tag_id, ))
+            
+
+    def checkTagExists(self, tag):
+        print(tag, file=sys.stderr)
+        select_cursor = self.db.cursor()
+        select_cursor.execute('''
+            SELECT * FROM tags
+            WHERE name = ?;
+            ''', (tag, ))
+        try:
+            return select_cursor.fetchall()[0][0]
+        except IndexError:
+            return self.addTag(tag)
+
+    def addTag(self, tag):
+        self.cursor.execute('''
+        INSERT INTO tags(
+            name
+        )
+        VALUES(
+            ?
+        )
+        ''', (tag, ))
+        return self.cursor.lastrowid
+        
+        
+        
+        
         
 
 

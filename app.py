@@ -38,15 +38,24 @@ def add_shows():
     if request.method == 'GET':
         FetchTags = db.FetchTags()
         all_tags = FetchTags.tags
+
+        # Channels
+        FetchChannels = db.FetchChannels()
+        all_channels = FetchChannels.channels
+
+        print(all_channels, file=sys.stderr)
         
         #data = getJSON.get_file("show_tags")
-        return render_template('shows/add.html', data=all_tags)
+        return render_template('shows/add.html', data=all_tags, channels=all_channels)
     else:
         data = request.get_json(force=True)
         print(data, file=sys.stderr)
         tags = False
         if len(data['tags']) > 0 or data['tags'] is not 'N/A':
             tags = True
+
+        db.AddShow(data, tags)
+        return json.dumps({'success': True}), 201, {'ContentType': 'application/json'}
         
         '''if getJSON.add_to_file(data, "shows", tags):
             return json.dumps({'success': True}), 201, {'ContentType': 'application/json'}
