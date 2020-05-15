@@ -5,12 +5,11 @@ import getJSON
 import sys
 import json
 import db
+import constants
 
 import show_fetch
 
 app = Flask(__name__)
-
-__DevMode__ = True
 
 @app.route('/meals')
 def meals():
@@ -107,7 +106,7 @@ def shows():
 
 
 if __name__ == '__main__':
-    if __DevMode__:
+    if constants.__DevMode__:
         blinkt.clear()
         blinkt.set_pixel(0, 255, 0, 0)
         blinkt.show()
