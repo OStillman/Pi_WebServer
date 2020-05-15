@@ -1,12 +1,15 @@
 from flask import Flask, render_template, request
+import blinkt
+
 import getJSON
 import sys
 import json
+import db
+import constants
 
 import show_fetch
 
 app = Flask(__name__)
-
 
 @app.route('/meals')
 def meals():
@@ -32,37 +35,79 @@ def add():
 @app.route('/shows/add', methods=['GET', 'POST'])
 def add_shows():
     if request.method == 'GET':
-        data = getJSON.get_file("show_tags")
-        return render_template('shows/add.html', data=data)
+        FetchTags = db.FetchTags()
+        all_tags = FetchTags.tags
+
+        # Channels
+        FetchChannels = db.FetchChannels()
+        all_channels = FetchChannels.channels
+
+        print(all_channels, file=sys.stderr)
+        
+        #data = getJSON.get_file("show_tags")
+        return render_template('shows/add.html', data=all_tags, channels=all_channels)
     else:
         data = request.get_json(force=True)
         print(data, file=sys.stderr)
         tags = False
         if len(data['tags']) > 0 or data['tags'] is not 'N/A':
             tags = True
-        if getJSON.add_to_file(data, "shows", tags):
+
+        db.AddShow(data, tags)
+        return json.dumps({'success': True}), 201, {'ContentType': 'application/json'}
+        
+        '''if getJSON.add_to_file(data, "shows", tags):
             return json.dumps({'success': True}), 201, {'ContentType': 'application/json'}
         else:
-            return json.dumps({'success': False}), 500, {'ContentType': 'application/json'}
+            return json.dumps({'success': False}), 500, {'ContentType': 'application/json'}'''
 
 @app.route('/shows', methods=['GET', 'DELETE'])
 def shows():
     if request.method == 'DELETE':
         data = request.get_json(force=True)
-        getJSON.remove_show(int(data['element']), data['type'], "shows")
+        print(data, file=sys.stderr)
+        db.DeleteShows(int(data['element']))
+        #getJSON.remove_show(int(data['element']), data['type'], "shows")
         return json.dumps({'success': True}), 204, {'ContentType': 'application/json'}
     else:
         # Get All data
         data = getJSON.get_file("shows")
         # Get shows on Today
-        shows_instance = show_fetch.DayFetch()
-        today_shows = shows_instance.shows  
+        #shows_instance = show_fetch.DayFetch()
+        #today_shows = shows_instance.shows  
         # Output
         #print(data, file=sys.stderr)
-        return render_template('shows/index.html', data=data, today_shows=today_shows)
+
+        #SQL Code
+
+        # Today
+        FetchToday = db.FetchToday()
+        today_shows = FetchToday.shows
+
+        # All
+        FetchTVOD = db.FetchTVOD()
+        all_shows = FetchTVOD.shows
+        od_shows = FetchTVOD.od
+
+        # Tags
+        FetchTags = db.FetchTags()
+        all_tags = FetchTags.tags
+
+        print(all_shows, file=sys.stderr)
+        print(today_shows, file=sys.stderr)
+        print(all_tags, file=sys.stderr)
+        print(od_shows, file=sys.stderr)
+
+
+
+        return render_template('shows/index.html', all_shows=all_shows, today_shows=today_shows, tags=all_tags, od_shows=od_shows)
 
 
 
 
 if __name__ == '__main__':
+    if constants.__DevMode__:
+        blinkt.clear()
+        blinkt.set_pixel(0, 255, 0, 0)
+        blinkt.show()
     app.run(debug=True, host='0.0.0.0')

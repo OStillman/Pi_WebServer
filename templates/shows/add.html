@@ -38,16 +38,9 @@
     <div style="display: none;" class="elements 2">
         <br>
         <div id="service_grid">
-            <img alt="bbc" src="/static/shows/img/bbc.png" class="tv" style="filter: opacity(20%); grid-row: 1;">
-            <img alt="itv" src="/static/shows/img/itv.png" class="tv" style="filter: opacity(20%); grid-row: 1;">
-            <img alt="c4" src="/static/shows/img/c4.png" class="c4 tv" style="filter: opacity(20%); grid-row: 2;">
-            <img alt="e4" src="/static/shows/img/e4.png" class="c4 tv" style="filter: opacity(20%); grid-row: 2;">
-            <img alt="5" src="/static/shows/img/5.png" class="c4 tv" style="filter: opacity(20%); grid-row: 3;">
-            <img alt="dave" src="/static/shows/img/dave.png" class="tv" style="filter: opacity(20%); grid-row: 3;">
-            <img alt="sky" src="/static/shows/img/sky.png" class="tv" style="filter: opacity(20%); grid-row: 4;">
-            <img alt="disney" src="/static/shows/img/disney.png" style="filter: opacity(20%); grid-row: 4;">
-            <img alt="netflix" src="/static/shows/img/netflix.png" class="c4" style="filter: opacity(20%); grid-row: 5;">
-            <img alt="amazon" src="/static/shows/img/amazon.png" class="c4" style="filter: opacity(20%); grid-row: 5;">
+            {% for channel in channels %}
+                <img alt={{channel[0]}} src="/static/shows/img/{{channel[1]}}.png" class="tv" style="filter: opacity(20%); grid-row: {{channel[2]}};">
+            {% endfor %}
         </div>
         <div class="next-button">
             <img src="/static/shows/img/right-arrow.png">

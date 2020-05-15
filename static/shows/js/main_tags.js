@@ -1,35 +1,18 @@
 let begin_tags = {
     init: function(){
         console.log("Ready - Tags");
-        display_tags.init();
         tag_bindings.init();
     }
 }
 
-let display_tags = {
-    init: function(){
-        let these_tags = this.getTags();
-        this.displayTags(these_tags);
-    },
-    getTags: function(){
-        let these_tags = data_in.planner.tags;
-        return these_tags;
-    },
-    displayTags: function(tags){
-        for (let i = 0; i < tags.length; i++){
-            $("section.one div.tags").append(`<span>${tags[i]}</span>`);
-        }
-    },
-};
-
 let GetShowsWithTag = {
     init: function(tag){
-        let odData = data_in.planner.OD;
-        let these_shows = this.sortThroughData(odData, tag);
+        let these_shows = this.sortThroughData(od_data.Planner.Shows, tag);
         this.tagAnimate();
         this.displayShows(these_shows);
     },
     sortThroughData: function(data, tag){
+        console.log(data);
         let these_shows = [];
         for (let i = 0; i < data.length; i++){
             let this_show = data[i];
@@ -53,11 +36,15 @@ let GetShowsWithTag = {
     displayShows: function(shows){
         for (let i = 0; i < shows.length; i++){
             let this_class = "tall";
-            if (shows[i].service == "bbc"){
-                this_class = "long"
+            if (shows[i].channel == "BBC1" || shows[i].channel == "BBC2"){
+                this_class = "long";
+            }
+            else if (shows[i].channel == "ITV1" || shows[i].channel == "ITV2"){
+                this_class = "long";
+                shows[i].channel == "itv"
             }
             $("section.one div.show_output table tbody").append(
-                `<tr><td>${shows[i].name}</td><td><img src='/static/shows/img/${shows[i].service}.png' class=${this_class}></tr>`);
+                `<tr><td>${shows[i].name}</td><td><img src='/static/shows/img/${shows[i].channel.toLowerCase()}.png' class=${this_class}></tr>`);
         }
     },
     tagAnimate: function(tag){
@@ -69,9 +56,10 @@ let GetShowsWithTag = {
     },
     tagUnanimate: function(){
         $.when($(".section.one div.tags .reset").fadeOut()).done(function(){
-            $("section.one div.tags").empty();
+            $("section.one div.tags .selection").css("width", "auto")
+            $("section.one div.tags span").removeClass("reset").removeClass("selection").show();
             $("section.one div.show_output table tbody").empty().hide();
-            display_tags.init();
+            //display_tags.init();
         });
     }
 }
