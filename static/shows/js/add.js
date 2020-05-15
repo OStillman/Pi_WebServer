@@ -60,7 +60,7 @@ let submitTasks = {
     },
     getDayValue: function(day_name){
         console.info(day_name);
-        let days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+        let days = ["Blank", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "N/A"];
         return [days.indexOf(day_name)];
     },
     submitCheck: function(length){
