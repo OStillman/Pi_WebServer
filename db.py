@@ -133,8 +133,11 @@ class FetchTVOD:
         WHERE ShowDays.show_id = ?;''', (show_id, ))
         fetched_days = day_cursor.fetchall()
         days = []
-        for day in fetched_days:
-            days.append(day[0])
+        if fetched_days:
+            for day in fetched_days:
+                days.append(day[0])
+        else:
+            days.append("N/A")
         return days
 
 class FetchTags:
@@ -302,18 +305,19 @@ class AddShow:
         ''', (self.show_data['name'], self.show_data['service'], self.show_data['time'], self.show_data['duration']))
 
     def insertDays(self):
-        for day in self.show_data['days']:
-            #print(day, file=sys.stderr)
-            self.cursor.execute('''
-            INSERT INTO ShowDays(
-                show_id,
-                day_id
-            )
-            values(
-                ?,
-                ?
-            );
-            ''', (self.show_id, day))
+        if not self.show_data['days'] == "N/A":
+            for day in self.show_data['days']:
+                #print(day, file=sys.stderr)
+                self.cursor.execute('''
+                INSERT INTO ShowDays(
+                    show_id,
+                    day_id
+                )
+                values(
+                    ?,
+                    ?
+                );
+                ''', (self.show_id, day))
 
     def insertTags(self):
         for tag in self.show_data['tags']:
