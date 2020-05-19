@@ -5,6 +5,7 @@ let begin_tags = {
     }
 }
 
+
 let GetShowsWithTag = {
     init: function(tag){
         let these_shows = this.sortThroughData(od_data.Planner.Shows, tag);
@@ -67,6 +68,7 @@ let GetShowsWithTag = {
 let tag_bindings = {
     init: function(){
         this.tagClick();
+        this.tagElementSwipe();
     },
     tagClick: function(){
         $("section.one div.tags").on("click", "span", function(){
@@ -82,4 +84,15 @@ let tag_bindings = {
             }
         });
     },
+    tagElementSwipe: function(){
+        /*
+        document.addEventListener('swiped-left', function(e){
+            console.log(e.target);
+        })
+        */
+       $("section.one div.show_output table").on('swiped-left', 'tr', function(){
+           console.log("They've swiped a event");
+           alert("swipe")
+       });
+    }
 };
