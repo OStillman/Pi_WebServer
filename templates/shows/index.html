@@ -15,7 +15,6 @@
     <script src="/static/shows/js/main_today.js"></script>
     <script src="/static/shows/js/main_tags.js"></script>
     <script src="/static/shows/js/main_all.js"></script>
-    <script src="/static/shows/js/swiped-events.min.js"></script>
     <script>
         begin.init();
         let today_data = {{ today_shows | tojson }};
@@ -38,13 +37,7 @@
             <div class="show_output">
                 <table>
                     <tbody style="display: none;">
-                        <tr class="options">
-                            <td colspan="2">
-                                <span><img src="/static/shows/img/arrow.svg"></span>
-                                <span><img class="down" src="/static/shows/img/arrow.svg"></span>
-                                <span>...</span>
-                            </td>
-                        </tr>                        
+                                              
                     </tbody>
                 </table>
             </div>

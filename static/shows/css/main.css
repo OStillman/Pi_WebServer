@@ -160,19 +160,11 @@ section.one .show_output table tbody img.long{
     height: 25px;
 }
 
-section.one .show_output table tbody .options{
-    display: flex;
-    align-items: stretch;
-    justify-content: space-evenly;
+section.one .show_output table tbody tr::after{
+    content: '\2807';
+    font-size: 30px;
 }
 
-section.one .show_output table tbody .options img{
-    height: 20px;
-}
-
-section.one .show_output table tbody .options img.down{
-    transform: rotate(180deg);
-}
 
 section.three table{
     width: 95vw;
