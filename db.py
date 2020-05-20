@@ -77,9 +77,10 @@ class FetchTVOD:
         #self.shows = self.cursor.fetchall()
         #print(show1, file=sys.stderr)
         cursor = self.db.cursor()
-        cursor.execute(''' SELECT Shows.id, Shows.name, Shows.time, Shows.duration, channels.name as channel
+        cursor.execute(''' SELECT Shows.id, Shows.name, Shows.time, Shows.duration, channels.name as channel, Shows.watching, Shows.series, Shows.episode
         FROM Shows
-        INNER JOIN channels ON Shows.channel = channels.id; ''')
+        INNER JOIN channels ON Shows.channel = channels.id
+        ORDER BY Shows.watching DESC; ''')
         self.all_shows = cursor.fetchall()
 
     def AddRest(self):
@@ -89,7 +90,18 @@ class FetchTVOD:
             this_show_id = show[0]
             this_show_tags = self.GetTags(this_show_id)
             this_show_days = self.GetDays(this_show_id)
-            this_data = {"id": show[0], "name": show[1], "channel": show[4], "time": show[2], "duration": show[3], "days": this_show_days, "tags": this_show_tags}
+            this_data = {
+                "id": show[0], 
+                "name": show[1], 
+                "channel": show[4], 
+                "time": show[2], 
+                "duration": show[3], 
+                "days": this_show_days, 
+                "tags": this_show_tags,
+                "watching": show[5],
+                "series": show[6],
+                "episode": show[7]
+            }
             end_data["Planner"]["Shows"].append(this_data)
         self._shows = end_data
         self.ODShows(end_data)
@@ -209,15 +221,17 @@ class FetchOD:
         self._shows = shows
 
     def query(self):
-        self.cursor.execute('''SELECT Shows.name, Shows.duration, channels.name, days.name
+        self.cursor.execute('''SELECT Shows.name, Shows.duration, channels.name, days.name, Shows.watching
         FROM Shows
         INNER JOIN ShowDays ON Shows.id = ShowDays.show_id
         INNER JOIN days ON ShowDays.day_id = days.id
         INNER JOIN channels ON Shows.channel = channels.id
-        WHERE channels.id IN (8,9,10,11) OR days.name = "N/A";''')
+        WHERE channels.id IN (8,9,10,11) OR days.name = "N/A"
+        ORDER BY Shows.watching DESC;''')
         # end_data = {"Planner": {"Shows": []}}
         shows = {"Planner": {"ODShows": []}}
         for show in self.cursor.fetchall():
+            print(show, file=sys.stderr)
             shows['Planner']['ODShows'].append({"name": show[0], "duration": show[1], "service": show[2], "day": show[3]})
         #print(shows, file=sys.stderr)
         self._shows = shows
@@ -252,6 +266,8 @@ class AddShow:
         self.insertTags()
 
         self.db.commit()
+
+        self.db.close()
 
         '''
         INSERT INTO Shows(
@@ -356,12 +372,22 @@ class AddShow:
         )
         ''', (tag, ))
         return self.cursor.lastrowid
-        
-        
-        
-        
-        
 
 
+class UpdateProgress:
+    def __init__(self, show):
+        self.show = show
+        self.db = sqlite3.connect('DB/webserver.db')
+        self.cursor = self.db.cursor()
 
+        self.query(show)
 
+        self.db.commit()
+        self.db.close()
+
+    def query(self, show):
+        self.cursor.execute('''
+        UPDATE Shows
+        SET watching = ?, episode = ?, series = ?
+        WHERE id = ?;
+        ''', (show['watching'], show['episode'], show['series'], show['id'], ))
