@@ -132,13 +132,18 @@ section.add .elements .tags span.selected::after {
 }
 
 section.add .elements select,
-section.add .elements #time input {
+section.add .elements #time input,
+section.one div.edit input {
     background-color: #2c666e;
     color: white;
     width: 150px;
     border: none;
     margin-right: 10px;
     font-size: 20px;
+}
+
+section.one div.edit input{
+    text-align: center;
 }
 
 section.one div.tags span{
@@ -159,12 +164,6 @@ section.one .show_output table tbody img.long{
     width: 65px;
     height: 25px;
 }
-
-section.one .show_output table tbody tr::after{
-    content: '\2807';
-    font-size: 30px;
-}
-
 
 section.three table{
     width: 95vw;

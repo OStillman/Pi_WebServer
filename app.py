@@ -61,7 +61,7 @@ def add_shows():
         else:
             return json.dumps({'success': False}), 500, {'ContentType': 'application/json'}'''
 
-@app.route('/shows', methods=['GET', 'DELETE'])
+@app.route('/shows', methods=['GET', 'DELETE', 'PUT'])
 def shows():
     if request.method == 'DELETE':
         data = request.get_json(force=True)
@@ -69,6 +69,11 @@ def shows():
         db.DeleteShows(int(data['element']))
         #getJSON.remove_show(int(data['element']), data['type'], "shows")
         return json.dumps({'success': True}), 204, {'ContentType': 'application/json'}
+    elif request.method == 'PUT':
+        data = request.get_json(force=True)
+        print(data, file=sys.stderr)
+        db.UpdateProgress(data)
+        return json.dumps({'success': True}), 201, {'ContentType': 'application/json'}
     else:
         # Get All data
         data = getJSON.get_file("shows")
