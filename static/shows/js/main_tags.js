@@ -36,21 +36,48 @@ let GetShowsWithTag = {
     },
     displayShows: function(shows){
         for (let i = 0; i < shows.length; i++){
-            let this_class = "tall";
-            if (shows[i].channel == "BBC1" || shows[i].channel == "BBC2"){
-                this_class = "long";
-            }
-            else if (shows[i].channel == "ITV1" || shows[i].channel == "ITV2"){
-                this_class = "long";
-                shows[i].channel == "itv"
-            }
-            let opacity = 1;
-            if (shows[i].watching == "N"){
-                opacity = 0.7;
-            }
             $("section.one div.show_output table tbody").append(
-                `<tr style="opacity: ${opacity};" class="${shows[i].id}"><td>${shows[i].name}</td><td><img src='/static/shows/img/${shows[i].channel.toLowerCase()}.png' class=${this_class}></tr>`);
+                `<tr style="opacity: ${this.displayOpacity(shows[i].watching)};" class="${shows[i].id}"><td>${shows[i].name}</td><td>${this.displaySeasonEpisode(shows[i].series, shows[i].episode)}</td><td><img src='/static/shows/img/${shows[i].channel.toLowerCase()}.png' class=${this.getDisplayClass(shows[i])}></tr>`);
         }
+    },
+    getDisplayClass: function(show){
+        let this_class = "tall";
+        if (show.channel == "BBC1" || show.channel == "BBC2"){
+            this_class = "long";
+        }
+        else if (show.channel == "ITV1" || show.channel == "ITV2"){
+            this_class = "long";
+            //shows[i].channel == "itv"
+        }
+        return this_class
+    },
+    sortDisplayChannel: function(channel){
+        if (channel == "ITV1" || channel == "ITV2"){
+            return "ITV"
+        }
+        else{
+            return channel;
+        } 
+    },
+    displayOpacity: function(status){
+        let opacity = 1;
+        if (status == "N" || !status){
+            opacity = 0.7;
+        }
+        return opacity
+    },
+    displaySeasonEpisode: function(season, episode){
+        let output = ""
+        if (season){
+            output = `S${season}`;
+        }
+        if (episode){
+            if (output.length > 0){
+                output += " ";
+            }
+            output += `E${episode}`
+        }
+        return output;
     },
     tagAnimate: function(tag){
         $.when($("section.one div.tags .hide").fadeOut()).done(function(){
