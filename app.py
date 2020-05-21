@@ -8,6 +8,7 @@ import db
 import constants
 
 import show_fetch
+import door as door_actions
 
 app = Flask(__name__)
 
@@ -106,6 +107,15 @@ def shows():
 
 
         return render_template('shows/index.html', all_shows=all_shows, today_shows=today_shows, tags=all_tags, od_shows=od_shows)
+
+# Automation Routes
+
+@app.route('/door', methods=['POST'])
+def door():
+    data = request.get_json(force=True)
+    print(data, file=sys.stderr)
+    door_actions.DoorSensor(data)
+    return json.dumps({'success': True}), 201, {'ContentType': 'application/json'}
 
 
 
