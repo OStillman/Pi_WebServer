@@ -72,7 +72,7 @@ def shows():
         return json.dumps({'success': True}), 201, {'ContentType': 'application/json'}
     else:
         # Get All data
-        data = getJSON.get_file("shows")
+        #data = getJSON.get_file("shows")
         # Get shows on Today
         #shows_instance = show_fetch.DayFetch()
         #today_shows = shows_instance.shows  
