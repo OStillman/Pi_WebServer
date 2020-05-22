@@ -1,10 +1,10 @@
 import threading
-import constants
 from Hue import light_control as lights
 
 class DoorSensor:
-    def __init__(self, data):
+    def __init__(self, data, config):
         self.data = data
+        self.config = config
         if data['Sensor'] == "Front_Door":
             self.DoorToggle()
 
@@ -17,14 +17,14 @@ class DoorSensor:
     
     def DoorOpened(self):
         print("Door Open")
-        if not constants.__DevMode__:
-            on_thread = threading.Thread(target=lights.SimpleLightsToggle, args=("group", constants.hallway, True, constants.hallway_brightness))
-            off_motion_thread = threading.Thread(target=lights.SimpleLightsToggle, args=("motion_sensor", constants.motion_sensor_id, False))
+        if self.config['Devmode']['actions']:
+            on_thread = threading.Thread(target=lights.SimpleLightsToggle, args=(self.config, "group", self.config['LightSettings']['groups']['hallway'], True, self.config['LightSettings']['brightness']))
+            off_motion_thread = threading.Thread(target=lights.SimpleLightsToggle, args=(self.config, "motion_sensor", self.config['LightSettings']['motion_sensor']['id'], False))
             on_thread.start()
             off_motion_thread.start()
 
     def DoorClosed(self):
         print("Door Closed")
-        if not constants.__DevMode__:
-            off_thread = threading.Thread(target=lights.SimpleLightsToggle, args=("motion_sensor", constants.motion_sensor_id, True))
+        if self.config['Devmode']['actions']:
+            off_thread = threading.Thread(target=lights.SimpleLightsToggle, args=(self.config, "motion_sensor", self.config['LightSettings']['motion_sensor']['id'], True))
             off_thread.start()

@@ -5,10 +5,10 @@ import getJSON
 import sys
 import json
 import db
-import constants
 
 import show_fetch
 import door as door_actions
+import yaml
 
 app = Flask(__name__)
 
@@ -56,11 +56,6 @@ def add_shows():
 
         db.AddShow(data, tags)
         return json.dumps({'success': True}), 201, {'ContentType': 'application/json'}
-        
-        '''if getJSON.add_to_file(data, "shows", tags):
-            return json.dumps({'success': True}), 201, {'ContentType': 'application/json'}
-        else:
-            return json.dumps({'success': False}), 500, {'ContentType': 'application/json'}'''
 
 @app.route('/shows', methods=['GET', 'DELETE', 'PUT'])
 def shows():
@@ -112,16 +107,23 @@ def shows():
 
 @app.route('/door', methods=['POST'])
 def door():
+    global __CONFIG__
     data = request.get_json(force=True)
     print(data, file=sys.stderr)
-    door_actions.DoorSensor(data)
+    door_actions.DoorSensor(data, __CONFIG__)
     return json.dumps({'success': True}), 201, {'ContentType': 'application/json'}
 
 
-
+def loadYAML():
+    global __CONFIG__
+    config_file = open(file='constants.yaml', mode='r')
+    __CONFIG__ = yaml.load(config_file, Loader=yaml.FullLoader)
+    config_file.close()
 
 if __name__ == '__main__':
-    if constants.__DevMode__:
+    loadYAML()
+    global __CONFIG__
+    if  __CONFIG__["Devmode"]["setting"]:
         blinkt.clear()
         blinkt.set_pixel(0, 255, 0, 0)
         blinkt.show()
