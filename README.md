@@ -1,6 +1,6 @@
 # Local Web Server
 
-Overall Version: V0.2.5
+Overall Version: V1.0
 
 Project that will be hopefully used for control of the Pi away from the Terminal
 
@@ -21,7 +21,10 @@ Local meal planner to help with weekly meal planning inspiration
 Local show tracker to track all TV series currently being watched. Resolved issue of in-market apps using US show/release times which are normally ahead of UK
 
 ### Changelog
- - V0.3 - SQL Migration
+ - V1.2 (Patch)
+	- Code Tidy
+	- Fix Scroll issue with "all shows" table
+ - V1 - SQL Migration
  	- Migrate to SQL to make everything tidier in backend
  - V0.2 - User Centered
  	- Add 3 Screens:
