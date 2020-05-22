@@ -4,14 +4,13 @@ import json
 import threading
 #import logging_setup as log
 
-import constants
-
 class SimpleLightsToggle:
-    def __init__(self, type, id, on, brightness=None):
+    def __init__(self, config, type, id, on, brightness=None):
         self.type = type
         self.id = id
         self.brightness = brightness
         self.on = on
+        self.config = config
         self.setupURL()
         self.setupBody()
         self.runReq()
@@ -21,12 +20,12 @@ class SimpleLightsToggle:
 
     def setupURL(self):
         if self.type == "group":
-            self.url = "http://192.168.68.119/api/%s/groups/%s/action"%(constants.username, self.id)
+            self.url = "http://%s/api/%s/groups/%s/action"%(self.config["LightSettings"]["GeneralHue"]["url"], self.config["LightSettings"]["GeneralHue"]["username"], self.id)
         elif self.type == "motion_sensor":
-            self.url = "http://192.168.68.119/api/%s/sensors/%s/config"%(constants.username, self.id)
+            self.url = "http://%s/api/%s/sensors/%s/config"%(self.config["LightSettings"]["GeneralHue"]["url"], self.config["LightSettings"]["GeneralHue"]["username"], self.id)
 
     def setupBody(self):        
-        if self.type == "group" and self.id == constants.hallway:
+        if self.type == "group" and self.id == self.config["LightSettings"]["groups"]["hallway"]:
             self.body = json.dumps({"on": self.on, "bri": self.brightness}).encode('utf-8')
         if self.type == "motion_sensor":
             self.body = json.dumps({"on": self.on}).encode('utf-8')
