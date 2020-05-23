@@ -12,6 +12,7 @@ import yaml
 
 app = Flask(__name__)
 
+
 @app.route('/meals')
 def meals():
     # data = {"apples": 7, "cheese": 1};
@@ -107,23 +108,21 @@ def shows():
 
 @app.route('/door', methods=['POST'])
 def door():
-    global __CONFIG__
     data = request.get_json(force=True)
     print(data, file=sys.stderr)
-    door_actions.DoorSensor(data, __CONFIG__)
+    door_actions.DoorSensor(data, loadYAML())
     return json.dumps({'success': True}), 201, {'ContentType': 'application/json'}
 
 
 def loadYAML():
-    global __CONFIG__
     config_file = open(file='constants.yaml', mode='r')
-    __CONFIG__ = yaml.load(config_file, Loader=yaml.FullLoader)
+    config = yaml.load(config_file, Loader=yaml.FullLoader)
     config_file.close()
+    return config
 
 if __name__ == '__main__':
-    loadYAML()
-    global __CONFIG__
-    if  __CONFIG__["Devmode"]["setting"]:
+    config = loadYAML()
+    if  config["Devmode"]["setting"]:
         blinkt.clear()
         blinkt.set_pixel(0, 255, 0, 0)
         blinkt.show()
