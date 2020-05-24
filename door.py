@@ -38,5 +38,3 @@ class DoorSensor:
         page_token = facebook_settings['tokens']['page_token']
         url = facebook_settings['general']['url']
         messenger_notify.Notify("Door Opened", recipient=recipient, page_token=page_token, url=url)
-        #messenger_notify.respond("Test")
-        #messenger_notify.Notify("Door Opened", "3149380791778747", "EAAEGY9jMpzwBACtsIMLr53GeBwLe0TbaIxIuPsjlmmV574bGdIRfZALXBOUjwmAPeVyGYgBUScUNmJdhaRfFDNZBfQEgnZAGvZAUpGkJ66dHRmL5JGVet7UWrIcpAQZCGIpCQOtfd7i5XTpM7ZBfcgiIgv1bnLS629ScAMNggX6NZCZC7tuiBtBZBe5H142mbdTwZD", "https://graph.facebook.com/v2.6/me/messages")
