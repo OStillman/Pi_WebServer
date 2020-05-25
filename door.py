@@ -1,6 +1,6 @@
 import threading
 from Hue import light_control as lights
-import messenger_notify
+import notify
 
 class DoorSensor:
     def __init__(self, data, config):
@@ -33,8 +33,8 @@ class DoorSensor:
             off_thread.start()
 
     def notify(self):
-        facebook_settings = self.config['FacebookSettings']
-        recipient = facebook_settings['receiver']['id']
-        page_token = facebook_settings['tokens']['page_token']
-        url = facebook_settings['general']['url']
-        messenger_notify.Notify("Door Opened", recipient=recipient, page_token=page_token, url=url)
+        pushoverSettings = self.config['PushoverSettings']
+        url = pushoverSettings['general']['url']
+        user_key = pushoverSettings['tokens']['user_key']
+        app_token = pushoverSettings['tokens']['app_token']
+        notify.Notify(url, app_token, user_key, "ALERT: Door Open")
