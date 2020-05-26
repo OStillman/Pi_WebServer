@@ -6,7 +6,6 @@ import sys
 import json
 import db
 
-import show_fetch
 import door as door_actions
 import yaml
 
@@ -112,6 +111,15 @@ def door():
     print(data, file=sys.stderr)
     door_actions.DoorSensor(data, loadYAML())
     return json.dumps({'success': True}), 201, {'ContentType': 'application/json'}
+
+
+@app.route('/dailyshow')
+def dailyShow():
+    print("Recieved Daily Show Request")
+    FetchToday = db.FetchToday()
+    today_shows = FetchToday.shows
+    print(today_shows)
+    return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
 
 def loadYAML():
