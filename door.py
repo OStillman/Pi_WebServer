@@ -33,8 +33,4 @@ class DoorSensor:
             off_thread.start()
 
     def notify(self):
-        pushoverSettings = self.config['PushoverSettings']
-        url = pushoverSettings['general']['url']
-        user_key = pushoverSettings['tokens']['user_key']
-        app_token = pushoverSettings['tokens']['app_token']
-        notify.Notify(url, app_token, user_key, "ALERT: Door Open")
+        notify.Notify("ALERT: Door Open", "Door Opened")

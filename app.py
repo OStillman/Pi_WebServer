@@ -5,8 +5,9 @@ import getJSON
 import sys
 import json
 import db
-
 import door as door_actions
+import dailyshow as ds
+
 import yaml
 
 app = Flask(__name__)
@@ -115,18 +116,15 @@ def door():
 
 @app.route('/dailyshow')
 def dailyShow():
-    print("Recieved Daily Show Request")
-    FetchToday = db.FetchToday()
-    today_shows = FetchToday.shows
-    print(today_shows)
-    return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
+    ds.ActionDailyShows()
+    return ('', 200)
 
 
 def loadYAML():
     config_file = open(file='constants.yaml', mode='r')
     config = yaml.load(config_file, Loader=yaml.FullLoader)
     config_file.close()
-    return config
+    return (config)
 
 if __name__ == '__main__':
     config = loadYAML()
