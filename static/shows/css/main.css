@@ -165,9 +165,23 @@ section.one .show_output table tbody img.long{
     height: 25px;
 }
 
+section.three{
+    max-height: 100vh;
+    margin: auto;
+}
+
 section.three table{
+    display: inline-block;
     width: 95vw;
+    max-height: 100vh;
+    overflow-y: scroll;
+    padding-top: 10%;
     user-select: none;
+    table-layout: fixed;
+}
+
+section.three table th, section.three table td{
+    word-wrap: break-word;
 }
 
 section.three table th.active{

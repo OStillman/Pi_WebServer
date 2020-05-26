@@ -1,6 +1,6 @@
 # Local Web Server
 
-Overall Version: V1.0
+Overall Version: V1.3
 
 Project that will be hopefully used for control of the Pi away from the Terminal
 
@@ -21,6 +21,9 @@ Local meal planner to help with weekly meal planning inspiration
 Local show tracker to track all TV series currently being watched. Resolved issue of in-market apps using US show/release times which are normally ahead of UK
 
 ### Changelog
+ - V1.3 (Patch)
+	- Daily Notification URL for Flask - ready for use with Daily Systemd timer
+	- Fix scroll issue on "all shows" table where table would appear on "What's on today" screen
  - V1.2 (Patch)
 	- Code Tidy
 	- Fix Scroll issue with "all shows" table
@@ -40,6 +43,7 @@ Local show tracker to track all TV series currently being watched. Resolved issu
  - View all current shows
 	- Includes Title, Duration, Service, Release Day/Time (if required)
  - Add new show
+ - Daily reminder URL for Systemd daily run (e.g. at 7pm) to summarise what's on tonight
  
 
 
