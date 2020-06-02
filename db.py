@@ -3,7 +3,7 @@ import sys
 import datetime
 
 class FetchToday:
-    def __init__(self, shows=None):
+    def __init__(self, shows=None, count=None):
         self.db = sqlite3.connect('DB/webserver.db')
         self.cursor = self.db.cursor()
         self.query()
@@ -19,6 +19,14 @@ class FetchToday:
     def shows(self, show):
         self._shows = show
 
+    @property
+    def count(self):
+        return self._count
+
+    @count.setter
+    def count(self, count):
+        self._count = count
+
     def query(self):
         today = self.getDay() + 1
         #print (today, file=sys.stderr)
@@ -33,6 +41,7 @@ class FetchToday:
 
     def sortData(self):
         sorted_data = {"planner": {"19": [], "20": [], "21": [], "22": []}}
+        self.count = len(self.shows) -1
         for show in self.shows:
             #print(show, file=sys.stderr)
             this_data = {"name": show[0], "duration": show[1], "time": show[2], "channel": show[3]}
