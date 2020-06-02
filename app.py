@@ -138,4 +138,4 @@ if __name__ == '__main__':
         blinkt.clear()
         blinkt.set_pixel(0, 255, 0, 0)
         blinkt.show()
-    app.run(debug=True, host='0.0.0.0', port=3000)
+    app.run(debug=True, host='0.0.0.0')

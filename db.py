@@ -41,7 +41,7 @@ class FetchToday:
 
     def sortData(self):
         sorted_data = {"planner": {"19": [], "20": [], "21": [], "22": []}}
-        self.count = len(self.shows) -1
+        self.count = len(self.shows)
         for show in self.shows:
             #print(show, file=sys.stderr)
             this_data = {"name": show[0], "duration": show[1], "time": show[2], "channel": show[3]}
