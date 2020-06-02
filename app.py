@@ -7,6 +7,7 @@ import json
 import db
 import door as door_actions
 import dailyshow as ds
+import ghome as assistant
 
 import yaml
 
@@ -119,6 +120,11 @@ def dailyShow():
     ds.ActionDailyShows()
     return ('', 200)
 
+@app.route('/ghome')
+def ghome():
+    HandleRequest = assistant.HandleRequest()
+    return HandleRequest.response, 200, {'ContentType':'application/json'} 
+
 
 def loadYAML():
     config_file = open(file='constants.yaml', mode='r')
@@ -132,4 +138,4 @@ if __name__ == '__main__':
         blinkt.clear()
         blinkt.set_pixel(0, 255, 0, 0)
         blinkt.show()
-    app.run(debug=True, host='0.0.0.0')
+    app.run(debug=True, host='0.0.0.0', port=3000)
