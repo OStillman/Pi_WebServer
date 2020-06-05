@@ -105,6 +105,10 @@ def shows():
 
         return render_template('shows/index.html', all_shows=all_shows, today_shows=today_shows, tags=all_tags, od_shows=od_shows)
 
+@app.route('/photos')
+def photos():
+    return 'ok'
+
 # Automation Routes
 
 @app.route('/door', methods=['POST'])
