@@ -107,7 +107,7 @@ def shows():
 
 @app.route('/photos')
 def photos():
-    return 'ok'
+    return render_template('photos/index.html')
 
 # Automation Routes
 
