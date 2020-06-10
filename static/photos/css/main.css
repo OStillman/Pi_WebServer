@@ -26,14 +26,16 @@ section.directory_view section.directory_grid{
 	max-width: 100vw;
 }
 
-section.directory_view section.directory_grid div.folder{
-	background-image: url("/static/photos/img/folder.png");
-	background-size: contain;
-	background-repeat: no-repeat;
+section.directory_view section.directory_grid div{
+	text-align: center;
+}
+
+section.directory_view section.directory_grid div.folder img{
+	height: 50px;
+	width: 50px;
 }
 
 section.directory_view section.directory_grid div.folder p{
-	text-align: center;
-	padding-top: 20px;
+	margin-top: 0;
 }
 

@@ -10,70 +10,23 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
-    <p class="breadcrumb">Photos/</p>
+    <p class="breadcrumb">{{directory}}</p>
     
     <section class="directory_view">
         <section class="directory_grid">
-            <div class="folder">
-                <p>2020</p>
-            </div>
-            <div class="folder">
-                <p>2020</p>
-            </div>
-            <div class="folder">
-                <p>2020</p>
-            </div>
-            <div class="folder">
-                <p>2020</p>
-            </div>
-            <div class="folder">
-                <p>2020</p>
-            </div>
-            <div class="folder">
-                <p>2020</p>
-            </div>
-            <div class="folder">
-                <p>2020</p>
-            </div>
-            <div class="folder">
-                <p>2020</p>
-            </div>
-            <div class="folder">
-                <p>2020</p>
-            </div>
-            <div class="folder">
-                <p>2020</p>
-            </div>
-            <div class="folder">
-                <p>2020</p>
-            </div>
-            <div class="folder">
-                <p>2020</p>
-            </div>
-            <div class="folder">
-                <p>2020</p>
-            </div>
-            <div class="folder">
-                <p>2020</p>
-            </div>
-            <div class="folder">
-                <p>2020</p>
-            </div>
-            <div class="folder">
-                <p>2020</p>
-            </div>
-            <div class="folder">
-                <p>2020</p>
-            </div>
-            <div class="folder">
-                <p>2020</p>
-            </div>
-            <div class="folder">
-                <p>2020</p>
-            </div>
-            <div class="folder">
-                <p>2020</p>
-            </div>
+            {% for item in contents.directory.contents %}
+                {%if item.is_directory %}
+                    <div class="folder">
+                        <img src="/static/photos/img/folder.png">
+                        <p>{{item.name}}</p>
+                    </div>
+                {% else %}
+                    <div class="item">
+                        <img src="/static/photos/img/folder.png">
+                        <p>{{item.name}}</p>
+                    </div>
+                {% endif %}
+            {% endfor %}
         </section>
     </section>
 </body>

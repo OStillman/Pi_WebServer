@@ -8,6 +8,7 @@ import db
 import door as door_actions
 import dailyshow as ds
 import ghome as assistant
+from Photos import viewContents
 
 import yaml
 
@@ -107,7 +108,10 @@ def shows():
 
 @app.route('/photos')
 def photos():
-    return render_template('photos/index.html')
+    ViewContents = viewContents.ViewContents()
+    contents = ViewContents.contents
+    directory = ViewContents.location
+    return render_template('photos/index.html', contents=contents, directory=directory)
 
 # Automation Routes
 
