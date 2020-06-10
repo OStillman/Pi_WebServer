@@ -15,7 +15,12 @@
     <section class="directory_view">
         <section class="directory_grid">
             {% for item in contents.directory.contents %}
-                {%if item.is_directory %}
+                {% if item.is_parent %}
+                    <div class="folder">
+                        <img src="/static/photos/img/up_folder.png">
+                        <p>{{item.name}}</p>
+                    </div>
+                {% elif item.is_directory %}
                     <div class="folder">
                         <img src="/static/photos/img/folder.png">
                         <p>{{item.name}}</p>

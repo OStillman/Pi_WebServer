@@ -106,9 +106,18 @@ def shows():
 
         return render_template('shows/index.html', all_shows=all_shows, today_shows=today_shows, tags=all_tags, od_shows=od_shows)
 
-@app.route('/photos')
-def photos():
-    ViewContents = viewContents.ViewContents()
+@app.route('/photos', defaults={'path': None})
+@app.route("/photos/<path:path>")
+def photos(path):
+    if not path:
+        return renderDirectory()   
+    else:
+        path = "Photos/{}/".format(path)
+        print(path)
+        return renderDirectory(path)
+
+def renderDirectory(path=None):
+    ViewContents = viewContents.ViewContents(path)
     contents = ViewContents.contents
     directory = ViewContents.location
     return render_template('photos/index.html', contents=contents, directory=directory)
