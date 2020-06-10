@@ -35,6 +35,11 @@ section.directory_view section.directory_grid div.folder img{
 	width: 50px;
 }
 
+section.directory_view section.directory_grid div.item img{
+	height: 60px;
+	width: 60px;
+}
+
 section.directory_view section.directory_grid div.folder p{
 	margin-top: 0;
 }

@@ -45,10 +45,10 @@ class ViewContents():
     def sortContents(self):
         end_data = {"directory": {"contents": []}}
         if len(self.contents) > 0:
+            if len(self.parent) > 0:
+                    end_data['directory']['contents'].append({"name": self.parent, "is_directory": True, "is_parent": True})
             for file in self.contents:
                 is_directory = True
-                if len(self.parent) > 0:
-                    end_data['directory']['contents'].append({"name": self.parent, "is_directory": True, "is_parent": True})
                 if "." in file:
                     is_directory = False
                 end_data['directory']['contents'].append({"name": file, "is_directory": is_directory, "is_parent": False})

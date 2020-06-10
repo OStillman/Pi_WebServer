@@ -27,8 +27,7 @@
                     </div>
                 {% else %}
                     <div class="item">
-                        <img src="/static/photos/img/folder.png">
-                        <p>{{item.name}}</p>
+                        <img src="/static/photos/img/{{directory}}{{item.name}}">
                     </div>
                 {% endif %}
             {% endfor %}

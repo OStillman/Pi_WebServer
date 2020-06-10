@@ -120,6 +120,7 @@ def renderDirectory(path=None):
     ViewContents = viewContents.ViewContents(path)
     contents = ViewContents.contents
     directory = ViewContents.location
+    print(contents)
     return render_template('photos/index.html', contents=contents, directory=directory)
 
 # Automation Routes
