@@ -1,4 +1,6 @@
-from flask import Flask, render_template, request
+from flask import Flask, flash, redirect, url_for, render_template, request
+
+import os
 import blinkt
 
 import getJSON
@@ -9,11 +11,11 @@ import door as door_actions
 import dailyshow as ds
 import ghome as assistant
 from Photos import viewContents
+from Photos import upload
 
 import yaml
 
 app = Flask(__name__)
-
 
 @app.route('/meals')
 def meals():
@@ -106,15 +108,26 @@ def shows():
 
         return render_template('shows/index.html', all_shows=all_shows, today_shows=today_shows, tags=all_tags, od_shows=od_shows)
 
-@app.route('/photos', defaults={'path': None})
+@app.route('/photos', defaults={'path': None}, methods=["GET", "POST"])
 @app.route("/photos/<path:path>")
 def photos(path):
-    if not path:
-        return renderDirectory()   
+    if request.method == "GET":
+        if not path:
+            return renderDirectory()   
+        else:
+            path = "Photos/{}/".format(path)
+            print(path)
+            return renderDirectory(path)
     else:
-        path = "Photos/{}/".format(path)
-        print(path)
-        return renderDirectory(path)
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['file']
+        if upload.Upload(file).tempStore():
+            return 'ok'
+        else:
+            return 'Nope'
 
 def renderDirectory(path=None):
     ViewContents = viewContents.ViewContents(path)
