@@ -125,7 +125,8 @@ def photos(path):
             return redirect(request.url)
         file = request.files['file']
         if upload.Upload(file).tempStore():
-            return 'ok'
+            upload.PictureActions(file.filename).completeUpload()
+            return redirect(request.url)
         else:
             return 'Nope'
 
