@@ -2,6 +2,8 @@ from werkzeug.utils import secure_filename
 from exif import Image
 import os
 import shutil
+import glob
+from PIL import Image as PIL_Image
 
 class Upload:
     def __init__(self, file):
@@ -27,15 +29,41 @@ class Upload:
 
 
 class PictureActions:
-    def __init__(self, filename):
-        self.filename = filename
-        self.setUpImg()
+    def __init__(self, imageList):
+        self.imageList = imageList
+        self.processImages()
+        #self.setUpImg()
         #datetime = self.getDT()
+
+    def processImages(self):
+        for file in self.imageList:
+            print(file)
+            self.filename = file
+            self.setUpImg()
+            self.create_thumbnail()
+
+        #for infile in glob.glob("./static/photos/img/tmp/*.*"):
+        #    file, ext = os.path.splitext(infile)
+        #    print(file)
+        #   print(ext)
+        #    self.checkOrienation()
+        #    im = PIL_Image.open(infile)
+        #    im.thumbnail(size, PIL_Image.ANTIALIAS)
+        #    im.save(file + (".thumbnail{}").format(ext))
 
     def setUpImg(self):
         upload_folder = 'static/photos/img/tmp'
         with open(os.path.join(upload_folder, self.filename), 'rb') as image_file:
                 self.my_image = Image(image_file)
+
+    def create_thumbnail(self):
+        size = 128, 128
+        upload_folder = 'static/photos/img/tmp'
+        file = self.filename.split(".")[0]
+        ext = ".{}".format(self.filename.split(".")[1])
+        im = PIL_Image.open(os.path.join(upload_folder, self.filename))
+        im.thumbnail(size, PIL_Image.ANTIALIAS)
+        im.save(file + (".thumbnail{}").format(ext))
 
     def completeUpload(self):
         datetime = self.getDT()

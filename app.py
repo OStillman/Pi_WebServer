@@ -123,12 +123,24 @@ def photos(path):
         if 'file' not in request.files:
             flash('No file part')
             return redirect(request.url)
-        file = request.files['file']
-        if upload.Upload(file).tempStore():
-            upload.PictureActions(file.filename).completeUpload()
+        #file = request.files['file']
+        all_photos = request.files.getlist("file")
+        upload_succeeded = True
+        photo_list = []
+        for photo in all_photos:
+            photo_list.append(photo.filename)
+            if not upload.Upload(photo).tempStore():
+                upload_succeeded = False
+        if upload_succeeded:
+            upload.PictureActions(photo_list)
             return redirect(request.url)
         else:
-            return 'Nope'
+            return "Nope"
+        #if upload.Upload(file).tempStore():
+            #upload.PictureActions(file.filename).completeUpload()
+        #    return redirect(request.url)
+        #else:
+        #    return 'Nope'
 
 def renderDirectory(path=None):
     ViewContents = viewContents.ViewContents(path)
