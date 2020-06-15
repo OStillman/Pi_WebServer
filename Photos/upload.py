@@ -4,6 +4,7 @@ import os
 import shutil
 import glob
 from PIL import Image as PIL_Image
+from PIL.ExifTags import TAGS
 
 class Upload:
     def __init__(self, file):
@@ -55,6 +56,9 @@ class PictureActions:
         upload_folder = 'static/photos/img/tmp'
         with open(os.path.join(upload_folder, self.filename), 'rb') as image_file:
                 self.my_image = Image(image_file)
+        i = PIL_Image.open(os.path.join(upload_folder, self.filename))
+        info = i._getexif()
+        self.image_orientation = ({TAGS.get(tag): value for tag, value in info.items()})['Orientation']
 
     def create_thumbnail(self):
         size = 128, 128
@@ -63,7 +67,20 @@ class PictureActions:
         ext = ".{}".format(self.filename.split(".")[1])
         im = PIL_Image.open(os.path.join(upload_folder, self.filename))
         im.thumbnail(size, PIL_Image.ANTIALIAS)
-        im.save(file + (".thumbnail{}").format(ext))
+        im = self.checkRotation(im)
+        im.save(("{}/{}.thumbnail{}").format(upload_folder, file, ext))
+
+    def checkRotation(self, image):
+        print(self.image_orientation)
+        if self.image_orientation == 3:
+            image=image.rotate(180, expand=True)
+        elif self.image_orientation == 6:
+            image=image.rotate(270, expand=True)
+        elif self.image_orientation == 8:
+            image=image.rotate(90, expand=True)
+        return image
+
+
 
     def completeUpload(self):
         datetime = self.getDT()
