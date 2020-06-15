@@ -42,6 +42,7 @@ class PictureActions:
             self.filename = file
             self.setUpImg()
             self.create_thumbnail()
+            self.completeUpload()
 
         #for infile in glob.glob("./static/photos/img/tmp/*.*"):
         #    file, ext = os.path.splitext(infile)
@@ -89,6 +90,14 @@ class PictureActions:
         new_name = self.newName(datetime, self.filename)
         new_dir = self.newDir(year, month)
         self.move(new_dir, self.filename, new_name)
+        self.move_thumbnail(new_dir, new_name)
+
+    def move_thumbnail(self, new_dir, new_name):
+        split_name = self.filename.split(".")
+        thumbnail = "{}.thumbnail.{}".format(split_name[0], split_name[1])
+        split_new_name = new_name.split(".")
+        thumbnail_new = "{}.thumbnail.{}".format(split_new_name[0], split_new_name[1])
+        self.move(new_dir, thumbnail, thumbnail_new)
 
     def getDT(self):
         return self.my_image.datetime_original

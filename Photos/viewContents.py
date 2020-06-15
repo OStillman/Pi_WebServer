@@ -46,12 +46,15 @@ class ViewContents():
         end_data = {"directory": {"contents": []}}
         if len(self.contents) > 0:
             if len(self.parent) > 0:
-                    end_data['directory']['contents'].append({"name": self.parent, "is_directory": True, "is_parent": True})
+                    end_data['directory']['contents'].append({"name": self.parent, "is_directory": True, "is_parent": True, "is_thumbnail": False})
             for file in self.contents:
                 is_directory = True
+                is_thumbnail = False
                 if "." in file:
                     is_directory = False
-                end_data['directory']['contents'].append({"name": file, "is_directory": is_directory, "is_parent": False})
+                    if ".thumbnail" in file:
+                        is_thumbnail = True
+                end_data['directory']['contents'].append({"name": file, "is_directory": is_directory, "is_parent": False, "is_thumbnail": is_thumbnail})
             #print(end_data)
             self.contents = end_data
         else:

@@ -30,9 +30,11 @@
                         <p>{{item.name}}</p>
                     </div>
                 {% else %}
+                    {% if item.is_thumbnail %}
                     <div class="item">
                         <img src="/static/photos/img/{{directory}}{{item.name}}">
                     </div>
+                    {% endif %}
                 {% endif %}
             {% endfor %}
         </section>
