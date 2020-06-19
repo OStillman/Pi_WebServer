@@ -46,7 +46,7 @@
                             </a>
                         </div>
                     {% else %}
-                        {% if item.is_thumbnail %}
+                        {% if item.is_thumbnail or "Error" in directory %}
                         <div class="item">
                             <img src="/static/photos/img/{{directory}}{{item.name}}">
                         </div>

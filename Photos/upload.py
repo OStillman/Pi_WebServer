@@ -37,13 +37,21 @@ class PictureActions:
         #datetime = self.getDT()
 
     def processImages(self):
+        errors_present = False
         for file in self.imageList:
             print(file)
             self.filename = file
-            self.setUpImg()
-            self.create_thumbnail()
-            self.completeUpload()
-        return True
+            try:
+                self.setUpImg()
+                self.create_thumbnail()
+                self.completeUpload()
+            except:
+                self.move("static/photos/img/Photos/Error", self.filename, self.filename)
+                errors_present = True         
+        if errors_present:
+            return False
+        else:
+            return True
 
         #for infile in glob.glob("./static/photos/img/tmp/*.*"):
         #    file, ext = os.path.splitext(infile)
