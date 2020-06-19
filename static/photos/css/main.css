@@ -44,3 +44,8 @@ section.directory_view section.directory_grid div.folder p{
 	margin-top: 0;
 }
 
+
+section.directory_view section.directory_grid a{
+	text-decoration: none;
+	color: inherit;
+}

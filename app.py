@@ -108,8 +108,8 @@ def shows():
 
         return render_template('shows/index.html', all_shows=all_shows, today_shows=today_shows, tags=all_tags, od_shows=od_shows)
 
-@app.route('/photos', defaults={'path': None}, methods=["GET", "POST"])
-@app.route("/photos/<path:path>")
+@app.route('/Photos', defaults={'path': None}, methods=["GET", "POST"])
+@app.route("/Photos/<path:path>")
 def photos(path):
     if request.method == "GET":
         if not path:
