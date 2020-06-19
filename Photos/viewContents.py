@@ -54,8 +54,11 @@ class ViewContents():
                     is_directory = False
                     if ".thumbnail" in file:
                         is_thumbnail = True
-                end_data['directory']['contents'].append({"name": file, "is_directory": is_directory, "is_parent": False, "is_thumbnail": is_thumbnail})
+                if file != "Error":
+                    end_data['directory']['contents'].append({"name": file, "is_directory": is_directory, "is_parent": False, "is_thumbnail": is_thumbnail})
             #print(end_data)
+            if len(self.parent) == 0:
+                end_data['directory']['contents'].append({"name": "Error", "is_directory": True, "is_parent": False, "is_thumbnail": False})
             self.contents = end_data
         else:
             self.contents = None
