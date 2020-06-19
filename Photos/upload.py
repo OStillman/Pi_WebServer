@@ -24,7 +24,7 @@ class Upload:
 
 
     def allowed_file(self, filename):
-        ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+        ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
         return '.' in filename and \
             filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
@@ -32,7 +32,7 @@ class Upload:
 class PictureActions:
     def __init__(self, imageList):
         self.imageList = imageList
-        self.processImages()
+        #self.processImages()
         #self.setUpImg()
         #datetime = self.getDT()
 
@@ -43,6 +43,7 @@ class PictureActions:
             self.setUpImg()
             self.create_thumbnail()
             self.completeUpload()
+        return True
 
         #for infile in glob.glob("./static/photos/img/tmp/*.*"):
         #    file, ext = os.path.splitext(infile)

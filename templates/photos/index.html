@@ -15,6 +15,13 @@
 </head>
 <body>
     <p class="breadcrumb">{{directory}}</p>
+    {% if upload_status == True %}
+        <p>File(s) Uploaded Successfully</p>
+    {% elif upload_status == False %}
+        <p>File(s) Failed to Upload</p>
+    {% elif upload_status == "Error" %}
+        <p>Errors in Files - Saved in Error</p>
+    {% endif %}
     <form method=post action="/Photos" enctype=multipart/form-data>
         <input type=file name=file multiple="">
         <input type=submit value=Upload>

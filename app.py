@@ -113,11 +113,11 @@ def shows():
 def photos(path):
     if request.method == "GET":
         if not path:
-            return renderDirectory()   
+            return renderDirectory(None)   
         else:
             path = "Photos/{}/".format(path)
             print(path)
-            return renderDirectory(path)
+            return renderDirectory(None, path)
     else:
         # check if the post request has the file part
         if 'file' not in request.files:
@@ -132,22 +132,24 @@ def photos(path):
             if not upload.Upload(photo).tempStore():
                 upload_succeeded = False
         if upload_succeeded:
-            upload.PictureActions(photo_list)
-            return redirect(request.url)
+            if upload.PictureActions(photo_list).processImages():
+                return renderDirectory(True)
+            else:
+                return renderDirectory("Error")
         else:
-            return "Nope"
+            return renderDirectory(False)
         #if upload.Upload(file).tempStore():
             #upload.PictureActions(file.filename).completeUpload()
         #    return redirect(request.url)
         #else:
         #    return 'Nope'
 
-def renderDirectory(path=None):
+def renderDirectory(upload_status, path=None):
     ViewContents = viewContents.ViewContents(path)
     contents = ViewContents.contents
     directory = ViewContents.location
     print(contents)
-    return render_template('photos/index.html', contents=contents, directory=directory)
+    return render_template('photos/index.html', contents=contents, directory=directory, upload_status=upload_status)
 
 # Automation Routes
 
