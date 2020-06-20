@@ -19,8 +19,8 @@ p.breadcrumb{
 
 section.directory_view section.directory_grid{
 	display: grid;
-	grid: '. . . . . . . .';
-	grid-gap: 10px;
+	grid-template-columns: repeat( auto-fit, minmax(90px, 1fr) );
+	grid-row-gap: 20px;
 	height: auto;
 	padding: 0 20px;
 	max-width: 100vw;
@@ -37,6 +37,7 @@ section.directory_view section.directory_grid div.folder img{
 
 section.directory_view section.directory_grid div.item img{
 	max-height: 80px;
+	max-width: 80px;
 }
 
 section.directory_view section.directory_grid div.folder p{
