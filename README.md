@@ -45,6 +45,16 @@ Local show tracker to track all TV series currently being watched. Resolved issu
  - Add new show
  - Daily reminder URL for Systemd daily run (e.g. at 7pm) to summarise what's on tonight
  
+## Photo Backup Server
+Local Photo backup server to keep full-quality photo backups of good images. 
+
+Trying to resolve the issue of relying on Google Photos to store photos as this reduces the quality...
+
+#Change Log
+ - V0.1
+ 	- Initial Release
+ 	- Limited release includes Photo uploading, Error photos go into Error. Future development planned
+ 
 
 
 
