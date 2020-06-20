@@ -1,4 +1,6 @@
-from flask import Flask, render_template, request
+from flask import Flask, flash, redirect, url_for, render_template, request
+
+import os
 import blinkt
 
 import getJSON
@@ -8,11 +10,12 @@ import db
 import door as door_actions
 import dailyshow as ds
 import ghome as assistant
+from Photos import viewContents
+from Photos import upload
 
 import yaml
 
 app = Flask(__name__)
-
 
 @app.route('/meals')
 def meals():
@@ -104,6 +107,49 @@ def shows():
 
 
         return render_template('shows/index.html', all_shows=all_shows, today_shows=today_shows, tags=all_tags, od_shows=od_shows)
+
+@app.route('/Photos', defaults={'path': None}, methods=["GET", "POST"])
+@app.route("/Photos/<path:path>")
+def photos(path):
+    if request.method == "GET":
+        if not path:
+            return renderDirectory(None)   
+        else:
+            path = "Photos/{}/".format(path)
+            print(path)
+            return renderDirectory(None, path)
+    else:
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        #file = request.files['file']
+        all_photos = request.files.getlist("file")
+        upload_succeeded = True
+        photo_list = []
+        for photo in all_photos:
+            photo_list.append(photo.filename)
+            if not upload.Upload(photo).tempStore():
+                upload_succeeded = False
+        if upload_succeeded:
+            if upload.PictureActions(photo_list).processImages():
+                return renderDirectory(True)
+            else:
+                return renderDirectory("Error")
+        else:
+            return renderDirectory(False)
+        #if upload.Upload(file).tempStore():
+            #upload.PictureActions(file.filename).completeUpload()
+        #    return redirect(request.url)
+        #else:
+        #    return 'Nope'
+
+def renderDirectory(upload_status, path=None):
+    ViewContents = viewContents.ViewContents(path)
+    contents = ViewContents.contents
+    directory = ViewContents.location
+    print(contents)
+    return render_template('photos/index.html', contents=contents, directory=directory, upload_status=upload_status)
 
 # Automation Routes
 

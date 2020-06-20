@@ -1,0 +1,50 @@
+html,
+body {
+	height: 100vh;
+	max-width: 100vw;
+	margin: 0;
+	padding: 0;
+	background-color: #2c666e;
+	color: white;
+	font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	}
+
+section {
+    height: 100vh;
+	}
+
+p.breadcrumb{
+	color: rgba(255, 255, 255, 0.5)
+}
+
+section.directory_view section.directory_grid{
+	display: grid;
+	grid: '. . . . . . . .';
+	grid-gap: 10px;
+	height: auto;
+	padding: 0 20px;
+	max-width: 100vw;
+}
+
+section.directory_view section.directory_grid div{
+	text-align: center;
+}
+
+section.directory_view section.directory_grid div.folder img{
+	height: 50px;
+	width: 50px;
+}
+
+section.directory_view section.directory_grid div.item img{
+	max-height: 80px;
+}
+
+section.directory_view section.directory_grid div.folder p{
+	margin-top: 0;
+}
+
+
+section.directory_view section.directory_grid a{
+	text-decoration: none;
+	color: inherit;
+}
