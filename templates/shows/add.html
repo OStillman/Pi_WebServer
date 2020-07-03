@@ -31,10 +31,11 @@
         <div id="service_grid">
             {% for channel in channels %}
             {% if channel[3] == "Live" %}
-                <img alt={{channel[0]}} src="/static/shows/img/{{channel[1]}}.png" class="tv" style="filter: opacity(20%); grid-row: {{channel[2]}};">
+                <img alt={{channel[4]}} src="/static/shows/img/{{channel[1]}}.png" class="tv" style="filter: opacity(20%); grid-row: {{channel[2]}};">
             {% endif %}
             {% endfor %}
         </div>
+        <button>Submit</button>
     </div>
 </section>
 

@@ -199,7 +199,7 @@ class FetchChannels:
         channels = []
         grid_row = 1
         for channel in self.cursor.fetchall():
-            channels.append([channel[0], channel[1].lower(), grid_row, channel[2]])
+            channels.append([channel[0], channel[1].lower(), grid_row, channel[2], channel[3]])
             if channel[0] % 2 == 0:
                 grid_row = grid_row + 1
         self._channels = channels
