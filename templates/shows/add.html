@@ -23,46 +23,17 @@
 <section class="add">
     <h1>Add a Show</h1>
     <div class="elements 1">
-        <h2 class="unedited" contenteditable="true" id="title">Show Title</h2>
-        <div class="tags">
-            {% for tag in data%}
-            <span>{{tag}}</span>
-            {%endfor%}
-            <br>
-            <span contenteditable="true" class="new unedited">New Tag</span>
-        </div>
-        <div class="next-button">
-            <img src="/static/shows/img/right-arrow.png">
-        </div>
+        <button id="on_demand">On Demand</button>
+        <button id="live_tv">Live TV</button>
     </div>
-    <div style="display: none;" class="elements 2">
-        <br>
+    <div class="elements live_tv 2" style="display: none">
+        <h2 class="unedited" contenteditable="true" id="title">Show Title</h2>
         <div id="service_grid">
             {% for channel in channels %}
+            {% if channel[3] == "Live" %}
                 <img alt={{channel[0]}} src="/static/shows/img/{{channel[1]}}.png" class="tv" style="filter: opacity(20%); grid-row: {{channel[2]}};">
+            {% endif %}
             {% endfor %}
-        </div>
-        <div class="next-button">
-            <img src="/static/shows/img/right-arrow.png">
-        </div>
-    </div>
-    <div style="display:none;" class="elements 3">
-        <p id="length" >Length: <span class="unedited" contenteditable="true">00:00</span></p>
-        <p id="day" class="airtime">Day: 
-            <select>
-                <option>Monday</option>
-                <option>Tuesday</option>
-                <option>Wednesday</option>
-                <option>Thursday</option>
-                <option>Friday</option>
-                <option>Saturday</option>
-                <option>Sunday</option>
-                <option>N/A</option>
-            </select>
-        </p>
-        <p class="airtime" id="time">Time: <input type="time"></p>
-        <div class="next-button">
-            <img id="submit" src="/static/meal_planner/img/tick.png">
         </div>
     </div>
 </section>
