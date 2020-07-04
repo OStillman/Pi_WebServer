@@ -7,7 +7,8 @@ class AddLiveShow():
         self.cursor = self.db.cursor()
 
     def fetchChannelID(self):
-        this_channel = self.show_info["channel"]
+        this_channel = int(self.show_info["channel"])
+        print(this_channel)
         all_channels = FetchChannels().channels
         for channel in all_channels:
             if channel[4] == this_channel:

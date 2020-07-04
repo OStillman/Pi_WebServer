@@ -10,7 +10,7 @@ class AddShow():
         self.url = "https://www.freesat.co.uk/whats/showcase/api/channel/{}/episode/{}".format(self.channel, self.evtid)
 
     def show_details(self):
-        all_show_data = self.fetchShowInfo(True)
+        all_show_data = self.fetchShowInfo()
         #print(all_show_data)
         show_info = self.formatData(all_show_data)
         #print(show_info)

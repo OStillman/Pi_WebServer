@@ -13,6 +13,10 @@ import ghome as assistant
 from Photos import viewContents
 from Photos import upload
 
+from Shows import searchShows
+from Shows import addShows
+from Shows import db as ShowsDB
+
 import yaml
 
 app = Flask(__name__)
@@ -55,12 +59,34 @@ def add_shows():
     else:
         data = request.get_json(force=True)
         print(data, file=sys.stderr)
-        tags = False
+        '''tags = False
         if len(data['tags']) > 0 or data['tags'] is not 'N/A':
             tags = True
 
-        db.AddShow(data, tags)
+        db.AddShow(data, tags)'''
         return json.dumps({'success': True}), 201, {'ContentType': 'application/json'}
+
+@app.route('/shows/live/search', methods=['POST'])
+def showsSearch():
+    data = request.get_json(force=True)
+    print(data, file=sys.stderr)
+    SearchShow = searchShows.SearchShow(data['service'], data['offset'])
+    show_times = SearchShow.search(data['title'])
+    print(show_times)
+    return json.dumps(show_times), 200, {'ContentType': 'application/json'}
+
+@app.route('/shows/live/add', methods=['POST'])
+def liveAdd():
+    data = request.get_json(force=True)
+    print(data, file=sys.stderr)
+    found_show = addShows.AddShow(data["evtid"], data["service"]).show_details()
+    AddLiveShow = ShowsDB.AddLiveShow(found_show)
+    channel_id = AddLiveShow.fetchChannelID()
+    AddLiveShow.addToDB(channel_id)
+    print(found_show)
+    return json.dumps({'success': True}), 201, {'ContentType': 'application/json'}
+
+
 
 @app.route('/shows', methods=['GET', 'DELETE', 'PUT'])
 def shows():

@@ -5,6 +5,7 @@ import time
 
 from tests import test_show_data as test_data
 
+
 class SearchShow():
     def __init__(self, service, offset=0):
         self.url = "https://www.freesat.co.uk/tv-guide/api/{}/?channel={}".format(offset, service)
