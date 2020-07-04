@@ -93,6 +93,7 @@ let addShow = {
             .then(function(result){
                 console.info("Success");
                 console.log(result);
+                location.replace("/shows");
             }, function(){
                 console.info("Failed");
             });
@@ -133,6 +134,7 @@ let bindings = {
     },
     confirmLiveShow: function(){
         $("div.live_tv.3 button").click(function(){
+            $(this).hide();
             let evtid = $("div.live_tv.3 table tbody input:checked").val();
             addShow.init(evtid);
         });        
