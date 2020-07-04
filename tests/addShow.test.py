@@ -7,6 +7,7 @@ import json
 sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
 from Shows import searchShows
 from Shows import addShows
+from Shows import db
 
 class testSearchShow(unittest.TestCase):
 
@@ -44,6 +45,37 @@ class testAddShow(unittest.TestCase):
         assert found_show['duration'] == 1800
         assert found_show['seriesNo'] == 2
         assert found_show['episodeNo'] == 5
+
+    def test_correct_channel(self):
+        found_show = {
+            "evtid": 13118,
+            "channel": 512,
+            "duration": 1800,
+            "seriesNo": 2,
+            "episodeNo": 5,
+            "name": "The Other One"
+            }
+        channel_id = db.AddLiveShow(found_show).fetchChannelID()
+        assert channel_id == 1
+
+    def test_add_to_DB(self):
+        found_show = {
+            "evtid": 13118,
+            "channel": 512,
+            "duration": 1800,
+            "seriesNo": 2,
+            "episodeNo": 5,
+            "name": "The Other One"
+            }
+        AddLiveShow = db.AddLiveShow(found_show)
+        channel_id = AddLiveShow.fetchChannelID()
+        added = AddLiveShow.addToDB(channel_id)
+        assert added == True
+
+
+
+
+
 
 
     
