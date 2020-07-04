@@ -6,6 +6,7 @@ import json
 
 sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
 from Shows import searchShows
+from Shows import addShows
 
 class testSearchShow(unittest.TestCase):
 
@@ -32,6 +33,17 @@ class testSearchShow(unittest.TestCase):
         self.SearchShow.offset = 8
         show_times = self.SearchShow.search("Different Show")
         assert show_times[0] == ['Error, further than 7 days', 8]
+
+
+class testAddShow(unittest.TestCase):
+
+    def test_show_found(self):
+        found_show = addShows.AddShow(13118, 512).show_details()
+        assert found_show['evtid'] == 13118
+        assert found_show['name'] == "The Other One"
+        assert found_show['duration'] == 1800
+        assert found_show['seriesNo'] == 2
+        assert found_show['episodeNo'] == 5
 
 
     
