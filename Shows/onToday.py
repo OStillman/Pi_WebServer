@@ -1,5 +1,6 @@
 from Shows import db
 from Shows import searchShows
+from Shows import searchDetails
 import datetime
 
 
@@ -61,22 +62,56 @@ class OnToday():
         show_evtid = show[6]
         initalevtpassed = show[7]
         for result in results:
-            #print(result)
+            print(result)
+            this_evtid = result[1]
             # If the initial Event has not passed, we need to do check the Event ID from freesat is the one we aren interested in
             if initalevtpassed == "N":
-                this_evtid = result[1]
                 if this_evtid == show_evtid:
                     # Once we'ver found the initial event, we can store and allow any others to be added
                     #print("Found first eventid")
                     new_results.append(result)
                     initalevtpassed = "Y"
+                    db.UpdateLiveShow(show[0]).updateDBInitialPassed()
             else:
                 # Initial event ID has passed so we can append all other results
                 # TODO: Add the Series/Ep num check here
                 #print("initial evtid passed")
-                new_results.append(result)
+                episodeDetail = self.checkEp(show, this_evtid, initalevtpassed, show_evtid)
+                if episodeDetail[0] == True:
+                    new_results.append(result)
+                    #TODO: Here we need to update the DB's entry
+                    db.UpdateLiveShow(show[0]).updateDBES(episodeDetail[1], episodeDetail[2])
+                else:
+                    print("Told to ignore")
         #print(new_results)
         return new_results
+
+    def checkEp(self, show, evtid, initialevtpassed, show_evtid):
+        '''
+        If the episode looks to be good, and it isn't the first they've selected, check:
+        - Is it just the next episode?
+        - Is it just the next series?
+        - Otherwise, we can assume it's an old episode that we don't want
+        If it is ok, we need to:
+        - Mark it as True (i.e. ok)
+        - Send back this Ep and S number for the DB to updated
+        '''
+        show_ep = show[4]
+        show_series = show[5]
+        service = show[8]
+        SearchShowDetail = searchDetails.SearchShowDetail(channel=service, evtid=evtid)
+        show_detail = SearchShowDetail.show_details()
+        print(show_detail)
+        if show_ep < show_detail["episodeNo"]:
+            print("Show Ep is greater than episode number")
+            return [True, show_detail["episodeNo"], show_detail["seriesNo"], False]
+        elif show_series < show_detail["seriesNo"]:
+            print("It's a new series")
+            return [True, show_detail["episodeNo"], show_detail["seriesNo"], False]
+        else:
+            print("It can't be the next episode, or the episode they want. Ignoring")
+            return [False]
+
 
     def mergeResults(self, show, results):
         '''

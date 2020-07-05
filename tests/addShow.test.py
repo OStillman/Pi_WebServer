@@ -6,7 +6,7 @@ import json
 
 sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
 from Shows import searchShows
-from Shows import addShows
+from Shows import searchDetails
 from Shows import db
 
 class testSearchShow(unittest.TestCase):
@@ -39,7 +39,7 @@ class testSearchShow(unittest.TestCase):
 class testAddShow(unittest.TestCase):
 
     def test_show_found(self):
-        found_show = addShows.AddShow(13118, 512).show_details()
+        found_show = searchDetails.SearchShowDetail(13118, 512).show_details()
         assert found_show['evtid'] == 13118
         assert found_show['name'] == "The Other One"
         assert found_show['duration'] == 1800

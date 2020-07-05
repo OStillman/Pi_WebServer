@@ -14,7 +14,7 @@ from Photos import viewContents
 from Photos import upload
 
 from Shows import searchShows
-from Shows import addShows
+from Shows import searchDetails
 from Shows import db as ShowsDB
 
 import yaml
@@ -79,7 +79,7 @@ def showsSearch():
 def liveAdd():
     data = request.get_json(force=True)
     print(data, file=sys.stderr)
-    found_show = addShows.AddShow(data["evtid"], data["service"]).show_details()
+    found_show = searchDetails.SearchShowDetail(data["evtid"], data["service"]).show_details()
     AddLiveShow = ShowsDB.AddLiveShow(found_show)
     channel_id = AddLiveShow.fetchChannelID()
     AddLiveShow.addToDB(channel_id)

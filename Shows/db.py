@@ -39,6 +39,30 @@ class AddLiveShow():
         self.db.close()
         return True
 
+class UpdateLiveShow():
+    def __init__(self, id):
+        self.id = id
+        self.db = sqlite3.connect('DB/webserver.db')
+        self.cursor = self.db.cursor()
+
+    def updateDBES(self, ep, s):
+        self.cursor.execute('''
+        UPDATE LiveShows
+        SET episodeNo = ?, seriesNo = ?
+        WHERE id = ?;
+        ''', (ep, s, self.id))
+        self.db.commit()
+        self.db.close()
+
+    def updateDBInitialPassed(self):
+        self.cursor.execute("""
+        UPDATE LiveShows
+        SET initialEpPassed = ?
+        WHERE id = ?;
+        """, ("Y", self.id))
+        self.db.commit()
+        self.db.close()
+
 
 class FetchChannels:
     def __init__(self, channels=None, live_channels=None):
