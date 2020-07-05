@@ -18,6 +18,8 @@ class OnTodayController():
         for show in shows:
             show_list = OnToday().searchShows(show)
             print(show_list)
+            for listing in show_list:
+                db.TodayShowOperations().addTodayShow(listing)
 
 
 class OnToday():
@@ -59,6 +61,7 @@ class OnToday():
         TODO: Check the Episode num or, failing that, the Series num is greater
         '''
         new_results = []
+        show = list(show)
         show_evtid = show[6]
         initalevtpassed = show[7]
         for result in results:
@@ -71,16 +74,19 @@ class OnToday():
                     #print("Found first eventid")
                     new_results.append(result)
                     initalevtpassed = "Y"
+                    #Updatw that the initial event has now passed, ready for potentially 2 showings on one day
                     db.UpdateLiveShow(show[0]).updateDBInitialPassed()
             else:
                 # Initial event ID has passed so we can append all other results
-                # TODO: Add the Series/Ep num check here
                 #print("initial evtid passed")
                 episodeDetail = self.checkEp(show, this_evtid, initalevtpassed, show_evtid)
                 if episodeDetail[0] == True:
                     new_results.append(result)
-                    #TODO: Here we need to update the DB's entry
+                    #Update DB to reflect our new Episode Numbers
                     db.UpdateLiveShow(show[0]).updateDBES(episodeDetail[1], episodeDetail[2])
+                    #Also update the show index we locally use
+                    show[4] = episodeDetail[1]
+                    show[5] = episodeDetail[2]
                 else:
                     print("Told to ignore")
         #print(new_results)

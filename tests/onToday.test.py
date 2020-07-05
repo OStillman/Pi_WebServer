@@ -6,7 +6,6 @@ sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
 from Shows import onToday
 
 """
-
 class TestLiveChannelFetch(unittest.TestCase):
 
     def test_correct_number(self):
@@ -35,7 +34,6 @@ class TestControlFlow(unittest.TestCase):
 
     def test_flow(self):
         onToday.OnTodayController()
-        assert 1 == 2
 
 if __name__ == '__main__':
     unittest.main(verbosity=1)

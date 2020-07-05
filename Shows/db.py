@@ -63,6 +63,27 @@ class UpdateLiveShow():
         self.db.commit()
         self.db.close()
 
+class TodayShowOperations():
+    def __init__(self):
+        self.db = sqlite3.connect('DB/webserver.db')
+        self.cursor = self.db.cursor()
+    
+    def addTodayShow(self, details):
+        self.cursor.execute("""
+        INSERT INTO today(
+	        showid,
+	        epoch,
+	        evtid
+        )
+        values(
+            ?,
+            ?,
+            ?
+        )
+        """, (details[0], details[1], details[2]))
+        self.db.commit()
+        self.db.close()
+
 
 class FetchChannels:
     def __init__(self, channels=None, live_channels=None):
