@@ -160,7 +160,7 @@ let bindings = {
     },
     confirmLiveShow: function(){
         $("div.live_tv.3 button.confirm").click(function(){
-            $(this).hide();
+            $("div.live_tv.3 button").hide();
             let evtid = $("div.live_tv.3 table tbody input:checked").val();
             addShow.init(evtid);
         });        

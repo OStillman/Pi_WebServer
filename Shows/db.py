@@ -41,7 +41,7 @@ class AddLiveShow():
 
 
 class FetchChannels:
-    def __init__(self, channels=None):
+    def __init__(self, channels=None, live_channels=None):
         self.db = sqlite3.connect('DB/webserver.db')
         self.cursor = self.db.cursor()
         self.query()
@@ -51,12 +51,16 @@ class FetchChannels:
         self.cursor.execute(''' SELECT *
         FROM channels;''')
         channels = []
+        live_channels = []
         grid_row = 1
         for channel in self.cursor.fetchall():
             channels.append([channel[0], channel[1].lower(), grid_row, channel[2], channel[3]])
             if channel[0] % 2 == 0:
                 grid_row = grid_row + 1
+            if channel[2] == "Live":
+                live_channels.append(channel[3])
         self._channels = channels
+        self._live_channels = live_channels
         # self._tags = self.cursor.fetchall()
         #print(show1, file=sys.stderr)
 
@@ -67,3 +71,36 @@ class FetchChannels:
     @channels.setter
     def channels(self, channels):
         self._channels = channels
+
+    @property
+    def live_channels(self):
+        return self._live_channels
+
+    @live_channels.setter
+    def live_channels(self, live_channels):
+        self._live_channels = live_channels
+
+class FetchLiveShows():
+    def __init__(self, service=None):
+        self.service = service
+        self.db = sqlite3.connect('DB/webserver.db')
+        self.cursor = self.db.cursor()
+
+    def liveshowsQuery(self):
+        cursor = self.db.cursor()
+        cursor.execute(''' 
+        SELECT LiveShows.id, LiveShows.name, channel, duration, episodeNo, seriesNo, initialEvtid, initialEpPassed, channels.number
+        from LiveShows
+        INNER JOIN Channels ON LiveShows.channel = channels.id
+        WHERE channels.number = ?; ''', (self.service, ))
+        live_shows = cursor.fetchall()
+        self.db.close()
+        return live_shows
+
+    @property
+    def service(self):
+        return self._service
+
+    @service.setter
+    def service(self, service):
+        self._service = service

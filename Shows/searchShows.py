@@ -41,7 +41,7 @@ class SearchShow():
         listing = []
 
         if (self.check_offset()):
-            self.fetch(test=False)
+            self.fetch(test=True)
             for show in self.show_data[0]['event']:
                 if self.checkMatch(show["name"], supplied_name):
                     listing.append(self.pullOutInfo(show))
