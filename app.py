@@ -16,6 +16,7 @@ from Photos import upload
 from Shows import searchShows
 from Shows import searchDetails
 from Shows import db as ShowsDB
+from Shows import todayOutput
 
 import yaml
 
@@ -113,8 +114,11 @@ def shows():
         #SQL Code
 
         # Today
-        FetchToday = db.FetchToday()
-        today_shows = FetchToday.shows
+        #FetchToday = db.FetchToday()
+        #today_shows = FetchToday.shows
+        TodayOutput = todayOutput.TodayOutput()
+        today_shows = TodayOutput.today
+
 
         # All
         FetchTVOD = db.FetchTVOD()

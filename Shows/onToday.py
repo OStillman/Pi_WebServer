@@ -22,6 +22,7 @@ class OnTodayController():
                 db.TodayShowOperations().addTodayShow(listing)
 
 
+
 class OnToday():
     def __init__(self):
         self.FetchLiveShows = db.FetchLiveShows()
@@ -72,15 +73,18 @@ class OnToday():
                 if this_evtid == show_evtid:
                     # Once we'ver found the initial event, we can store and allow any others to be added
                     #print("Found first eventid")
+                    result.append(show[3])
                     new_results.append(result)
                     initalevtpassed = "Y"
-                    #Updatw that the initial event has now passed, ready for potentially 2 showings on one day
+                    #Update that the initial event has now passed, ready for potentially 2 showings on one day
                     db.UpdateLiveShow(show[0]).updateDBInitialPassed()
             else:
                 # Initial event ID has passed so we can append all other results
                 #print("initial evtid passed")
                 episodeDetail = self.checkEp(show, this_evtid, initalevtpassed, show_evtid)
                 if episodeDetail[0] == True:
+                    #Index 3 = duration. Some shows will have different durations...
+                    result.append(episodeDetail[3])
                     new_results.append(result)
                     #Update DB to reflect our new Episode Numbers
                     db.UpdateLiveShow(show[0]).updateDBES(episodeDetail[1], episodeDetail[2])
@@ -110,10 +114,10 @@ class OnToday():
         print(show_detail)
         if show_ep < show_detail["episodeNo"]:
             print("Show Ep is greater than episode number")
-            return [True, show_detail["episodeNo"], show_detail["seriesNo"], False]
+            return [True, show_detail["episodeNo"], show_detail["seriesNo"], show_detail["duration"]]
         elif show_series < show_detail["seriesNo"]:
             print("It's a new series")
-            return [True, show_detail["episodeNo"], show_detail["seriesNo"], False]
+            return [True, show_detail["episodeNo"], show_detail["seriesNo"], show_detail["duration"]]
         else:
             print("It can't be the next episode, or the episode they want. Ignoring")
             return [False]
@@ -122,17 +126,16 @@ class OnToday():
     def mergeResults(self, show, results):
         '''
         We need to prepare this to be added to the OnToday DB Table
-        @Param results = [time, eventid]
+        @Param results = [time, eventid, duration]
         @Show = [LiveShows.id, LiveShows.name, channel, duration, episodeNo, seriesNo, initialEvtid, initialEpPassed, channels.number]
         Combine showID, epoch and eventID ready for storage
-        TODO: Update DB with latest EpNo & SeriesNo
         '''
         #print(show[0])
         show_list = []
         for result in results:
             # Currently, the time is in a readable format, convert that back into an epoch timestamp - aids DB sorting later on
             this_epoch = datetime.datetime.strptime(result[0], '%A %B %d, %Y %H:%M:%S').timestamp()
-            show_list.append([show[0], this_epoch, result[1]])
+            show_list.append([show[0], this_epoch, result[1], result[2]])
         #print(show_list)
         return show_list
         

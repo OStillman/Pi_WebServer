@@ -19,7 +19,7 @@ let today_display = {
     addRow: function(time, data){
         for (let i = 0; i < data.length; i++){
             $(`.content.${time} .output.name`).append(`${data[i].name} <br>`);
-            $(`.content.${time} .output.duration`).append(` ${data[i].duration} <br>`);
+            $(`.content.${time} .output.duration`).append(` ${data[i].duration}mins <br>`);
             
         }        
     }

@@ -73,16 +73,31 @@ class TodayShowOperations():
         INSERT INTO today(
 	        showid,
 	        epoch,
-	        evtid
+	        evtid,
+            duration
         )
         values(
             ?,
             ?,
+            ?,
             ?
         )
-        """, (details[0], details[1], details[2]))
+        """, (details[0], details[1], details[2], details[3]))
         self.db.commit()
         self.db.close()
+
+    def retrieveTodayShows(self):
+        self.cursor.execute(''' 
+        SELECT LiveShows.name, channels.name, today.duration, epoch
+        FROM today
+        INNER JOIN Channels on LiveShows.channel = channels.id
+        INNER JOIN LiveShows on today.showid = LiveShows.id
+        ORDER BY epoch ASC;
+        ''')
+        todayShows = self.cursor.fetchall()
+        self.db.close()
+        return todayShows
+
 
 
 class FetchChannels:
