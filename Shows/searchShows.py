@@ -41,8 +41,10 @@ class SearchShow():
         else:
             if self.offset == 0:
                 self.show_data = test_data.data1
-            else:
+            elif self.offset == 1:
                 self.show_data = test_data.data2
+            else:
+                self.show_data = test_data.data3
 
     def check_offset(self):
         '''

@@ -121,6 +121,7 @@ let addShow = {
                 location.replace("/shows");
             }, function(){
                 console.info("Failed");
+                $(".error").show();
             });
     }
 };

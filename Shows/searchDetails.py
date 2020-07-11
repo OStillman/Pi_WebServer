@@ -44,7 +44,9 @@ class SearchShowDetail():
         We don't need all the data, so let's pull out only the data we need
         @Param show = the show object pulled from the API
         '''
-        return {
+        data = {}
+        try:
+            data =  {
             "evtid": self.evtid,
             "channel": self.channel,
             "duration": show["duration"],
@@ -52,3 +54,33 @@ class SearchShowDetail():
             "episodeNo": show["episodeNo"],
             "name": show["name"]
             }
+        except KeyError:
+            print("Can't find seriesNo, EpNo")
+            attempted_fetch = self.attemptSeriesEpFetch(show["description"])
+            if attempted_fetch[0] == True:
+                data =  {
+                "evtid": self.evtid,
+                "channel": self.channel,
+                "duration": show["duration"],
+                "seriesNo": attempted_fetch[1],
+                "episodeNo": attempted_fetch[2],
+                "name": show["name"]
+                }
+        finally:
+            return data
+
+    def attemptSeriesEpFetch(self, description):
+        split_description = description.split("(")[-1].split(")")[0]
+        episode_fetch = split_description.split("Ep")[1]
+        series_fetch = split_description.split("Ep")[0].split("S")[1].split(" ")[0]
+        print(len(series_fetch))
+        print(len(episode_fetch))
+        if len(series_fetch) == 1 and len(episode_fetch) == 1:
+            return [True, series_fetch, episode_fetch]
+        else:
+            return [False]
+
+        
+
+
+        

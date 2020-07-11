@@ -82,12 +82,20 @@ def liveAdd():
     if request.method == "POST":
         data = request.get_json(force=True)
         print(data, file=sys.stderr)
-        found_show = searchDetails.SearchShowDetail(data["evtid"], data["service"]).show_details()
-        AddLiveShow = ShowsDB.AddLiveShow(found_show)
-        channel_id = AddLiveShow.fetchChannelID()
-        AddLiveShow.addToDB(channel_id)
-        print(found_show)
-        return json.dumps({'success': True}), 201, {'ContentType': 'application/json'}
+        success = True
+        try:
+            found_show = searchDetails.SearchShowDetail(data["evtid"], data["service"]).show_details()
+            AddLiveShow = ShowsDB.AddLiveShow(found_show)
+            channel_id = AddLiveShow.fetchChannelID()
+            AddLiveShow.addToDB(channel_id)
+            print(found_show)
+        except KeyError:
+            success = False
+        finally:
+            if success:
+                return json.dumps({'success': True}), 201, {'ContentType': 'application/json'}
+            else:
+                return json.dumps({'success': False}), 400, {'ContentType': 'application/json'}
     elif request.method == "DELETE":
         data = request.get_json(force=True)
         print(data, file=sys.stderr)
