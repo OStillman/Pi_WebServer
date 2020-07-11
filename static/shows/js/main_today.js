@@ -2,7 +2,7 @@ let today_begin = {
     init: function () {
         today_data.planner[20].sort((a, b) => a.time.localeCompare(b.time))
         console.log(today_data);
-        today_display.init();
+        //today_display.init();
     },
 };
 

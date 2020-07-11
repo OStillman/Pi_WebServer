@@ -69,6 +69,11 @@ section table tbody tr .output{
     text-align: left; 
 }
 
+section table tbody tr .output.duration span{
+    font-size: small;
+}
+
+
 img.long {
     height: 15px;
     width: 30px;

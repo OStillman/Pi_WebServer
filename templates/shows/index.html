@@ -58,32 +58,40 @@
                         <td colspan="2">19:00</td>
                     </tr>
                     <tr class="7 content">
-                        <td class="output name"></td>
-                        <td class="output duration"></td>
+                        {% for show in today_shows['planner']['19'] %}
+                            <td class="output name">{{show.name}}</td>
+                            <td class="output duration">{{ show.duration|round|int}}<span>mins</span></td>
+                        {% endfor %}
                     </tr>
 
                     <tr class="time">
                         <td colspan="2">20:00</td>
                     </tr>
                     <tr class="8 content">
-                        <td class="output name"></td>
-                        <td class="output duration"></td>
+                        {% for show in today_shows['planner']['20'] %}
+                            <td class="output name">{{show.name}}</td>
+                            <td class="output duration">{{ show.duration|round|int}}<span>mins</span></td>
+                        {% endfor %}
                     </tr>
 
                     <tr class="time">
                         <td colspan="2">21:00</td>
                     </tr>
                     <tr class="9 content">
-                        <td class="output name"></td>
-                        <td class="output duration"></td>
+                        {% for show in today_shows['planner']['21'] %}
+                            <td class="output name">{{show.name}}</td>
+                            <td class="output duration">{{ show.duration|round|int}}<span>mins</span></td>
+                        {% endfor %}
                     </tr>
 
                     <tr class="time">
                         <td colspan="2">22:00</td>
                     </tr>
                     <tr class="10 content">
-                        <td class="output name"></td>
-                        <td class="output duration"></td>
+                        {% for show in today_shows['planner']['22'] %}
+                            <td class="output name">{{show.name}}</td>
+                            <td class="output duration">{{ show.duration|round|int}}<span>mins</span></td>
+                        {% endfor %}
                     </tr>
 
                 </tbody>
