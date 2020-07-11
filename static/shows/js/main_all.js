@@ -8,6 +8,7 @@ let begin_all = {
 let all_bindings = {
     init: function(){
         this.doubleClick();
+        this.tabsClick();
     },
     doubleClick: function(){
         $("section.three table tr").on('dblclick', function(){
@@ -17,8 +18,39 @@ let all_bindings = {
             //console.log(this_class);
             //all_deleteActions.init(this_class);
         })
+    },
+    tabsClick: function(){
+        $("section.three button").click(function(){
+            let this_tab = $(this).attr("id");
+            console.info(this_tab);
+            tabSwitch.init(this_tab);
+        });
     }
 };
+
+let tabSwitch = {
+    init: function(this_tab){
+        if (this.check_Active(this_tab)){
+            console.log("Tab visible");
+            this.hideAll();
+        }
+        else{
+            console.log("Tab not visibile");
+            this.hideAll();
+            this.makeVisible(this_tab);
+        }
+    },
+    check_Active(this_tab){
+        return $(`section.three div#${this_tab}`).hasClass("active");
+    },
+    makeVisible(this_tab){
+        $(`section.three div#${this_tab}`).show().addClass("active");        
+    },
+    hideAll:function(this_tab){
+        $(`section.three div#OD`).hide().removeClass("active"); 
+        $(`section.three div#Live`).hide().removeClass("active"); 
+    }
+}
 
 let all_deleteActions = {
     init: function(this_show){
