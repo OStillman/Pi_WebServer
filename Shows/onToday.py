@@ -59,7 +59,6 @@ class OnToday():
         '''
         We have initial eventID (Evtid) which is what the user has said "this is the first show"
         So, we need to check the show returned is, indeed, the first show they've said, or if the initial event has passed it can just be stored
-        TODO: Check the Episode num or, failing that, the Series num is greater
         '''
         new_results = []
         show = list(show)
