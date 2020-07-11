@@ -33,11 +33,6 @@ class OnTodayController():
             print("It's after, continue")
 
 
-class morningTidy():
-    def __init__(self):
-        pass
-
-
 
 class OnToday():
     def __init__(self):
@@ -86,7 +81,7 @@ class OnToday():
             # If the initial Event has not passed, we need to do check the Event ID from freesat is the one we aren interested in
             if initalevtpassed == "N":
                 if this_evtid == show_evtid:
-                    # Once we'ver found the initial event, we can store and allow any others to be added
+                    # Once we've found the initial event, we can store and allow any others to be added
                     #print("Found first eventid")
                     result.append(show[3])
                     new_results.append(result)
