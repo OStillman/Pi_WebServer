@@ -98,6 +98,12 @@ class TodayShowOperations():
         self.db.close()
         return todayShows
 
+    def deleteTodayShows(self):
+        self.cursor.execute(''' 
+        DELETE from today;
+        ''')
+        self.db.close()
+
 
 
 class FetchChannels:
@@ -164,3 +170,32 @@ class FetchLiveShows():
     @service.setter
     def service(self, service):
         self._service = service
+
+class AllLiveShows():
+    def __init__(self):
+        self.db = sqlite3.connect('DB/webserver.db')
+        self.cursor = self.db.cursor()
+
+    def liveshowsQuery(self):
+        cursor = self.db.cursor()
+        cursor.execute(''' 
+        SELECT LiveShows.id, LiveShows.name, channel, duration, episodeNo, seriesNo, initialEvtid, initialEpPassed, channels.name
+        from LiveShows
+        INNER JOIN Channels ON LiveShows.channel = channels.id; ''')
+        live_shows = cursor.fetchall()
+        self.db.close()
+        return live_shows
+
+
+class DeleteLiveShow():
+    def __init__(self, id):
+        self.id = id
+        self.db = sqlite3.connect('DB/webserver.db')
+        self.cursor = self.db.cursor()
+        self.deleteShow()
+        self.db.commit()
+        self.db.close()
+
+    def deleteShow(self):
+        self.cursor.execute('''DELETE FROM LiveShows WHERE id = ?;''', (self.id,))
+        self.cursor.execute('''DELETE FROM Today WHERE showid = ?;''', (self.id,))

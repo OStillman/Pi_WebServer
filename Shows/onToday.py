@@ -6,6 +6,7 @@ import datetime
 
 class OnTodayController():
     def __init__(self):
+        self.checkCleanupRequired()
         self.channels = OnToday().getLiveChannels()
         self.fetchShows()
 
@@ -20,6 +21,21 @@ class OnTodayController():
             print(show_list)
             for listing in show_list:
                 db.TodayShowOperations().addTodayShow(listing)
+
+    def checkCleanupRequired(self):
+        time_now = datetime.datetime.today()
+        first_timeslot = time_now.replace(hour=2, minute=30, second=0)
+        midnight = time_now.replace(hour=0, minute=1, second=0)
+        if time_now <= first_timeslot and time_now > midnight:
+            print("This is the first of the day, need to delete yesterday's first")
+            db.TodayShowOperations().deleteTodayShows()
+        else:
+            print("It's after, continue")
+
+
+class morningTidy():
+    def __init__(self):
+        pass
 
 
 

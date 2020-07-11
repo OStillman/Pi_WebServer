@@ -110,6 +110,31 @@
                 <table>
                     <thead>
                         <th>Show</th>
+                        <th>Channel</th>
+                        <th>Series/Ep</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="5">
+                                <button>Close Tab</button>
+                            </td>
+                        </tr>
+                        {% for show in live_shows.Planner.Shows %}
+                            <tr class={{show.id}}>
+                                <td>{{show.name}}</td>
+                                <td>{{show.channel}}</td>
+                                <td>S{{show.series}} E{{show.episode}}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                
+              </div>
+              
+              <div id="OD" class="tabcontent">
+                <table>
+                    <thead>
+                        <th>Show</th>
                         <th>Service</th>
                         <th>Time</th>
                         <th>Day(s)</th>
@@ -140,11 +165,6 @@
                         {% endfor %}
                     </tbody>
                 </table>
-              </div>
-              
-              <div id="OD" class="tabcontent">
-                <h3>OD</h3>
-                <p>Paris is the capital of France.</p>
               </div>
             <!--<table>
                 <thead>

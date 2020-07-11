@@ -17,6 +17,7 @@ from Shows import searchShows
 from Shows import searchDetails
 from Shows import db as ShowsDB
 from Shows import todayOutput
+from Shows import allShows
 
 import yaml
 
@@ -76,16 +77,22 @@ def showsSearch():
     print(show_times)
     return json.dumps(show_times), 200, {'ContentType': 'application/json'}
 
-@app.route('/shows/live/add', methods=['POST'])
+@app.route('/shows/live', methods=['POST', 'DELETE'])
 def liveAdd():
-    data = request.get_json(force=True)
-    print(data, file=sys.stderr)
-    found_show = searchDetails.SearchShowDetail(data["evtid"], data["service"]).show_details()
-    AddLiveShow = ShowsDB.AddLiveShow(found_show)
-    channel_id = AddLiveShow.fetchChannelID()
-    AddLiveShow.addToDB(channel_id)
-    print(found_show)
-    return json.dumps({'success': True}), 201, {'ContentType': 'application/json'}
+    if request.method == "POST":
+        data = request.get_json(force=True)
+        print(data, file=sys.stderr)
+        found_show = searchDetails.SearchShowDetail(data["evtid"], data["service"]).show_details()
+        AddLiveShow = ShowsDB.AddLiveShow(found_show)
+        channel_id = AddLiveShow.fetchChannelID()
+        AddLiveShow.addToDB(channel_id)
+        print(found_show)
+        return json.dumps({'success': True}), 201, {'ContentType': 'application/json'}
+    elif request.method == "DELETE":
+        data = request.get_json(force=True)
+        print(data, file=sys.stderr)
+        ShowsDB.DeleteLiveShow(int(data['element']))
+        return json.dumps({'success': True}), 201, {'ContentType': 'application/json'}
 
 
 
@@ -125,6 +132,9 @@ def shows():
         all_shows = FetchTVOD.shows
         od_shows = FetchTVOD.od
 
+        #NewAll - Live
+        all_live_shows = allShows.GetAllLiveShows().retrieveShows()
+
         # Tags
         FetchTags = db.FetchTags()
         all_tags = FetchTags.tags
@@ -136,7 +146,7 @@ def shows():
 
 
 
-        return render_template('shows/index.html', all_shows=all_shows, today_shows=today_shows, tags=all_tags, od_shows=od_shows)
+        return render_template('shows/index.html', all_shows=all_shows, live_shows=all_live_shows, today_shows=today_shows, tags=all_tags, od_shows=od_shows)
 
 @app.route('/Photos', defaults={'path': None}, methods=["GET", "POST"])
 @app.route("/Photos/<path:path>")

@@ -114,7 +114,7 @@ let addShow = {
     },
     send: function(service, evtid){
         let data = {"service": service, "evtid": evtid};
-        $.when(ajaxCalls.ajaxCallData("POST", "/shows/live/add", data))
+        $.when(ajaxCalls.ajaxCallData("POST", "/shows/live", data))
             .then(function(result){
                 console.info("Success");
                 console.log(result);
