@@ -65,7 +65,7 @@ class SearchShow():
         # Check the offset is 7 or less days
         if (self.check_offset()):
             # Fetch our data
-            self.fetch(test=True)
+            self.fetch()
             # Loop through each "event" i.e. show for that day
             for show in self.show_data[0]['event']:
                 # Let's check if the show matches the name we've supplied

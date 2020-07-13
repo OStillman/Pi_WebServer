@@ -184,7 +184,7 @@ let addOD = {
             .then(function(result){
                 console.info("Success");
                 console.log(result);
-                //window.location.replace("../shows")
+                window.location.replace("../shows")
                 //$("section#success").show();
             }, function(){
                 console.info("Failed");
