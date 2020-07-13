@@ -9,7 +9,7 @@ import sys
 import json
 import db
 import door as door_actions
-import dailyshow as ds
+from Shows import dailyshow as ds
 import ghome as assistant
 from Photos import viewContents
 from Photos import upload
