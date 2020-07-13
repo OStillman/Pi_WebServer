@@ -1,112 +1,58 @@
-let hash = 1;
-
 let begin = {
     init: function () {
         $(document).ready(function () {
             console.info("Ready");
-            window.location.hash = "#1";
             bindings.init();
         });
     }
 };
 
-let submitTasks = {
+let submitChecks = {
     init: function(){
-        //TODO: Conditional Choices? Collect
-        let title = this.checkHasChanged("h2");
-        let length = this.checkHasChanged("p#length span");
-        let service = this.checkServiceSelection();
-        let tags = this.checkTagSelection();
-        console.info("Tags");
-        //console.log(tags[1]);
-        tags_selected = tags.selections;
-        let new_tags = tags.new;
-        let day = $("section.add .elements .airtime#day select option:selected").val();
-        let time = $("section.add .elements .airtime#time input").val();
-        if(this.submitCheck(length)){
-            if (this.dayNeeded(day)){
-                if (this.timeNeeded(time)){
-                    console.info("Everything needed");
-                    submitTasks.submitShow(title, length, service, tags_selected, new_tags, day, time);
-                }
-                else{
-                    console.info("Only need day");
-                    submitTasks.submitShow(title, length, service, tags_selected, new_tags, day);
-                }
-            }
-            else{
-                console.info("Day/Time not needed");
-                submitTasks.submitShow(title, length, service, tags_selected, new_tags);
-            }
-        }
-        
-    },
-    submitShow: function(title, length, service, tags, new_tags="N/A", day="N/A", time="N/A"){
-        if (day != "N/A"){
-            day = this.getDayValue(day);
-        }
-        let data = {"name": title, "duration": length, "service": service, "tags": tags, "days": day, "time": time, "new_tags": new_tags};
-        console.info(data);
-        $.when(ajaxCalls.ajaxCallData("POST", "/shows/add", data))
-            .then(function(result){
-                console.info("Success");
-                console.log(result);
-                window.location.replace("../shows")
-                //$("section#success").show();
-            }, function(){
-                console.info("Failed");
-                //$("section#error").show();
-            })
-    },
-    getDayValue: function(day_name){
-        console.info(day_name);
-        let days = ["Blank", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "N/A"];
-        return [days.indexOf(day_name)];
-    },
-    submitCheck: function(length){
-        if (length){
-            console.info("We are ready");
-            return true;
-        }
-        else{
-            console.info("Everything but length");
-            return false;
+        if (this.checkShowTitle() && this.checkServiceSelection()){
+            console.info("We can begin");
+            $("div.2").hide();
+            return true
         }
     },
-    dayNeeded: function(day){
-        if (day == "N/A"){
-            console.info("Day is N/A");
-            return false
-        }
-        else{
-            return true;
+    initOD: function(){
+        console.info("Checking");
+        if (this.checkODShowTitle() && this.checkODServiceSelection() && this.checkTagSelection()){
+            console.info("We can begin");
+            $("div.2").hide();
+            return true
         }
     },
-    timeNeeded: function(time){
-        if (time == "00:00"){
-            console.info("Time is 00:00");
+    checkODShowTitle(){
+        if($("section.add .elements.od_tv h2#title").hasClass("unedited")){
             return false;
         }
         else{
-            return true;
+            return true
         }
     },
-    checkHasChanged: function (element) {
-        if ($("section.add .elements " + element).hasClass("unedited")) {
-            return null;
+    checkShowTitle(){
+        if($("section.add .elements.live_tv h2#title").hasClass("unedited")){
+            return false;
         }
-        else {
-            return $("section.add .elements " + element).text();
+        else{
+            return true
+        }
+    },
+    checkODServiceSelection: function(){
+        if ($("section.add .elements.od_tv div#service_grid img.chosen").length > 0){
+            return true
+        }
+        else{
+            return false;
         }
     },
     checkServiceSelection: function(){
-        if ($("section.add .elements div#service_grid img.chosen").length > 0){
-            console.info("We have one");
-            return $("section.add .elements div#service_grid img.chosen").attr("alt");
+        if ($("section.add .elements.live_tv div#service_grid img.chosen").length > 0){
+            return true
         }
         else{
-            console.info("No Service");
-            return null;
+            return false;
         }
     },
     checkTagSelection: function(){
@@ -130,51 +76,122 @@ let submitTasks = {
     }
 };
 
-let advanceStage = {
-    init: function(stage){
-        if (stage < 3){
-            console.log("We have another stage");
-            if (this.selectionChecker(stage)){
-                this.advance(stage);
-            }            
+let submit_to_search = {
+    init: function(){
+        if (submitChecks.init()){
+            submit_to_search.proceed();
+        }
+    },
+    proceed: function(){
+        let service = $("section.add .elements div#service_grid img.chosen").attr("alt");
+        let title = $("section.add .elements.live_tv h2#title").text();
+        console.info(`Service: ${service} / Title: ${title}`);
+        this.saveService(service);
+        this.saveOffset(0)
+        this.saveTitle(title);
+        data = {"service": service, "title": title, "offset": 0}
+        this.request(data)
+    },
+    saveService: function(service){
+        sessionStorage.setItem("service", service)
+    },
+    saveOffset:function(offset){
+        sessionStorage.setItem("offset", offset)
+    },
+    saveTitle:function(title){
+        sessionStorage.setItem("title", title)
+    },
+    retrieveData(){
+        let service = sessionStorage.getItem("service");
+        let offset = parseInt(sessionStorage.getItem("offset")) + 1;
+        this.saveOffset(offset);
+        let title = sessionStorage.getItem("title");
+        data = {"service": service, "title": title, "offset": offset};
+        return data;
+    },
+    request: function(data){
+        $.when(ajaxCalls.ajaxCallData("POST", "/shows/live/search", data))
+            .then(function(result){
+                console.info("Success");
+                console.log(result);
+                if (result[0][0] == "Error, show not found"){
+                    data.offset = data.offset + 1;
+                    submit_to_search.saveOffset(data.offset)
+                    submit_to_search.request(data);
+                }
+                else{
+                    submit_to_search.displayResults(result)
+                }
+            }, function(){
+                console.info("Failed");
+            })
+    },
+    displayResults: function(responses){
+        responses.forEach(response => {
+            console.info(response);
+            this.output(response);  
+        });
+        $("div.3").show();  
+    },
+    output: function(show){
+        if (show[0] == "Error, further than 7 days"){
+            $("div.live_tv.3 table tbody").append(`<tr>`+
+                    `<td colspan="2">No More Results</td>`+
+                "</tr>");
+            $("div.live_tv.3 button.next").hide();
         }
         else{
-            submitTasks.init();
+            $("div.live_tv.3 table tbody").append(`<tr>`+
+                    `<td>${show[0]}</td>`+
+                    `<td><input type="radio" name="show" value=${show[1]}></td>` +
+                "</tr>");
         }
-    },
-    advance: function(stage){
-        let new_stage = stage + 1;
-        console.log(new_stage);
-        $(".elements." + stage).hide();
-        $(".elements." + new_stage).show();
-        window.location.hash = "#" + new_stage;
-        hash = new_stage;
-    },
-    selectionChecker: function(stage){
-        let check_outcome = false;
-        switch(stage){
-            case 1:
-                if (submitTasks.checkHasChanged("h2") && submitTasks.checkTagSelection()){
-                    check_outcome = true;
-                }
-                break;
-            case 2:
-                if (submitTasks.checkServiceSelection()){
-                    check_outcome = true;
-                }
-                break;
-        }
-        return check_outcome;
     }
-}
+};
 
-let backStage = {
-    init: function(hash_now){
-        let last_hash = hash_now + 1;
-        $(".elements." + last_hash).hide();
-        $(".elements." + hash_now).show();    
+let addShow = {
+    init: function(evtid){
+        let service = sessionStorage.getItem("service");
+        console.info(`Service = ${service} with evtid of ${evtid}`);
+        this.send(service, evtid);
     },
-}
+    send: function(service, evtid){
+        let data = {"service": service, "evtid": evtid};
+        $.when(ajaxCalls.ajaxCallData("POST", "/shows/live", data))
+            .then(function(result){
+                console.info("Success");
+                console.log(result);
+                location.replace("/shows");
+            }, function(){
+                console.info("Failed");
+                $(".error").show();
+            });
+    }
+};
+
+let addOD = {
+    init: function(){
+        if(submitChecks.initOD()){
+            addOD.beginSubmit();
+        }
+    },
+    beginSubmit: function(){
+        let service = $("section.add .elements div#service_grid img.chosen").attr("alt");
+        let title = $("section.add .elements.od_tv h2#title").text();
+        let tags = submitChecks.checkTagSelection();
+        let data = {"name": title, "service": service, "tags": tags.selections, "new_tags": tags.new};
+        $.when(ajaxCalls.ajaxCallData("POST", "/shows/od", data))
+            .then(function(result){
+                console.info("Success");
+                console.log(result);
+                //window.location.replace("../shows")
+                //$("section#success").show();
+            }, function(){
+                console.info("Failed");
+                //$("section#error").show();
+            });
+    },
+};
 
 let newTagDisplay = {
     init: function(content){
@@ -183,29 +200,55 @@ let newTagDisplay = {
         this.resetEditedTag();
     },
     addNewTag: function(content){
-        $(".elements.1 .tags").append(`<span contenteditable="true" class="new_submitted">${content}</span>`);
+        $(".elements.od_tv .tags").append(`<span contenteditable="true" class="new_submitted">${content}</span>`);
     },
     resetEditedTag: function(){
-        $(".elements.1 .tags .new").text("New Tag").addClass("unedited");
+        $(".elements.od_tv .tags .new").text("New Tag").addClass("unedited");
     }
 };
 
 let bindings = {
-    init: function() {
-        this.serviceSelection();
+    init: function(){
+        this.clickLiveTV();
+        this.clickOD();
+        this.clickSubmit();
         this.showTitleBeginEntry();
-        this.showLengthBeginEntry();
-        this.tagSelection();
-        this.daySelection();
-        this.nextButton();
-        this.hashController();
+        this.serviceSelection();
+        this.confirmLiveShow();
+        this.nextDaySearch();
         this.newTagEntry();
+        this.tagSelection();
     },
-    nextButton: function(){
-        $("section.add").on('click', '.elements .next-button', function(){
-            let this_stage = $(this).closest("div.elements").attr("class").split(" ")[1];
-            console.log(this_stage);
-            advanceStage.init(parseInt(this_stage));
+    clickLiveTV:function(){
+        $("section.add div.1 #live_tv").click(function(){
+            $("div.1").hide();
+            $("div.live_tv.2").show();
+        });
+    },
+    clickOD: function(){
+        $("section.add div.1 #on_demand").click(function(){
+            $("div.1").hide();
+            $("div.od_tv.2").show();
+        });
+    },
+    clickSubmit: function(){
+        $("section.add div.2 button#submit_to_search").click(function(){
+            submit_to_search.init();
+        });
+        $("section.add div.2 button#od_submit").click(function(){
+            addOD.init();
+        });
+    },
+    showTitleBeginEntry: function(){
+        $("section.add .elements.live_tv h2#title").click(function(){
+            if ($(this).hasClass("unedited")){
+                $(this).text("").removeClass("unedited");
+            }
+        });
+        $("section.add .elements.od_tv h2#title").click(function(){
+            if ($(this).hasClass("unedited")){
+                $(this).text("").removeClass("unedited");
+            }
         });
     },
     serviceSelection: function(){
@@ -214,22 +257,22 @@ let bindings = {
             $(this).css("filter", "opacity(100%)").addClass("chosen")
         });
     },
-    showTitleBeginEntry: function(){
-        $("section.add .elements h2#title").click(function(){
-            if ($(this).hasClass("unedited")){
-                $(this).text("").removeClass("unedited");
-            }
-        });
+    confirmLiveShow: function(){
+        $("div.live_tv.3 button.confirm").click(function(){
+            $("div.live_tv.3 button").hide();
+            let evtid = $("div.live_tv.3 table tbody input:checked").val();
+            addShow.init(evtid);
+        });        
     },
-    showLengthBeginEntry: function(){
-        $("section.add .elements p#length span").click(function(){
-            if ($(this).hasClass("unedited")){
-                $(this).text("").removeClass("unedited");
-            }
-        });
+    nextDaySearch: function(){
+        $("div.live_tv.3 button.next").click(function(){
+            console.info("Searching")
+            let data = submit_to_search.retrieveData();
+            submit_to_search.request(data);
+        });        
     },
     tagSelection: function(){
-        $("section.add .elements .tags").on('click', 'span', function(){
+        $("section.add .elements.od_tv .tags").on('click', 'span', function(){
             if(!$(this).hasClass("new")){
                 if ($(this).hasClass("selected")){
                     $(this).removeClass("selected");
@@ -240,32 +283,8 @@ let bindings = {
             }            
         });
     },
-    daySelection: function(){
-        $("section.add .elements .airtime#day select").change(function(){
-            let thisday = $(this).children("option:selected").val();
-            //console.log(thisday);
-            if (thisday == "N/A"){
-                //console.log("Yup it's N/A");
-                $("section.add .elements .airtime#time").hide().children("input").val("00:00");
-            }
-            else{
-                $("section.add .elements .airtime#time").show();
-            }
-        });
-    },
-    hashController: function(){
-        $(window).on('hashchange', function() {
-            console.info("# changed");
-            let window_hash = parseInt(window.location.hash.charAt(1));
-            if(window_hash < hash){
-                console.info("They've pressed back");
-                backStage.init(window_hash);
-                hash = window_hash;
-            }
-        });
-    },
     newTagEntry: function(){
-        $(".elements.1 .tags .new").keyup(function(e){
+        $(".elements.od_tv .tags .new").keyup(function(e){
             if (e.which === 13 && e.keyCode == 13){
                 if (!$(this).hasClass("unedited")){
                     newTagDisplay.init($(this).text());
@@ -276,7 +295,7 @@ let bindings = {
             }
         });
 
-        $(".elements.1 .tags .new").click(function(){
+        $(".elements.od_tv .tags .new").click(function(){
             if ($(this).hasClass("unedited")){
                 $(this).text("");
             }
@@ -291,6 +310,12 @@ let ajaxCalls = {
             url: url,
             data: JSON.stringify(data),
             dataType: 'json',
+        });
+    },
+    ajaxCall: function (method, url) {
+        return $.ajax({
+            method: method,
+            url: url,
         });
     }
 };

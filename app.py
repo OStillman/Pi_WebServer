@@ -1,4 +1,5 @@
 from flask import Flask, flash, redirect, url_for, render_template, request
+from Shows.showsEndpoints import shows_endpoints
 
 import os
 import blinkt
@@ -8,7 +9,7 @@ import sys
 import json
 import db
 import door as door_actions
-import dailyshow as ds
+from Shows import dailyshow as ds
 import ghome as assistant
 from Photos import viewContents
 from Photos import upload
@@ -16,6 +17,8 @@ from Photos import upload
 import yaml
 
 app = Flask(__name__)
+
+app.register_blueprint(shows_endpoints, url_prefix='/shows')
 
 @app.route('/meals')
 def meals():
@@ -38,75 +41,6 @@ def add():
             return json.dumps({'success':True}), 201, {'ContentType':'application/json'}
 
 
-@app.route('/shows/add', methods=['GET', 'POST'])
-def add_shows():
-    if request.method == 'GET':
-        FetchTags = db.FetchTags()
-        all_tags = FetchTags.tags
-
-        # Channels
-        FetchChannels = db.FetchChannels()
-        all_channels = FetchChannels.channels
-
-        print(all_channels, file=sys.stderr)
-        
-        #data = getJSON.get_file("show_tags")
-        return render_template('shows/add.html', data=all_tags, channels=all_channels)
-    else:
-        data = request.get_json(force=True)
-        print(data, file=sys.stderr)
-        tags = False
-        if len(data['tags']) > 0 or data['tags'] is not 'N/A':
-            tags = True
-
-        db.AddShow(data, tags)
-        return json.dumps({'success': True}), 201, {'ContentType': 'application/json'}
-
-@app.route('/shows', methods=['GET', 'DELETE', 'PUT'])
-def shows():
-    if request.method == 'DELETE':
-        data = request.get_json(force=True)
-        print(data, file=sys.stderr)
-        db.DeleteShows(int(data['element']))
-        #getJSON.remove_show(int(data['element']), data['type'], "shows")
-        return json.dumps({'success': True}), 204, {'ContentType': 'application/json'}
-    elif request.method == 'PUT':
-        data = request.get_json(force=True)
-        print(data, file=sys.stderr)
-        db.UpdateProgress(data)
-        return json.dumps({'success': True}), 201, {'ContentType': 'application/json'}
-    else:
-        # Get All data
-        #data = getJSON.get_file("shows")
-        # Get shows on Today
-        #shows_instance = show_fetch.DayFetch()
-        #today_shows = shows_instance.shows  
-        # Output
-        #print(data, file=sys.stderr)
-
-        #SQL Code
-
-        # Today
-        FetchToday = db.FetchToday()
-        today_shows = FetchToday.shows
-
-        # All
-        FetchTVOD = db.FetchTVOD()
-        all_shows = FetchTVOD.shows
-        od_shows = FetchTVOD.od
-
-        # Tags
-        FetchTags = db.FetchTags()
-        all_tags = FetchTags.tags
-
-        print(all_shows, file=sys.stderr)
-        print(today_shows, file=sys.stderr)
-        print(all_tags, file=sys.stderr)
-        print(od_shows, file=sys.stderr)
-
-
-
-        return render_template('shows/index.html', all_shows=all_shows, today_shows=today_shows, tags=all_tags, od_shows=od_shows)
 
 @app.route('/Photos', defaults={'path': None}, methods=["GET", "POST"])
 @app.route("/Photos/<path:path>")
