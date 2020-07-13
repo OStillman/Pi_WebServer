@@ -39,6 +39,94 @@ class AddLiveShow():
         self.db.close()
         return True
 
+class AddODShow:
+    def __init__(self, show_data):
+        self.show_data = show_data
+        self.db = sqlite3.connect('DB/webserver.db')
+        self.cursor = self.db.cursor()
+
+        self.InsertShow()
+        self.show_id = self.cursor.lastrowid
+
+        self.insertTags()
+
+        self.db.commit()
+
+        self.db.close()
+
+        '''
+        INSERT INTO ODShows(
+            name,
+            service,
+        )
+        values(
+            "Test Show OD 2 - BBC",
+            1
+        );
+
+        ID = 5
+
+
+        INSERT INTO ShowTags(
+            show_id,
+            tag_id
+        )
+        values(
+            5,
+            3
+        );
+        '''
+
+    def InsertShow(self):
+        self.cursor.execute('''
+            INSERT INTO ODShows(
+            name,
+            service
+        )
+        values(
+            ?,
+            ?
+        );
+        ''', (self.show_data['name'], self.show_data['service']))
+
+    def insertTags(self):
+        for tag in self.show_data['tags']:
+            tag_id = self.checkTagExists(tag)
+            self.cursor.execute('''
+            INSERT INTO ShowTags(
+                show_id,
+                tag_id
+            )
+            VALUES(
+                ?,
+                ?
+            )
+            ''', (self.show_id, tag_id, ))
+            
+
+    def checkTagExists(self, tag):
+        print(tag)
+        select_cursor = self.db.cursor()
+        select_cursor.execute('''
+            SELECT * FROM tags
+            WHERE name = ?;
+            ''', (tag, ))
+        try:
+            return select_cursor.fetchall()[0][0]
+        except IndexError:
+            return self.addTag(tag)
+
+    def addTag(self, tag):
+        self.cursor.execute('''
+        INSERT INTO tags(
+            name
+        )
+        VALUES(
+            ?
+        )
+        ''', (tag, ))
+        return self.cursor.lastrowid
+
 class UpdateLiveShow():
     def __init__(self, id):
         self.id = id
@@ -171,6 +259,7 @@ class FetchLiveShows():
     def service(self, service):
         self._service = service
 
+
 class AllLiveShows():
     def __init__(self):
         self.db = sqlite3.connect('DB/webserver.db')
@@ -185,6 +274,38 @@ class AllLiveShows():
         live_shows = cursor.fetchall()
         self.db.close()
         return live_shows
+
+class FetchODShows():
+    def __init__(self):
+        self.db = sqlite3.connect('DB/webserver.db')
+        self.cursor = self.db.cursor()
+
+    def odshowsQuery(self):
+        cursor = self.db.cursor()
+        cursor.execute(''' 
+        SELECT ODShows.id, ODShows.name, channels.name, watching, episode, series
+        FROM ODShows
+        INNER JOIN Channels on ODShows.service = channels.id
+        ORDER BY ODShows.watching DESC; ''')
+        live_shows = cursor.fetchall()
+        self.db.close()
+        return live_shows    
+
+class ODShowTags():
+    def __init__(self, show_id):
+        self.db = sqlite3.connect('DB/webserver.db')
+        self.cursor = self.db.cursor()
+        self.show_id = show_id
+
+    def showTagsQuery(self):
+        cursor = self.db.cursor()
+        cursor.execute('''SELECT tags.name
+        FROM ShowTags
+        INNER JOIN tags ON ShowTags.tag_id = tags.id
+        WHERE ShowTags.show_id = ?;''', (self.show_id,))
+        tags = cursor.fetchall()
+        self.db.close()
+        return tags 
 
 
 class DeleteLiveShow():

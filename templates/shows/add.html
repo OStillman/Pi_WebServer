@@ -35,7 +35,7 @@
             {% endif %}
             {% endfor %}
         </div>
-        <button>Submit</button>
+        <button id="submit_to_search">Submit</button>
     </div>
     <div class="elements live_tv 3" style="display: none">
         <table>
@@ -51,6 +51,24 @@
         <p class="error" style="color: red; display: none;">Show can't be added as I can't track it effectively did you choose the correct first showing?</p>
         <button class="confirm">Confirm Initial Episode</button>
         <button class="next">Search again</button>
+    </div>
+    <div class="elements od_tv 2" style="display: none">
+        <h2 class="unedited" contenteditable="true" id="title">Show Title</h2>
+        <div id="service_grid">
+            {% for channel in channels %}
+            {% if channel[3] == "OD" %}
+                <img alt={{channel[0]}} src="/static/shows/img/{{channel[1]}}.png" class="tv" style="filter: opacity(20%); grid-row: {{channel[2]}};">
+            {% endif %}
+            {% endfor %}
+        </div>
+        <div class="tags">
+            {% for tag in data%}
+            <span>{{tag}}</span>
+            {%endfor%}
+            <br>
+            <span contenteditable="true" class="new unedited">New Tag</span>
+        </div>
+        <button id="od_submit">Submit</button>
     </div>
 </section>
 

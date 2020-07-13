@@ -146,7 +146,7 @@
                                 <button>Close Tab</button>
                             </td>
                         </tr>
-                        {% for show in all_shows.Planner.Shows %}
+                        {% for show in live_shows.Planner.Shows %}
                             <tr class={{show.id}}>
                                 <td>{{show.name}}</td>
                                 <td>{{show.channel}}</td>
@@ -166,34 +166,6 @@
                     </tbody>
                 </table>
               </div>
-            <!--<table>
-                <thead>
-                    <th>Show</th>
-                    <th>Service</th>
-                    <th>Time</th>
-                    <th>Day(s)</th>
-                    <th>Tags</th>
-                </thead>
-                <tbody>
-                    {% for show in all_shows.Planner.Shows %}
-                        <tr class={{show.id}}>
-                            <td>{{show.name}}</td>
-                            <td>{{show.channel}}</td>
-                            <td>{{show.duration}} <br> {{show.time}}</td>
-                            <td>
-                                {% for day in show.days %}
-                                {{day}} <br>
-                                {% endfor %}
-                            </td>
-                            <td>
-                                {% for tag in show.tags %}
-                                {{tag}} <br>
-                                {% endfor %}
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>-->
         </section>
 
     </div>

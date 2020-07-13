@@ -78,6 +78,19 @@ def showsLiveToday():
     onToday.OnTodayController()
     return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
+
+@shows_endpoints.route("/od", methods=['POST', 'DELETE'])
+def odAdd():
+    if request.method == "POST":
+        data = request.get_json(force=True)
+        print(data, file=sys.stderr)
+        ShowsDB.AddODShow(data)
+        return json.dumps({'success': True}), 201, {'ContentType': 'application/json'}
+    else:
+        data = request.get_json(force=True)
+        print(data, file=sys.stderr)
+        return json.dumps({'success': True}), 201, {'ContentType': 'application/json'}
+
 # Legacy TODO: Remove dependancy here on DELTE and PUT, move out/sort OD parts
 @shows_endpoints.route('/', methods=['GET', 'DELETE', 'PUT'])
 def shows():
@@ -111,9 +124,11 @@ def shows():
 
 
         # All
-        FetchTVOD = db.FetchTVOD()
-        all_shows = FetchTVOD.shows
-        od_shows = FetchTVOD.od
+        #FetchTVOD = db.FetchTVOD()
+        #od_shows = FetchTVOD.od
+
+        #NewAll - OD
+        all_od_shows = allShows.GetAllODShows().retrieveShows()
 
         #NewAll - Live
         all_live_shows = allShows.GetAllLiveShows().retrieveShows()
@@ -122,11 +137,9 @@ def shows():
         FetchTags = ShowsDB.FetchTags()
         all_tags = FetchTags.tags
 
-        print(all_shows, file=sys.stderr)
         print(today_shows, file=sys.stderr)
         print(all_tags, file=sys.stderr)
-        print(od_shows, file=sys.stderr)
 
 
 
-        return render_template('shows/index.html', all_shows=all_shows, live_shows=all_live_shows, today_shows=today_shows, tags=all_tags, od_shows=od_shows)
+        return render_template('shows/index.html', live_shows=all_live_shows, today_shows=today_shows, tags=all_tags, od_shows=all_od_shows)
