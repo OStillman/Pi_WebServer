@@ -17,11 +17,11 @@ shows_endpoints = Blueprint('shows_endpoints', __name__)
 @shows_endpoints.route('/add', methods=['GET', 'POST'])
 def add_shows():
     if request.method == 'GET':
-        FetchTags = db.FetchTags()
+        FetchTags = ShowsDB.FetchTags()
         all_tags = FetchTags.tags
 
         # Channels
-        FetchChannels = db.FetchChannels()
+        FetchChannels = ShowsDB.FetchChannels()
         all_channels = FetchChannels.channels
 
         print(all_channels, file=sys.stderr)
@@ -119,7 +119,7 @@ def shows():
         all_live_shows = allShows.GetAllLiveShows().retrieveShows()
 
         # Tags
-        FetchTags = db.FetchTags()
+        FetchTags = ShowsDB.FetchTags()
         all_tags = FetchTags.tags
 
         print(all_shows, file=sys.stderr)

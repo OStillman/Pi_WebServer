@@ -161,58 +161,6 @@ class FetchTVOD:
             days.append("N/A")
         return days
 
-class FetchTags:
-    def __init__(self, tags=None):
-        self.db = sqlite3.connect('DB/webserver.db')
-        self.cursor = self.db.cursor()
-        self.query()
-        self.db.close()
-        
-    def query(self):
-        self.cursor.execute(''' SELECT name
-        FROM tags;''')
-        tags = []
-        for tag in self.cursor.fetchall():
-            tags.append(tag[0])
-        self._tags = tags
-        # self._tags = self.cursor.fetchall()
-        #print(show1, file=sys.stderr)
-
-    @property
-    def tags(self):
-        return self._tags
-
-    @tags.setter
-    def tags(self, tags):
-        self._tags = tags
-
-class FetchChannels:
-    def __init__(self, channels=None):
-        self.db = sqlite3.connect('DB/webserver.db')
-        self.cursor = self.db.cursor()
-        self.query()
-        self.db.close()
-
-    def query(self):
-        self.cursor.execute(''' SELECT *
-        FROM channels;''')
-        channels = []
-        grid_row = 1
-        for channel in self.cursor.fetchall():
-            channels.append([channel[0], channel[1].lower(), grid_row, channel[2], channel[3]])
-            if channel[0] % 2 == 0:
-                grid_row = grid_row + 1
-        self._channels = channels
-        # self._tags = self.cursor.fetchall()
-        #print(show1, file=sys.stderr)
-
-    @property
-    def channels(self):
-        return self._channels
-
-    @channels.setter
-    def channels(self, channels):
-        self._channels = channels
 
 class FetchOD:
     def __init__(self, shows=None):
