@@ -8,6 +8,7 @@ let begin_all = {
 let all_bindings = {
     init: function(){
         this.doubleClickLive();
+        this.doubleClickOD();
         this.tabsClick();
     },
     doubleClickOD: function(){

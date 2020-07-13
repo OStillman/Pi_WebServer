@@ -291,22 +291,6 @@ class FetchODShows():
         self.db.close()
         return live_shows    
 
-class ODShowTags():
-    def __init__(self, show_id):
-        self.db = sqlite3.connect('DB/webserver.db')
-        self.cursor = self.db.cursor()
-        self.show_id = show_id
-
-    def showTagsQuery(self):
-        cursor = self.db.cursor()
-        cursor.execute('''SELECT tags.name
-        FROM ShowTags
-        INNER JOIN tags ON ShowTags.tag_id = tags.id
-        WHERE ShowTags.show_id = ?;''', (self.show_id,))
-        tags = cursor.fetchall()
-        self.db.close()
-        return tags 
-
 
 class DeleteLiveShow():
     def __init__(self, id):
@@ -320,6 +304,38 @@ class DeleteLiveShow():
     def deleteShow(self):
         self.cursor.execute('''DELETE FROM LiveShows WHERE id = ?;''', (self.id,))
         self.cursor.execute('''DELETE FROM Today WHERE showid = ?;''', (self.id,))
+
+
+class DeleteODShow():
+    def __init__(self, id):
+        self.id = id
+        self.db = sqlite3.connect('DB/webserver.db')
+        self.cursor = self.db.cursor()
+        self.deleteShow()
+        self.db.commit()
+        self.db.close()
+
+    def deleteShow(self):
+        self.cursor.execute('''DELETE FROM ODShows WHERE id = ?;''', (self.id,))
+        self.cursor.execute('''DELETE FROM ShowTags WHERE show_id = ?;''', (self.id,))
+
+class UpdateODProgress:
+    def __init__(self, show):
+        self.show = show
+        self.db = sqlite3.connect('DB/webserver.db')
+        self.cursor = self.db.cursor()
+
+        self.query(show)
+
+        self.db.commit()
+        self.db.close()
+
+    def query(self, show):
+        self.cursor.execute('''
+        UPDATE ODShows
+        SET watching = ?, episode = ?, series = ?
+        WHERE id = ?;
+        ''', (show['watching'], show['episode'], show['series'], show['id'], ))
 
 
 class FetchTags:
@@ -346,3 +362,19 @@ class FetchTags:
     @tags.setter
     def tags(self, tags):
         self._tags = tags
+
+class ODShowTags():
+    def __init__(self, show_id):
+        self.db = sqlite3.connect('DB/webserver.db')
+        self.cursor = self.db.cursor()
+        self.show_id = show_id
+
+    def showTagsQuery(self):
+        cursor = self.db.cursor()
+        cursor.execute('''SELECT tags.name
+        FROM ShowTags
+        INNER JOIN tags ON ShowTags.tag_id = tags.id
+        WHERE ShowTags.show_id = ?;''', (self.show_id,))
+        tags = cursor.fetchall()
+        self.db.close()
+        return tags 

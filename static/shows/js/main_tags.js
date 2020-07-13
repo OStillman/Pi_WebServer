@@ -167,7 +167,7 @@ let tag_progress = {
     },
     onCloseUpdateDB: function(show){
         console.info(show);
-        $.when(ajaxCalls.ajaxCallData("PUT", "/shows", show))
+        $.when(ajaxCalls.ajaxCallData("PUT", "/shows/od", show))
             .then(function(result){
                 console.info("Success");
                 console.log(result);

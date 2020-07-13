@@ -79,67 +79,49 @@ def showsLiveToday():
     return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
 
-@shows_endpoints.route("/od", methods=['POST', 'DELETE'])
+@shows_endpoints.route("/od", methods=['POST', 'PUT', 'DELETE'])
 def odAdd():
     if request.method == "POST":
         data = request.get_json(force=True)
         print(data, file=sys.stderr)
         ShowsDB.AddODShow(data)
         return json.dumps({'success': True}), 201, {'ContentType': 'application/json'}
+    elif request.method == "PUT":
+        data = request.get_json(force=True)
+        print(data, file=sys.stderr)
+        ShowsDB.UpdateODProgress(data)
+        return json.dumps({'success': True}), 201, {'ContentType': 'application/json'}
     else:
         data = request.get_json(force=True)
         print(data, file=sys.stderr)
+        ShowsDB.DeleteODShow(int(data['element']))
         return json.dumps({'success': True}), 201, {'ContentType': 'application/json'}
 
 # Legacy TODO: Remove dependancy here on DELTE and PUT, move out/sort OD parts
-@shows_endpoints.route('/', methods=['GET', 'DELETE', 'PUT'])
+@shows_endpoints.route('/', methods=['GET'])
 def shows():
-    if request.method == 'DELETE':
-        data = request.get_json(force=True)
-        print(data, file=sys.stderr)
-        db.DeleteShows(int(data['element']))
-        #getJSON.remove_show(int(data['element']), data['type'], "shows")
-        return json.dumps({'success': True}), 204, {'ContentType': 'application/json'}
-    elif request.method == 'PUT':
-        data = request.get_json(force=True)
-        print(data, file=sys.stderr)
-        db.UpdateProgress(data)
-        return json.dumps({'success': True}), 201, {'ContentType': 'application/json'}
-    else:
-        # Get All data
-        #data = getJSON.get_file("shows")
-        # Get shows on Today
-        #shows_instance = show_fetch.DayFetch()
-        #today_shows = shows_instance.shows  
-        # Output
-        #print(data, file=sys.stderr)
 
-        #SQL Code
-
-        # Today
-        #FetchToday = db.FetchToday()
-        #today_shows = FetchToday.shows
-        TodayOutput = todayOutput.TodayOutput()
-        today_shows = TodayOutput.today
+    # Today
+    #FetchToday = db.FetchToday()
+    #today_shows = FetchToday.shows
+    TodayOutput = todayOutput.TodayOutput()
+    today_shows = TodayOutput.today
 
 
-        # All
-        #FetchTVOD = db.FetchTVOD()
-        #od_shows = FetchTVOD.od
+    # All
+    #FetchTVOD = db.FetchTVOD()
+    #od_shows = FetchTVOD.od
 
-        #NewAll - OD
-        all_od_shows = allShows.GetAllODShows().retrieveShows()
+    #NewAll - OD
+    all_od_shows = allShows.GetAllODShows().retrieveShows()
+    #NewAll - Live
+    all_live_shows = allShows.GetAllLiveShows().retrieveShows()
 
-        #NewAll - Live
-        all_live_shows = allShows.GetAllLiveShows().retrieveShows()
+    # Tags
+    FetchTags = ShowsDB.FetchTags()
+    all_tags = FetchTags.tags
 
-        # Tags
-        FetchTags = ShowsDB.FetchTags()
-        all_tags = FetchTags.tags
+    print(today_shows, file=sys.stderr)
+    print(all_tags, file=sys.stderr)
 
-        print(today_shows, file=sys.stderr)
-        print(all_tags, file=sys.stderr)
-
-
-
-        return render_template('shows/index.html', live_shows=all_live_shows, today_shows=today_shows, tags=all_tags, od_shows=all_od_shows)
+    return render_template('shows/index.html', live_shows=all_live_shows, today_shows=today_shows, tags=all_tags, od_shows=all_od_shows)
