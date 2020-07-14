@@ -62,9 +62,14 @@ class OnToday():
         # Search on the show name
         search_results = SearchShows.search(show[1])
         # Check the EnvtID is either one of the shows, or has already passed
-        final_results = self.checkInitialEvtID(show, search_results)
-        show_list = self.mergeResults(show, final_results)
-        return show_list
+        if (search_results[0][0] == "Error, show not found" ):
+            return []
+        else:
+            print("===== Show found ====")
+            final_results = self.checkInitialEvtID(show, search_results)
+            show_list = self.mergeResults(show, final_results)
+            return show_list
+
 
     def checkInitialEvtID(self, show, results):
         '''
@@ -78,6 +83,7 @@ class OnToday():
         for result in results:
             print(result)
             this_evtid = result[1]
+            print(this_evtid)
             # If the initial Event has not passed, we need to do check the Event ID from freesat is the one we aren interested in
             if initalevtpassed == "N":
                 if this_evtid == show_evtid:

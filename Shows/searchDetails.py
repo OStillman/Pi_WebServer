@@ -32,6 +32,7 @@ class SearchShowDetail():
         @Param test = if test, some data about "The other one" can be used
         '''
         if not test:
+            print(self.url)
             req = request.Request(url=self.url, method='GET')
             request.urlopen(req)
             #print(request.urlopen(req).read().decode('utf-8'))
