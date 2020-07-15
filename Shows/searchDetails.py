@@ -63,8 +63,8 @@ class SearchShowDetail():
                 "evtid": self.evtid,
                 "channel": self.channel,
                 "duration": show["duration"],
-                "seriesNo": attempted_fetch[1],
-                "episodeNo": attempted_fetch[2],
+                "seriesNo": int(attempted_fetch[1]),
+                "episodeNo": int(attempted_fetch[2]),
                 "name": show["name"]
                 }
         finally:

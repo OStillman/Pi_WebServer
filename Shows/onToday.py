@@ -24,7 +24,7 @@ class OnTodayController():
 
     def checkCleanupRequired(self):
         time_now = datetime.datetime.today()
-        first_timeslot = time_now.replace(hour=2, minute=30, second=0)
+        first_timeslot = time_now.replace(hour=7, minute=30, second=0)
         midnight = time_now.replace(hour=0, minute=1, second=0)
         if time_now <= first_timeslot and time_now > midnight:
             print("This is the first of the day, need to delete yesterday's first")
@@ -128,10 +128,10 @@ class OnToday():
         SearchShowDetail = searchDetails.SearchShowDetail(channel=service, evtid=evtid)
         show_detail = SearchShowDetail.show_details()
         print(show_detail)
-        if show_ep < show_detail["episodeNo"]:
+        if int(show_ep) < int(show_detail["episodeNo"]):
             print("Show Ep is greater than episode number")
             return [True, show_detail["episodeNo"], show_detail["seriesNo"], show_detail["duration"]]
-        elif show_series < show_detail["seriesNo"]:
+        elif int(show_series) < int(show_detail["seriesNo"]):
             print("It's a new series")
             return [True, show_detail["episodeNo"], show_detail["seriesNo"], show_detail["duration"]]
         else:
