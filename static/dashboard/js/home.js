@@ -1,16 +1,3 @@
-var header = new Vue({
-    el: ".header",
-    data: {
-        datetime: "",
-        notices: "No Notices"
-    },
-    methods: {
-        getCurrentTime: function(){
-            this.datetime = currentTime();
-        }
-    }
-});
-
 var presence_detection = new Vue({
     el: ".presence-detection",
     data: {
@@ -35,6 +22,14 @@ var on_tonight = new Vue({
         nine: "-",
         ten: "Celebrity Masterchef"
     }
+});
+
+var bottom_bar = new Vue({
+    el: "section.bottom-nav",
+    template: `
+        <BottomNav/>
+    `,
+    components: {BottomNav}
 });
 
 function currentTime(){

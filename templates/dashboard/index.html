@@ -17,10 +17,7 @@
 <body>
     {%raw%}
     <section class="header">
-        <p class="datetime">{{datetime}}</p>
-        <span class="message">
-            <p class="message">{{notices}} </p>
-        </span>
+        
     </section>
 
     <section class="info-pane l">
@@ -49,7 +46,7 @@
 
 
     <section class="presence-detection">
-        <div class="owen left in">
+        <div class="owen left" v-bind:class="owen_status">
             <img src="/static/dashboard/img/owen_mug.jpg">
             <p>{{owen_status}}</p>
         </div>
@@ -60,12 +57,10 @@
     </section>
 
     <section class="bottom-nav">
-        <img src="/static/dashboard/img/home.svg">
-        <img src="/static/dashboard/img/tv.svg">
-        <img src="/static/dashboard/img/menu.svg">
-        <img src="/static/dashboard/img/light.svg">
+        
     </section>
     
+    <script src="/static/dashboard/js/components.js"></script>
     <script src="/static/dashboard/js/home.js"></script>
     {%endraw%}
 </body>
