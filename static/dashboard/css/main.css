@@ -22,11 +22,15 @@ section.header{
     color: white;
     background-color: #333333;
     height: 50px;
+    font-family: 'News Cycle', sans-serif;
+    font-weight: bold;
+    letter-spacing: 1px;
 }
 
 section.header p.datetime{
     grid-area: datetime;
     text-align: center;
+    text-transform: uppercase;
 }
 
 section.header span.message{
@@ -101,7 +105,7 @@ section.info-pane.r p.secondary{
     grid-area: secondary;
     text-align: right;
     font-size: 140%;
-    padding-right: 100px;
+    padding-right: 50px;
 }
 
 
@@ -113,6 +117,8 @@ section.presence-detection{
     background-color: white;
     padding: 0;
     margin: 0;
+    font-family: 'News Cycle', sans-serif;
+    letter-spacing: 1px;
 }
 
 section.presence-detection div.right{
