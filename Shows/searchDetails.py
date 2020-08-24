@@ -87,7 +87,7 @@ class SearchShowDetail():
         s_num = self.fetchSeries(description)
         print(s_num)
 
-        if ep_num.isnumeric():
+        '''if ep_num.isnumeric():
             print("EP is numeric")
             if s_num.isnumeric():
                 # We can get away with not having a series, some shows only list their episode numbers
@@ -96,6 +96,15 @@ class SearchShowDetail():
             else:
                 print("No series, assuming S0")
                 return [True, 0, int(ep_num)]
+        else:
+            return [False]'''
+        
+        if ep_num and s_num:
+            print("Series numeric")
+            return [True, int(s_num), int(ep_num)]
+        elif ep_num:
+            print("No series, assuming S0")
+            return [True, 0, int(ep_num)]
         else:
             return [False]
 
