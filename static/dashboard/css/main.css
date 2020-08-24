@@ -1,0 +1,118 @@
+html, 
+body{
+    margin: 0;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    display: grid;
+    grid-template-areas:
+        'header header header header header header'
+        'info-l info-l info-l info-r info-r info-r'
+        'presence presence presence presence presence presence'
+        'footer footer footer footer footer footer';
+    grid-gap: 10px;
+    background-color: #01ebc2;
+}
+
+section.header{
+    grid-area: header; 
+    display: grid;
+    grid-template-areas: 
+        'datetime message message message message message';
+    color: white;
+    background-color: #333333;
+    height: 50px;
+}
+
+section.header p.datetime{
+    grid-area: datetime;
+    text-align: center;
+}
+
+section.header span.message{
+    background-color: #494949;
+    grid-area: message;
+    height: inherit;
+}
+
+section.header span.message p{
+    margin-left: 30px;
+}
+
+section.info-pane{
+    display: grid;
+    grid-template-areas: 
+        'title title title'
+        'img text text';
+    font-family: 'Handlee', cursive;
+}
+
+section.info-pane.l{ 
+    grid-area: info-l; 
+}
+
+section.info-pane.r{
+    grid-area: info-r; 
+}
+
+section.info-pane div.title{
+    grid-area: title;
+}
+
+section.info-pane h1{
+    font-size: 130%;
+    text-transform: uppercase;
+    color: white;
+    padding-left: 110px;
+    margin: 0;
+    font-family: 'Handlee', cursive;
+}
+
+section.info-pane .fancy-line{
+    display: inline-block;
+    width: 120px;
+    height: 10px;
+    margin-left: 110px;
+    background-color: rgba(73,73,73, 0.5);
+    border-radius: 10px;
+}
+
+section.info-pane img{
+    grid-area: img;
+    margin-left: 110px;
+    margin-top: 50px;
+    opacity: 0.3;
+    height: 200px;
+}
+
+section.info-pane p{
+    grid-area: text;
+    color: white;
+    font-size: 250%;
+}
+
+
+section.presence-detection{
+    display: grid;
+    grid-template-areas: 
+        'l l l r r r';
+    grid-area: presence;
+    background-color: white;
+}
+
+section.presence-detection div.right{
+    grid-area: r;
+    text-align: center;
+}
+
+section.presence-detection div.left{
+    grid-area: l;
+    text-align: center;
+}
+
+
+section.presence-detection img{
+    height: 200px;
+    border-radius: 100px;
+    margin-top: 20px;
+}

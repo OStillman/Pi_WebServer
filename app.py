@@ -1,5 +1,6 @@
 from flask import Flask, flash, redirect, url_for, render_template, request
 from Shows.showsEndpoints import shows_endpoints
+from Dashboard.dashboardEndpoints import dashboard_endpoints
 
 import os
 import blinkt
@@ -19,6 +20,7 @@ import yaml
 app = Flask(__name__)
 
 app.register_blueprint(shows_endpoints, url_prefix='/shows')
+app.register_blueprint(dashboard_endpoints, url_prefix='/dash')
 
 @app.route('/meals')
 def meals():
