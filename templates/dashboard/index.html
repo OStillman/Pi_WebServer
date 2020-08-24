@@ -10,17 +10,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Handlee&family=News+Cycle&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/dashboard/css/main.css">
 
-    <script>
-        document.documentElement.webkitRequestFullScreen();
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
 </head>
 
 <body>
+    {%raw%}
     <section class="header">
-        <p class="datetime"><span class="time">13:30</span> <span class="date">24 May 2020</span></p>
+        <p class="datetime">{{datetime}}</p>
         <span class="message">
-            <p class="message">Lorem ipsum dolor sit. </p>
+            <p class="message">{{notices}} </p>
         </span>
     </section>
 
@@ -29,12 +28,12 @@
             <span class="fancy-line"></span>
             <h1>On Tonight</h1>
         </div>
-        <img src="/static/dashboard/img/tv.svg">
+       <!--<img src="/static/dashboard/img/tv.svg">-->
         <p>
-            <span class="time">19:00 </span> - <br>
-            <span class="time">20:00 </span> Masterchef <br>
-            <span class="time">21:00 </span> Gogglebox <br>
-            <span class="time">22:00 </span> - <br>
+            <span class="time">19:00</span>&nbsp; {{seven}} <br>
+            <span class="time">20:00</span>&nbsp; {{eight}} <br>
+            <span class="time">21:00</span>&nbsp; {{nine}} <br>
+            <span class="time">22:00</span>&nbsp; {{ten}} <br>
         </p>
     </section>
 
@@ -43,23 +42,31 @@
             <span class="fancy-line"></span>
             <h1>Food Tonight</h1>
         </div>
-        <img src="/static/dashboard/img/food.svg">
-        <p>Spaghetti Bolognaise</p>
+        <!--<img src="/static/dashboard/img/food.svg">-->
+        <p>{{today}}</p>
+        <p class="secondary">Tomorrow: {{tomorrow}}</p>
     </section>
 
 
     <section class="presence-detection">
-        <div class="left">
+        <div class="owen left in">
             <img src="/static/dashboard/img/owen_mug.jpg">
+            <p>{{owen_status}}</p>
         </div>
-        <div class="right">
+        <div class="kay right" v-bind:class="kay_status">
             <img src="/static/dashboard/img/kayleigh_mug.jpg">
+            <p>{{kay_status}}</p>
         </div>
     </section>
 
     <section class="bottom-nav">
-
+        <img src="/static/dashboard/img/home.svg">
+        <img src="/static/dashboard/img/tv.svg">
+        <img src="/static/dashboard/img/menu.svg">
+        <img src="/static/dashboard/img/light.svg">
     </section>
     
+    <script src="/static/dashboard/js/home.js"></script>
+    {%endraw%}
 </body>
 </html>
