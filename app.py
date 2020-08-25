@@ -1,6 +1,7 @@
 from flask import Flask, flash, redirect, url_for, render_template, request
 from Shows.showsEndpoints import shows_endpoints
 from Dashboard.dashboardEndpoints import dashboard_endpoints
+from MQTT.mqtt_endpoints import mqtt_endpoints
 
 import os
 import blinkt
@@ -21,6 +22,7 @@ app = Flask(__name__)
 
 app.register_blueprint(shows_endpoints, url_prefix='/shows')
 app.register_blueprint(dashboard_endpoints, url_prefix='/dash')
+app.register_blueprint(mqtt_endpoints, url_prefix='/mqtt')
 
 @app.route('/meals')
 def meals():

@@ -25,7 +25,7 @@ var header = new Vue({
     `,
     data: {
         datetime: "",
-        notices: "No Notices"
+        notices: "Connecting to MQTT..."
     },
     methods: {
         getCurrentTime: function(){
