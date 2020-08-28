@@ -19,13 +19,14 @@ var header = new Vue({
     <section class="header">
         <p class="datetime">{{datetime}}</p>
         <span class="message">
-            <p class="message">{{notices}} </p>
+            <p class="message"><img v-if="isAlert" height="20" src="/static/dashboard/img/error.svg"> {{notices}} </p>
         </span>
     </section>
     `,
     data: {
         datetime: "",
-        notices: "Connecting to MQTT..."
+        notices: "Connecting to MQTT...",
+        isAlert: false,
     },
     methods: {
         getCurrentTime: function(){

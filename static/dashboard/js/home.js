@@ -53,9 +53,12 @@ function initialFetch(){
     axios
         .get('/dash/initial')
         .then((response) => {
-            console.log(response);
+            console.info("Initial Data Request Succeeded");
+            header.notices = "No Notices";
         }, (error) => {
             console.log(error);
+            header.isAlert = true;
+            header.notices = "Initial Data Request Failed";
         });
 }
 
@@ -64,7 +67,7 @@ function initialFetch(){
 function onConnect() {
     // Once a connection has been made, make a subscription and send a message.
     console.log("onConnect");
-    header.notices = "No Notices";
+    header.notices = "Requesting Initial MQTT Data...";
     presence_owen.init();
     presence_kay.init();
     today_shows.init();
