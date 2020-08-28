@@ -11,6 +11,8 @@ from Shows import searchShows
 from Shows import db as ShowsDB
 from Shows import onToday
 
+from MQTT import shows as mqtt_update
+
 shows_endpoints = Blueprint('shows_endpoints', __name__)
 
 #Legacy - TODO: Pull out rest of DB queries and, of course, the OD stuff
@@ -76,6 +78,7 @@ def liveAdd():
 @shows_endpoints.route('/live/today')
 def showsLiveToday():
     onToday.OnTodayController()
+    mqtt_update.ShowsToday().fetchToday()
     return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
 

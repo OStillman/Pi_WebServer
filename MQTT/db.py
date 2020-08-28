@@ -30,3 +30,13 @@ class PresenceActions():
         WHERE name = ?;
         ''', (new_status, member))
         self.db.commit()
+
+    def fetchPresence(self):
+        result = {}
+        fetch_cursor = self.db.cursor()
+        fetch_cursor.execute('''
+            SELECT * FROM presence;
+        ''')
+        for member in fetch_cursor.fetchall():
+            result[member[0]] = member[1]
+        return result

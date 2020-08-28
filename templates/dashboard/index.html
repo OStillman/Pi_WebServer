@@ -12,6 +12,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="/static/dashboard/js/mqttws31.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 </head>
 
@@ -28,10 +29,10 @@
         </div>
        <!--<img src="/static/dashboard/img/tv.svg">-->
         <p>
-            <span class="time">19:00</span>&nbsp; {{seven}} <br>
-            <span class="time">20:00</span>&nbsp; {{eight}} <br>
-            <span class="time">21:00</span>&nbsp; {{nine}} <br>
-            <span class="time">22:00</span>&nbsp; {{ten}} <br>
+            <span class="time">19:00</span>&nbsp; <span v-html="seven"></span><br>
+            <span class="time">20:00</span>&nbsp; <span v-html="eight"></span> <br>
+            <span class="time">21:00</span>&nbsp; <span v-html="nine"></span> <br>
+            <span class="time">22:00</span>&nbsp; <span v-html="ten"></span> <br>
         </p>
     </section>
 
