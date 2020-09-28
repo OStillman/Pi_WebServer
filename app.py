@@ -8,6 +8,7 @@ import getJSON
 import sys
 import json
 import db
+import doorbell
 import door as door_actions
 from Shows import dailyshow as ds
 import ghome as assistant
@@ -87,11 +88,14 @@ def renderDirectory(upload_status, path=None):
 
 # Automation Routes
 
-@app.route('/door', methods=['POST'])
+@app.route('/sensor', methods=['POST'])
 def door():
     data = request.get_json(force=True)
     print(data, file=sys.stderr)
-    door_actions.DoorSensor(data, loadYAML())
+    if data['Sensor'] == "Doorbell":
+        doorbell.Doorbell(data)
+    else:
+        door_actions.DoorSensor(data, loadYAML())
     return json.dumps({'success': True}), 201, {'ContentType': 'application/json'}
 
 
