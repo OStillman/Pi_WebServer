@@ -190,6 +190,7 @@ class TodayShowOperations():
         self.cursor.execute(''' 
         DELETE from today;
         ''')
+        self.db.commit()
         self.db.close()
 
 
