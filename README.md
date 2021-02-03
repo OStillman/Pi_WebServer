@@ -1,3 +1,9 @@
+This project is undergoing migration. It's been fun to play around with the different ideas for useful Pi Applications. However, it has become apparent which of the contained projects are of use, those being:
+ - Show Planner
+ - Meal Planner
+ 
+These will be developed seperately & improved upon - links to the new repos will be posted here once availiable
+
 # Local Web Server
 
 Overall Version: V1.3
